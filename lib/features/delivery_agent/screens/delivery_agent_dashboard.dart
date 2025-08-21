@@ -9,6 +9,149 @@ class DeliveryAgentDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final agents = [
+      {
+        "name": "Vendor A",
+        "phone": "9876543210",
+        "price": "₹50",
+        "pickupTime": "6:30 AM",
+        "imageUrl": "http://via.placeholder.com/350x150",
+      },
+      {
+        "name": "Vendor B",
+        "phone": "9123456780",
+        "price": "₹55",
+        "pickupTime": "7:00 AM",
+        "imageUrl": "http://via.placeholder.com/350x150",
+      },
+      {
+        "name": "Vendor C",
+        "phone": "9988776655",
+        "price": "₹60",
+        "pickupTime": "7:30 AM",
+        "imageUrl": "http://via.placeholder.com/350x150",
+      },
+      {
+        "name": "Vendor D",
+        "phone": "8899776655",
+        "price": "₹48",
+        "pickupTime": "8:00 AM",
+        "imageUrl": "http://via.placeholder.com/350x150",
+      },
+      {
+        "name": "Vendor E",
+        "phone": "7766554433",
+        "price": "₹52",
+        "pickupTime": "8:15 AM",
+        "imageUrl": "http://via.placeholder.com/350x150",
+      },
+      {
+        "name": "Vendor F",
+        "phone": "9090909090",
+        "price": "₹58",
+        "pickupTime": "8:30 AM",
+        "imageUrl": "http://via.placeholder.com/350x150",
+      },
+      {
+        "name": "Vendor G",
+        "phone": "9123412341",
+        "price": "₹54",
+        "pickupTime": "8:45 AM",
+        "imageUrl": "http://via.placeholder.com/350x150",
+      },
+      {
+        "name": "Vendor H",
+        "phone": "9345678901",
+        "price": "₹62",
+        "pickupTime": "9:00 AM",
+        "imageUrl": "http://via.placeholder.com/350x150",
+      },
+      {
+        "name": "Vendor I",
+        "phone": "9786543210",
+        "price": "₹59",
+        "pickupTime": "9:15 AM",
+        "imageUrl": "http://via.placeholder.com/350x150",
+      },
+      {
+        "name": "Vendor J",
+        "phone": "9123987654",
+        "price": "₹57",
+        "pickupTime": "9:30 AM",
+        "imageUrl": "http://via.placeholder.com/350x150",
+      },
+      {
+        "name": "Vendor K",
+        "phone": "9345612345",
+        "price": "₹61",
+        "pickupTime": "9:45 AM",
+        "imageUrl": "http://via.placeholder.com/350x150",
+      },
+      {
+        "name": "Vendor L",
+        "phone": "9456123456",
+        "price": "₹63",
+        "pickupTime": "10:00 AM",
+        "imageUrl": "http://via.placeholder.com/350x150",
+      },
+      {
+        "name": "Vendor M",
+        "phone": "9567890123",
+        "price": "₹49",
+        "pickupTime": "10:15 AM",
+        "imageUrl": "http://via.placeholder.com/350x150",
+      },
+      {
+        "name": "Vendor N",
+        "phone": "9678901234",
+        "price": "₹53",
+        "pickupTime": "10:30 AM",
+        "imageUrl": "http://via.placeholder.com/350x150",
+      },
+      {
+        "name": "Vendor O",
+        "phone": "9789012345",
+        "price": "₹56",
+        "pickupTime": "10:45 AM",
+        "imageUrl": "http://via.placeholder.com/350x150",
+      },
+      {
+        "name": "Vendor P",
+        "phone": "9890123456",
+        "price": "₹64",
+        "pickupTime": "11:00 AM",
+        "imageUrl": "http://via.placeholder.com/350x150",
+      },
+      {
+        "name": "Vendor Q",
+        "phone": "9901234567",
+        "price": "₹51",
+        "pickupTime": "11:15 AM",
+        "imageUrl": "http://via.placeholder.com/350x150",
+      },
+      {
+        "name": "Vendor R",
+        "phone": "9012345678",
+        "price": "₹65",
+        "pickupTime": "11:30 AM",
+        "imageUrl": "http://via.placeholder.com/350x150",
+      },
+      {
+        "name": "Vendor S",
+        "phone": "9123456709",
+        "price": "₹47",
+        "pickupTime": "11:45 AM",
+        "imageUrl": "http://via.placeholder.com/350x150",
+      },
+      {
+        "name": "Vendor T",
+        "phone": "9234567890",
+        "price": "₹66",
+        "pickupTime": "12:00 PM",
+        "imageUrl": "http://via.placeholder.com/350x150",
+      },
+    ];
+
     return Scaffold(
       body: Row(
         children: [
@@ -29,12 +172,12 @@ class DeliveryAgentDashboard extends StatelessWidget {
                             onPressed: () {},
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
-                              children: const [
+                              children: [
                                 Icon(
                                   Icons.add_circle,
                                   color: AppColors.primary,
                                 ),
-                                SizedBox(width: 6),
+                                const SizedBox(width: 6),
                                 Text(
                                   "Add new",
                                   style: TextStyle(color: AppColors.primary),
@@ -52,30 +195,17 @@ class DeliveryAgentDashboard extends StatelessWidget {
                           label: Text('PHONE NUMBER'),
                           size: ColumnSize.L,
                         ),
-                        DataColumn2(
-                          label: RichText(
-                            text: const TextSpan(
-                              style: TextStyle(color: Colors.black),
-                              children: [
-                                TextSpan(text: "PRICE"),
-                                TextSpan(
-                                  text: " (PER LTR)",
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                        const DataColumn2(
+                          label: Text('PRICE (PER LTR)'),
+                          size: ColumnSize.L,
                         ),
                         const DataColumn2(
                           label: Text('PICKUP TIME'),
                           size: ColumnSize.L,
                         ),
                       ],
-                      rows: [
-                        DataRow(
+                      rows: agents.map((agent) {
+                        return DataRow(
                           cells: [
                             DataCell(
                               Row(
@@ -85,8 +215,7 @@ class DeliveryAgentDashboard extends StatelessWidget {
                                       width: 40,
                                       height: 40,
                                       child: CachedNetworkImage(
-                                        imageUrl:
-                                            "http://via.placeholder.com/350x150",
+                                        imageUrl: agent["imageUrl"]!,
                                         fit: BoxFit.cover,
                                         placeholder: (context, url) =>
                                             const Center(
@@ -104,45 +233,21 @@ class DeliveryAgentDashboard extends StatelessWidget {
                                     ),
                                   ),
                                   const SizedBox(width: 8),
-                                  const Text("Vendor A"),
+                                  Text(agent["name"]!),
                                 ],
                               ),
                             ),
 
-                            const DataCell(Text("")),
-                            const DataCell(Text("")),
-                            const DataCell(Text("")),
-                            const DataCell(Text("")),
+                            DataCell(Text(agent["name"]!)),
+
+                            DataCell(Text(agent["phone"]!)),
+
+                            DataCell(Text(agent["price"]!)),
+
+                            DataCell(Text(agent["pickupTime"]!)),
                           ],
-                        ),
-                        const DataRow(
-                          cells: [
-                            DataCell(Text("2")),
-                            DataCell(Text("Vendor B")),
-                            DataCell(Text("9876543210")),
-                            DataCell(Text("₹55")),
-                            DataCell(Text("7:30 AM")),
-                          ],
-                        ),
-                        const DataRow(
-                          cells: [
-                            DataCell(Text("3")),
-                            DataCell(Text("Vendor C")),
-                            DataCell(Text("9988776655")),
-                            DataCell(Text("₹60")),
-                            DataCell(Text("8:00 AM")),
-                          ],
-                        ),
-                        const DataRow(
-                          cells: [
-                            DataCell(Text("4")),
-                            DataCell(Text("Vendor D")),
-                            DataCell(Text("8899776655")),
-                            DataCell(Text("₹48")),
-                            DataCell(Text("5:30 AM")),
-                          ],
-                        ),
-                      ],
+                        );
+                      }).toList(),
                     ),
                   ),
                 ],
