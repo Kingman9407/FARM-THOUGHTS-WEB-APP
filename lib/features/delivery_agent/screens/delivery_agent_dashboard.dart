@@ -1,11 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:data_table_2/data_table_2.dart';
+import 'package:farm_thoughts_web_app/commons/widgets/k_calender.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:farm_thoughts_web_app/features/dashboard/widgets/dashboard_top_bar.dart';
 import 'package:flutter/material.dart';
 
-class DeliveryAgentDashboard extends StatelessWidget {
+class DeliveryAgentDashboard extends StatefulWidget {
   const DeliveryAgentDashboard({super.key});
+
+  @override
+  State<DeliveryAgentDashboard> createState() => _DeliveryAgentDashboardState();
+}
+
+class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
+  int? selectedRowIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -153,19 +161,31 @@ class DeliveryAgentDashboard extends StatelessWidget {
     ];
 
     return Scaffold(
-      body: Row(
+      body: Column(
         children: [
+          // Top bar spans full width
+          const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: DashboardTopBar(),
+          ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  const DashboardTopBar(),
-                  Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 16.0,
+                      right: 8.0,
+                      bottom: 16.0,
+                    ),
                     child: DataTable2(
                       dividerThickness: 0,
+                      dataRowHeight: 70,
+
                       columnSpacing: 12,
                       minWidth: 80,
+                      showCheckboxColumn: false,
                       columns: [
                         DataColumn2(
                           label: TextButton(
@@ -204,8 +224,32 @@ class DeliveryAgentDashboard extends StatelessWidget {
                           size: ColumnSize.L,
                         ),
                       ],
-                      rows: agents.map((agent) {
+                      rows: agents.asMap().entries.map((entry) {
+                        final index = entry.key;
+                        final agent = entry.value;
+                        final isSelected = selectedRowIndex == index;
+
                         return DataRow(
+                          selected: isSelected,
+                          color: WidgetStateProperty.resolveWith<Color?>((
+                            Set<WidgetState> states,
+                          ) {
+                            if (states.contains(WidgetState.selected)) {
+                              return AppColors.primary.withValues(alpha: 0.2);
+                            }
+                            return null;
+                          }),
+
+                          onSelectChanged: (selected) {
+                            setState(() {
+                              if (selected!) {
+                                selectedRowIndex = index;
+                              } else {
+                                selectedRowIndex = null;
+                              }
+                            });
+                            print('Selected vendor: ${agent["name"]}');
+                          },
                           cells: [
                             DataCell(
                               Row(
@@ -237,39 +281,30 @@ class DeliveryAgentDashboard extends StatelessWidget {
                                 ],
                               ),
                             ),
-
                             DataCell(Text(agent["name"]!)),
-
                             DataCell(Text(agent["phone"]!)),
-
                             DataCell(Text(agent["price"]!)),
-
                             DataCell(Text(agent["pickupTime"]!)),
                           ],
                         );
                       }).toList(),
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
-
-          // Sidebar
-          Container(
-            width: 250,
-            color: Colors.grey.shade200,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Text(
-                    "View Profile",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
                 ),
-                Divider(),
+                const VerticalDivider(
+                  width: 1,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+                Container(
+                  width: 300,
+                  padding: const EdgeInsets.only(
+                    left: 8.0,
+                    right: 16.0,
+                    bottom: 16.0,
+                  ),
+                  child: const KCalender(),
+                ),
               ],
             ),
           ),
