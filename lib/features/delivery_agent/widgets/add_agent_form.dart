@@ -115,7 +115,7 @@ class _AddAgentFormState extends State<AddAgentForm> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
-                  'Add New Vendor',
+                  'Add New Agent',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 IconButton(

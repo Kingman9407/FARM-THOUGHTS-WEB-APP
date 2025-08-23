@@ -15,14 +15,39 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
+
+
+
+  # routing
   go_router: ^16.1.0
+
+
+  # svg images
   flutter_svg: ^2.2.0
-  data_table_2: ^2.6.0
+
+
+
+  # network images
   cached_network_image: ^3.4.1
+
+
+
+  # Calender
   table_calendar: ^3.2.0
+
+  # form and validation
   flutter_form_builder: ^10.2.0
   form_builder_validators: ^11.2.0
+
+  # state management
+  provider: ^6.1.5+1
+
+  # Time
   intl: ^0.20.2
+
+
+  # Logger
+  logger: ^2.6.1
 
 dev_dependencies:
   flutter_test:

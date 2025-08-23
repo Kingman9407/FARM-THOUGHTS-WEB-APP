@@ -1,5 +1,6 @@
 import 'package:farm_thoughts_web_app/commons/widgets/k_button.dart';
 import 'package:farm_thoughts_web_app/commons/widgets/k_calender.dart';
+import 'package:farm_thoughts_web_app/core/extensions/providers/provider_extension.dart';
 import 'package:farm_thoughts_web_app/core/extensions/ui/snackbar_extension.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:farm_thoughts_web_app/features/dashboard/widgets/dashboard_top_bar.dart';
@@ -266,9 +267,9 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
                           padding: EdgeInsets.all(20),
                           text: "Add new",
                           onPressed: () {
-                            setState(() {
-                              sideBarMode = "add";
-                            });
+                            context.readDeliveryAgentsProvider.setAddedEnabled(
+                              true,
+                            );
                           },
                           icon: Icons.add,
                           backgroundColor: AppColors.primary,
@@ -361,12 +362,11 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
                   width: 300,
                   child: Container(
                     padding: EdgeInsets.all(12),
-                    child: sideBarMode == "add"
+                    child: context.watchDeliveryAgentProvider.isAddedEnabled
                         ? AddAgentForm(
                             onClose: () {
-                              setState(() {
-                                sideBarMode = null;
-                              });
+                              context.readDeliveryAgentsProvider
+                                  .setAddedEnabled(false);
                             },
                             onAddVendor: (Map<String, String> data) {
                               sideBarMode = null;
@@ -376,13 +376,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
                               );
                             },
                           )
-                        : sideBarMode == "details"
-                        ? Expanded(
-                            flex: 2,
-                            child: ViewAgentDetails(
-                              vendorDetails: selectedAgent!,
-                            ),
-                          )
+                        : context.watchDeliveryAgentProvider.isEditEnabled
+                        ? ViewAgentDetails(vendorDetails: selectedAgent!)
                         : SizedBox(child: KCalender()),
                   ),
                 ),

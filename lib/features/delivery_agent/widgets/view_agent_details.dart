@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ViewAgentDetails extends StatelessWidget {
@@ -36,7 +35,19 @@ class ViewAgentDetails extends StatelessWidget {
               CircleAvatar(
                 radius: 30,
                 backgroundColor: Colors.grey.shade300,
-                child: Row(children: []),
+                backgroundImage: vendorDetails['imageUrl'] != null
+                    ? NetworkImage(vendorDetails['imageUrl']!)
+                    : null,
+                child: vendorDetails['imageUrl'] == null
+                    ? Text(
+                        vendorDetails['name']?.substring(0, 1).toUpperCase() ??
+                            'A',
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    : null,
               ),
               const SizedBox(width: 16),
               Column(
@@ -78,7 +89,7 @@ class ViewAgentDetails extends StatelessWidget {
 
           const SizedBox(height: 24),
 
-          /// Joined At and Salary section
+          // Joined At and Salary section
           Row(
             children: [
               Expanded(
@@ -151,6 +162,7 @@ class ViewAgentDetails extends StatelessWidget {
 
           const SizedBox(height: 32),
 
+          // Assigned Customers section
           const Text(
             'Assigned Customers',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -158,10 +170,11 @@ class ViewAgentDetails extends StatelessWidget {
 
           const SizedBox(height: 16),
 
-          /// Assigned customer list
+          // Customer list
           Expanded(
             child: ListView.builder(
-              itemCount: 6,
+              itemCount:
+                  6, // You can make this dynamic based on actual customer data
               itemBuilder: (context, index) {
                 return Container(
                   margin: const EdgeInsets.only(bottom: 12),
@@ -170,24 +183,8 @@ class ViewAgentDetails extends StatelessWidget {
                       CircleAvatar(
                         radius: 20,
                         backgroundColor: Colors.grey.shade300,
-                        child: CachedNetworkImage(
-                          imageUrl: "",
-                          errorWidget: (context, url, error) => Icon(
-                            Icons.person,
-                            size: 30,
-                            color: Colors.grey.shade600,
-                          ),
-                          imageBuilder: (context, imageProvider) {
-                            return Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                  image: imageProvider,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            );
-                          },
+                        backgroundImage: const NetworkImage(
+                          'https://via.placeholder.com/40/4CAF50/FFFFFF?text=N',
                         ),
                       ),
                       const SizedBox(width: 12),
