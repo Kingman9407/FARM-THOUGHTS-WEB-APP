@@ -1,3 +1,4 @@
+import 'package:farm_thoughts_web_app/commons/widgets/k_button.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -139,31 +140,14 @@ class _KCalenderState extends State<KCalender> {
         ),
 
         const SizedBox(height: 24),
-
-        SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6),
-              ),
-              padding: const EdgeInsets.symmetric(vertical: 14),
-            ),
-            onPressed: () {
-              debugPrint(
-                "Filter Applied → Date: $_selectedDay, Sort: $_sortValue",
-              );
-            },
-            child: const Text(
-              "Apply Filter",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ),
+        KButton(
+          backgroundColor: AppColors.primary,
+          text: "Apply Filter",
+          onPressed: () {
+            debugPrint(
+              "Filter Applied → Date: $_selectedDay, Sort: $_sortValue",
+            );
+          },
         ),
       ],
     );

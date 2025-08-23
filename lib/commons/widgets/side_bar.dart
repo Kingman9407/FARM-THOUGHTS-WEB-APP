@@ -21,7 +21,7 @@ class SideBar extends StatefulWidget {
 class _SideBarState extends State<SideBar> {
   int selectedIndex = 0;
 
-  final List<Widget> pages = const [
+  final List<Widget> pages = [
     Dashboard(),
     DeliveryAgentDashboard(),
     DeliveryEntriesDashboard(),

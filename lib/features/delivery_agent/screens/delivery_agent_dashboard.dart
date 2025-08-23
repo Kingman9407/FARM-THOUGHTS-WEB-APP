@@ -1,11 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:data_table_2/data_table_2.dart';
+import 'package:farm_thoughts_web_app/commons/widgets/k_button.dart';
 import 'package:farm_thoughts_web_app/commons/widgets/k_calender.dart';
 import 'package:farm_thoughts_web_app/core/extensions/ui/snackbar_extension.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:farm_thoughts_web_app/features/dashboard/widgets/dashboard_top_bar.dart';
-import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/add_vendor_form.dart';
-import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/view_vendor_details.dart';
+import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/add_agent_form.dart';
+import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/delivery_agents_card.dart';
+import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/view_agent_details.dart';
 import 'package:flutter/material.dart';
 
 class DeliveryAgentDashboard extends StatefulWidget {
@@ -16,239 +16,376 @@ class DeliveryAgentDashboard extends StatefulWidget {
 }
 
 class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
-  int? selectedRowIndex;
-  bool showAddForm = false;
-  bool showVendorDetails = false;
-
-  List<Map<String, String>> agents = [
+  String? sideBarMode;
+  Map<String, String>? selectedAgent;
+  final List<Map<String, String>> agents = [
     {
-      "name": "Vendor A",
-      "phone": "9876543210",
-      "price": "₹50",
-      "pickupTime": "6:30 AM",
-      "imageUrl": "http://via.placeholder.com/350x150",
+      "id": "1",
+      "name": "Muhammed Tariq",
+      "phone": "6325874196",
+      "address": "5, Gandhi St, Nehru Nagar, Muthialur",
+      "salary": "5000",
+      "work_time": "9 am - 10 pm",
+      "assigned_customers": "48",
+      "joined_date": "08,Nov,2022",
+      "imageUrl": "https://via.placeholder.com/150/0066CC/FFFFFF?text=MT",
     },
     {
-      "name": "Vendor B",
+      "id": "2",
+      "name": "Priya Sharma",
       "phone": "9123456780",
-      "price": "₹55",
-      "pickupTime": "7:00 AM",
-      "imageUrl": "http://via.placeholder.com/350x150",
+      "address": "456 Market Road, Commercial Street",
+      "salary": "17000",
+      "work_time": "7:00 AM - 3:00 PM",
+      "assigned_customers": "32",
+      "joined_date": "15,Jul,2023",
+      "imageUrl": "https://via.placeholder.com/150/FF6B35/FFFFFF?text=PS",
     },
     {
-      "name": "Vendor C",
-      "phone": "9988776655",
-      "price": "₹60",
-      "pickupTime": "7:30 AM",
-      "imageUrl": "http://via.placeholder.com/350x150",
+      "id": "3",
+      "name": "Rajesh Kumar",
+      "phone": "8765432109",
+      "address": "12, Anna Salai, T. Nagar, Chennai",
+      "salary": "8500",
+      "work_time": "8:00 AM - 5:00 PM",
+      "assigned_customers": "25",
+      "joined_date": "22,Mar,2024",
+      "imageUrl": "https://via.placeholder.com/150/28A745/FFFFFF?text=RK",
+    },
+    {
+      "id": "4",
+      "name": "Sneha Patel",
+      "phone": "7890123456",
+      "address": "78, MG Road, Banashankari, Bangalore",
+      "salary": "12000",
+      "work_time": "10:00 AM - 7:00 PM",
+      "assigned_customers": "18",
+      "joined_date": "05,Jan,2023",
+      "imageUrl": "https://via.placeholder.com/150/DC3545/FFFFFF?text=SP",
+    },
+    {
+      "id": "5",
+      "name": "Arjun Reddy",
+      "phone": "9876543210",
+      "address": "34, Jubilee Hills, Hyderabad",
+      "salary": "15000",
+      "work_time": "6:00 AM - 2:00 PM",
+      "assigned_customers": "42",
+      "joined_date": "18,Sep,2022",
+      "imageUrl": "https://via.placeholder.com/150/6F42C1/FFFFFF?text=AR",
+    },
+    {
+      "id": "6",
+      "name": "Kavya Nair",
+      "phone": "6543210987",
+      "address": "89, Marine Drive, Fort Kochi",
+      "salary": "9500",
+      "work_time": "9:00 AM - 6:00 PM",
+      "assigned_customers": "28",
+      "joined_date": "12,Dec,2023",
+      "imageUrl": "https://via.placeholder.com/150/20C997/FFFFFF?text=KN",
+    },
+    {
+      "id": "7",
+      "name": "Vikram Singh",
+      "phone": "5432109876",
+      "address": "156, Connaught Place, New Delhi",
+      "salary": "18000",
+      "work_time": "8:30 AM - 5:30 PM",
+      "assigned_customers": "35",
+      "joined_date": "03,Jun,2024",
+      "imageUrl": "https://via.placeholder.com/150/FD7E14/FFFFFF?text=VS",
+    },
+    {
+      "id": "8",
+      "name": "Anita Desai",
+      "phone": "4321098765",
+      "address": "67, Park Street, Kolkata",
+      "salary": "11000",
+      "work_time": "7:30 AM - 4:30 PM",
+      "assigned_customers": "22",
+      "joined_date": "28,Feb,2023",
+      "imageUrl": "https://via.placeholder.com/150/E83E8C/FFFFFF?text=AD",
+    },
+    {
+      "id": "9",
+      "name": "Suresh Babu",
+      "phone": "3210987654",
+      "address": "23, Residency Road, Bangalore",
+      "salary": "7500",
+      "work_time": "10:00 AM - 8:00 PM",
+      "assigned_customers": "15",
+      "joined_date": "14,Oct,2024",
+      "imageUrl": "https://via.placeholder.com/150/17A2B8/FFFFFF?text=SB",
+    },
+    {
+      "id": "10",
+      "name": "Meera Joshi",
+      "phone": "2109876543",
+      "address": "45, Carter Road, Bandra, Mumbai",
+      "salary": "13500",
+      "work_time": "9:00 AM - 6:00 PM",
+      "assigned_customers": "38",
+      "joined_date": "07,May,2023",
+      "imageUrl": "https://via.placeholder.com/150/6610F2/FFFFFF?text=MJ",
+    },
+    {
+      "id": "11",
+      "name": "Karthik Menon",
+      "phone": "1098765432",
+      "address": "91, Brigade Road, Bangalore",
+      "salary": "10500",
+      "work_time": "8:00 AM - 5:00 PM",
+      "assigned_customers": "27",
+      "joined_date": "19,Aug,2022",
+      "imageUrl": "https://via.placeholder.com/150/198754/FFFFFF?text=KM",
+    },
+    {
+      "id": "12",
+      "name": "Deepika Rao",
+      "phone": "0987654321",
+      "address": "112, Linking Road, Mumbai",
+      "salary": "16000",
+      "work_time": "10:30 AM - 7:30 PM",
+      "assigned_customers": "44",
+      "joined_date": "26,Apr,2024",
+      "imageUrl": "https://via.placeholder.com/150/FFC107/000000?text=DR",
+    },
+    {
+      "id": "13",
+      "name": "Rohit Gupta",
+      "phone": "9876543211",
+      "address": "58, CP Tank, Mumbai",
+      "salary": "6500",
+      "work_time": "6:30 AM - 1:30 PM",
+      "assigned_customers": "19",
+      "joined_date": "11,Jan,2024",
+      "imageUrl": "https://via.placeholder.com/150/343A40/FFFFFF?text=RG",
+    },
+    {
+      "id": "14",
+      "name": "Lakshmi Iyer",
+      "phone": "8765432112",
+      "address": "73, Mylapore, Chennai",
+      "salary": "9000",
+      "work_time": "9:30 AM - 6:30 PM",
+      "assigned_customers": "31",
+      "joined_date": "02,Nov,2023",
+      "imageUrl": "https://via.placeholder.com/150/795548/FFFFFF?text=LI",
+    },
+    {
+      "id": "15",
+      "name": "Ashwin Das",
+      "phone": "7654321123",
+      "address": "25, Kaloor, Ernakulam, Kochi",
+      "salary": "14000",
+      "work_time": "7:00 AM - 4:00 PM",
+      "assigned_customers": "36",
+      "joined_date": "16,Dec,2022",
+      "imageUrl": "https://via.placeholder.com/150/607D8B/FFFFFF?text=AD",
+    },
+    {
+      "id": "16",
+      "name": "Pooja Malik",
+      "phone": "6543211234",
+      "address": "87, Sector 17, Chandigarh",
+      "salary": "11500",
+      "work_time": "8:00 AM - 6:00 PM",
+      "assigned_customers": "23",
+      "joined_date": "09,Sep,2023",
+      "imageUrl": "https://via.placeholder.com/150/9C27B0/FFFFFF?text=PM",
+    },
+    {
+      "id": "17",
+      "name": "Naveen Kumar",
+      "phone": "5432112345",
+      "address": "134, Banjara Hills, Hyderabad",
+      "salary": "8000",
+      "work_time": "10:00 AM - 9:00 PM",
+      "assigned_customers": "29",
+      "joined_date": "21,Jun,2024",
+      "imageUrl": "https://via.placeholder.com/150/FF5722/FFFFFF?text=NK",
+    },
+    {
+      "id": "18",
+      "name": "Riya Kapoor",
+      "phone": "4321123456",
+      "address": "46, Vasant Kunj, New Delhi",
+      "salary": "19000",
+      "work_time": "9:00 AM - 5:00 PM",
+      "assigned_customers": "41",
+      "joined_date": "13,Mar,2023",
+      "imageUrl": "https://via.placeholder.com/150/009688/FFFFFF?text=RK",
+    },
+    {
+      "id": "19",
+      "name": "Sanjay Patil",
+      "phone": "3211234567",
+      "address": "62, FC Road, Pune",
+      "salary": "12500",
+      "work_time": "8:30 AM - 5:30 PM",
+      "assigned_customers": "33",
+      "joined_date": "30,Aug,2022",
+      "imageUrl": "https://via.placeholder.com/150/4CAF50/FFFFFF?text=SP",
+    },
+    {
+      "id": "20",
+      "name": "Divya Pillai",
+      "phone": "2112345678",
+      "address": "99, Vellayambalam, Thiruvananthapuram",
+      "salary": "10000",
+      "work_time": "7:00 AM - 3:00 PM",
+      "assigned_customers": "26",
+      "joined_date": "24,Oct,2023",
+      "imageUrl": "https://via.placeholder.com/150/3F51B5/FFFFFF?text=DP",
     },
   ];
-
-  void _addNewVendor(Map<String, String> vendorData) {
-    setState(() {
-      agents.add(vendorData);
-    });
-
-    context.showSuccessSnackBar("${vendorData['name']} added successfully");
-  }
-
-  void _closeForm() {
-    setState(() {
-      showAddForm = false;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade100,
       body: Column(
         children: [
-          // Top bar spans full width
-          const Padding(
-            padding: EdgeInsets.all(16.0),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
             child: DashboardTopBar(),
           ),
+
           Expanded(
             child: Row(
               children: [
                 Expanded(
                   flex: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 16.0,
-                      right: 8.0,
-                      bottom: 16.0,
-                    ),
-                    child: DataTable2(
-                      dividerThickness: 0,
-                      dataRowHeight: 70,
-                      columnSpacing: 12,
-                      minWidth: 80,
-                      showCheckboxColumn: false,
-                      columns: [
-                        DataColumn2(
-                          label: TextButton(
-                            onPressed: () {
-                              setState(() {
-                                showAddForm = true;
-                              });
-                            },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.add_circle,
-                                  color: AppColors.primary,
-                                ),
-                                const SizedBox(width: 6),
-                                Text(
-                                  "Add new",
-                                  style: TextStyle(color: AppColors.primary),
-                                ),
-                              ],
-                            ),
-                          ),
-                          size: ColumnSize.L,
-                        ),
-                        const DataColumn2(
-                          label: Text('VENDOR NAME'),
-                          size: ColumnSize.L,
-                        ),
-                        const DataColumn2(
-                          label: Text('PHONE NUMBER'),
-                          size: ColumnSize.L,
-                        ),
-                        const DataColumn2(
-                          label: Text('PRICE (PER LTR)'),
-                          size: ColumnSize.L,
-                        ),
-                        const DataColumn2(
-                          label: Text('PICKUP TIME'),
-                          size: ColumnSize.L,
-                        ),
-                      ],
-                      rows: agents.asMap().entries.map((entry) {
-                        final index = entry.key;
-                        final agent = entry.value;
-                        final isSelected = selectedRowIndex == index;
-
-                        return DataRow(
-                          selected: isSelected,
-                          color: WidgetStateProperty.resolveWith<Color?>((
-                            states,
-                          ) {
-                            if (states.contains(WidgetState.selected)) {
-                              return AppColors.primary.withValues(alpha: 0.2);
-                            }
-                            return null;
-                          }),
-                          onSelectChanged: (selected) {
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: KButton(
+                          padding: EdgeInsets.all(20),
+                          text: "Add new",
+                          onPressed: () {
                             setState(() {
-                              if (selected!) {
-                                selectedRowIndex = index;
-                                showVendorDetails = true;
-                              } else {
-                                selectedRowIndex = null;
-                              }
+                              sideBarMode = "add";
                             });
-                            print('Selected vendor: ${agent["name"]}');
-                            print(showVendorDetails);
                           },
-                          cells: [
-                            DataCell(
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 6,
-                                ),
-                                child: Row(
-                                  children: [
-                                    ClipOval(
-                                      child: SizedBox(
-                                        width: 40,
-                                        height: 40,
-                                        child: CachedNetworkImage(
-                                          imageUrl: agent["imageUrl"]!,
-                                          fit: BoxFit.cover,
-                                          placeholder: (context, url) =>
-                                              const Center(
-                                                child:
-                                                    CircularProgressIndicator(
-                                                      strokeWidth: 2,
-                                                    ),
-                                              ),
-                                          errorWidget: (context, url, error) =>
-                                              const Icon(
-                                                Icons.person,
-                                                size: 40,
-                                                color: Colors.grey,
-                                              ),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Text(agent["name"]!),
-                                  ],
+                          icon: Icons.add,
+                          backgroundColor: AppColors.primary,
+                        ),
+                      ),
+                      Container(
+                        color: Colors.grey.shade200,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 12,
+                          horizontal: 16,
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 4,
+                              child: Text(
+                                "DELIVERY BOY",
+                                style: TextStyle(
+                                  color: Colors.brown,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
-                            DataCell(
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 6,
+
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                "JOINED AT",
+                                style: TextStyle(
+                                  color: Colors.brown,
+                                  fontWeight: FontWeight.w600,
                                 ),
-                                child: Text(agent["name"]!),
                               ),
                             ),
-                            DataCell(
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 6,
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                "WORK TIME",
+                                style: TextStyle(
+                                  color: Colors.brown,
+                                  fontWeight: FontWeight.w600,
                                 ),
-                                child: Text(agent["phone"]!),
                               ),
                             ),
-                            DataCell(
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 6,
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                "ASSIGNED WITH",
+                                style: TextStyle(
+                                  color: Colors.brown,
+                                  fontWeight: FontWeight.w600,
                                 ),
-                                child: Text(agent["price"]!),
                               ),
                             ),
-                            DataCell(
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 6,
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                "SALARY",
+                                style: TextStyle(
+                                  color: Colors.brown,
+                                  fontWeight: FontWeight.w600,
                                 ),
-                                child: Text(agent["pickupTime"]!),
                               ),
                             ),
                           ],
-                        );
-                      }).toList(),
-                    ),
+                        ),
+                      ),
+
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: agents.length,
+                          itemBuilder: (context, index) {
+                            return DeliveryAgentCard(
+                              agent: agents[index],
+                              onTap: () {
+                                setState(() {
+                                  sideBarMode = "details";
+                                  selectedAgent = agents[index];
+                                });
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const VerticalDivider(
-                  width: 1,
-                  thickness: 1,
-                  color: Colors.grey,
+
+                SizedBox(
+                  width: 300,
+                  child: Container(
+                    padding: EdgeInsets.all(12),
+                    child: sideBarMode == "add"
+                        ? AddAgentForm(
+                            onClose: () {
+                              setState(() {
+                                sideBarMode = null;
+                              });
+                            },
+                            onAddVendor: (Map<String, String> data) {
+                              sideBarMode = null;
+                              agents.add(data);
+                              context.showSuccessSnackBar(
+                                "${data['name']} has been added successfully",
+                              );
+                            },
+                          )
+                        : sideBarMode == "details"
+                        ? Expanded(
+                            flex: 2,
+                            child: ViewAgentDetails(
+                              vendorDetails: selectedAgent!,
+                            ),
+                          )
+                        : SizedBox(child: KCalender()),
+                  ),
                 ),
-                showAddForm
-                    ? AddVendorForm(
-                        onClose: _closeForm,
-                        onAddVendor: _addNewVendor,
-                      )
-                    : Container(
-                        width: 300,
-                        padding: const EdgeInsets.only(
-                          left: 8.0,
-                          right: 16.0,
-                          bottom: 16.0,
-                        ),
-                        child: const KCalender(),
-                      ),
-                showVendorDetails ? ViewVendorDetails() : Container(),
               ],
             ),
           ),

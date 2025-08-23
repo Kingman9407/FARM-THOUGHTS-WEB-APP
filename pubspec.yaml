@@ -20,6 +20,9 @@ dependencies:
   data_table_2: ^2.6.0
   cached_network_image: ^3.4.1
   table_calendar: ^3.2.0
+  flutter_form_builder: ^10.2.0
+  form_builder_validators: ^11.2.0
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
