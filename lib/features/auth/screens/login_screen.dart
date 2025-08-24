@@ -1,4 +1,5 @@
 import 'package:farm_thoughts_web_app/core/constants/app_assets.dart';
+import 'package:farm_thoughts_web_app/core/extensions/providers/provider_extension.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:farm_thoughts_web_app/features/auth/widgets/o_auth_button.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  @override
+  void initState() {
+    context.readAppInfoProvider.loadAppInfo();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

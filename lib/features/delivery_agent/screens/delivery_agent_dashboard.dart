@@ -4,10 +4,13 @@ import 'package:farm_thoughts_web_app/core/extensions/providers/provider_extensi
 import 'package:farm_thoughts_web_app/core/extensions/ui/snackbar_extension.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:farm_thoughts_web_app/features/dashboard/widgets/dashboard_top_bar.dart';
+import 'package:farm_thoughts_web_app/features/delivery_agent/provider/delivery_agents_provider.dart';
 import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/add_agent_form.dart';
 import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/delivery_agents_card.dart';
+import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/edit_agent_details_form.dart';
 import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/view_agent_details.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DeliveryAgentDashboard extends StatefulWidget {
   const DeliveryAgentDashboard({super.key});
@@ -17,8 +20,6 @@ class DeliveryAgentDashboard extends StatefulWidget {
 }
 
 class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
-  String? sideBarMode;
-  Map<String, String>? selectedAgent;
   final List<Map<String, String>> agents = [
     {
       "id": "1",
@@ -29,7 +30,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
       "work_time": "9 am - 10 pm",
       "assigned_customers": "48",
       "joined_date": "08,Nov,2022",
-      "imageUrl": "https://via.placeholder.com/150/0066CC/FFFFFF?text=MT",
+      "imageUrl":
+          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
     },
     {
       "id": "2",
@@ -40,7 +42,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
       "work_time": "7:00 AM - 3:00 PM",
       "assigned_customers": "32",
       "joined_date": "15,Jul,2023",
-      "imageUrl": "https://via.placeholder.com/150/FF6B35/FFFFFF?text=PS",
+      "imageUrl":
+          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
     },
     {
       "id": "3",
@@ -51,7 +54,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
       "work_time": "8:00 AM - 5:00 PM",
       "assigned_customers": "25",
       "joined_date": "22,Mar,2024",
-      "imageUrl": "https://via.placeholder.com/150/28A745/FFFFFF?text=RK",
+      "imageUrl":
+          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
     },
     {
       "id": "4",
@@ -62,7 +66,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
       "work_time": "10:00 AM - 7:00 PM",
       "assigned_customers": "18",
       "joined_date": "05,Jan,2023",
-      "imageUrl": "https://via.placeholder.com/150/DC3545/FFFFFF?text=SP",
+      "imageUrl":
+          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
     },
     {
       "id": "5",
@@ -73,7 +78,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
       "work_time": "6:00 AM - 2:00 PM",
       "assigned_customers": "42",
       "joined_date": "18,Sep,2022",
-      "imageUrl": "https://via.placeholder.com/150/6F42C1/FFFFFF?text=AR",
+      "imageUrl":
+          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
     },
     {
       "id": "6",
@@ -84,7 +90,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
       "work_time": "9:00 AM - 6:00 PM",
       "assigned_customers": "28",
       "joined_date": "12,Dec,2023",
-      "imageUrl": "https://via.placeholder.com/150/20C997/FFFFFF?text=KN",
+      "imageUrl":
+          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
     },
     {
       "id": "7",
@@ -95,7 +102,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
       "work_time": "8:30 AM - 5:30 PM",
       "assigned_customers": "35",
       "joined_date": "03,Jun,2024",
-      "imageUrl": "https://via.placeholder.com/150/FD7E14/FFFFFF?text=VS",
+      "imageUrl":
+          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
     },
     {
       "id": "8",
@@ -106,7 +114,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
       "work_time": "7:30 AM - 4:30 PM",
       "assigned_customers": "22",
       "joined_date": "28,Feb,2023",
-      "imageUrl": "https://via.placeholder.com/150/E83E8C/FFFFFF?text=AD",
+      "imageUrl":
+          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
     },
     {
       "id": "9",
@@ -117,7 +126,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
       "work_time": "10:00 AM - 8:00 PM",
       "assigned_customers": "15",
       "joined_date": "14,Oct,2024",
-      "imageUrl": "https://via.placeholder.com/150/17A2B8/FFFFFF?text=SB",
+      "imageUrl":
+          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
     },
     {
       "id": "10",
@@ -128,7 +138,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
       "work_time": "9:00 AM - 6:00 PM",
       "assigned_customers": "38",
       "joined_date": "07,May,2023",
-      "imageUrl": "https://via.placeholder.com/150/6610F2/FFFFFF?text=MJ",
+      "imageUrl":
+          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
     },
     {
       "id": "11",
@@ -139,7 +150,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
       "work_time": "8:00 AM - 5:00 PM",
       "assigned_customers": "27",
       "joined_date": "19,Aug,2022",
-      "imageUrl": "https://via.placeholder.com/150/198754/FFFFFF?text=KM",
+      "imageUrl":
+          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
     },
     {
       "id": "12",
@@ -150,7 +162,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
       "work_time": "10:30 AM - 7:30 PM",
       "assigned_customers": "44",
       "joined_date": "26,Apr,2024",
-      "imageUrl": "https://via.placeholder.com/150/FFC107/000000?text=DR",
+      "imageUrl":
+          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
     },
     {
       "id": "13",
@@ -161,7 +174,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
       "work_time": "6:30 AM - 1:30 PM",
       "assigned_customers": "19",
       "joined_date": "11,Jan,2024",
-      "imageUrl": "https://via.placeholder.com/150/343A40/FFFFFF?text=RG",
+      "imageUrl":
+          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
     },
     {
       "id": "14",
@@ -172,7 +186,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
       "work_time": "9:30 AM - 6:30 PM",
       "assigned_customers": "31",
       "joined_date": "02,Nov,2023",
-      "imageUrl": "https://via.placeholder.com/150/795548/FFFFFF?text=LI",
+      "imageUrl":
+          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
     },
     {
       "id": "15",
@@ -183,7 +198,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
       "work_time": "7:00 AM - 4:00 PM",
       "assigned_customers": "36",
       "joined_date": "16,Dec,2022",
-      "imageUrl": "https://via.placeholder.com/150/607D8B/FFFFFF?text=AD",
+      "imageUrl":
+          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
     },
     {
       "id": "16",
@@ -194,7 +210,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
       "work_time": "8:00 AM - 6:00 PM",
       "assigned_customers": "23",
       "joined_date": "09,Sep,2023",
-      "imageUrl": "https://via.placeholder.com/150/9C27B0/FFFFFF?text=PM",
+      "imageUrl":
+          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
     },
     {
       "id": "17",
@@ -205,7 +222,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
       "work_time": "10:00 AM - 9:00 PM",
       "assigned_customers": "29",
       "joined_date": "21,Jun,2024",
-      "imageUrl": "https://via.placeholder.com/150/FF5722/FFFFFF?text=NK",
+      "imageUrl":
+          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
     },
     {
       "id": "18",
@@ -216,7 +234,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
       "work_time": "9:00 AM - 5:00 PM",
       "assigned_customers": "41",
       "joined_date": "13,Mar,2023",
-      "imageUrl": "https://via.placeholder.com/150/009688/FFFFFF?text=RK",
+      "imageUrl":
+          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
     },
     {
       "id": "19",
@@ -227,7 +246,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
       "work_time": "8:30 AM - 5:30 PM",
       "assigned_customers": "33",
       "joined_date": "30,Aug,2022",
-      "imageUrl": "https://via.placeholder.com/150/4CAF50/FFFFFF?text=SP",
+      "imageUrl":
+          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
     },
     {
       "id": "20",
@@ -238,7 +258,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
       "work_time": "7:00 AM - 3:00 PM",
       "assigned_customers": "26",
       "joined_date": "24,Oct,2023",
-      "imageUrl": "https://via.placeholder.com/150/3F51B5/FFFFFF?text=DP",
+      "imageUrl":
+          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
     },
   ];
 
@@ -344,11 +365,16 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
                           itemBuilder: (context, index) {
                             return DeliveryAgentCard(
                               agent: agents[index],
+                              isSelected:
+                                  context
+                                      .watchDeliveryAgentProvider
+                                      .selectedAgent ==
+                                  agents[index],
                               onTap: () {
-                                setState(() {
-                                  sideBarMode = "details";
-                                  selectedAgent = agents[index];
-                                });
+                                context.readDeliveryAgentsProvider
+                                    .setSelectedAgent(agents[index]);
+                                context.readDeliveryAgentsProvider
+                                    .setViewDetailsEnabled(true);
                               },
                             );
                           },
@@ -358,27 +384,40 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
                   ),
                 ),
 
-                SizedBox(
-                  width: 300,
-                  child: Container(
-                    padding: EdgeInsets.all(12),
-                    child: context.watchDeliveryAgentProvider.isAddedEnabled
-                        ? AddAgentForm(
-                            onClose: () {
-                              context.readDeliveryAgentsProvider
-                                  .setAddedEnabled(false);
-                            },
-                            onAddVendor: (Map<String, String> data) {
-                              sideBarMode = null;
-                              agents.add(data);
-                              context.showSuccessSnackBar(
-                                "${data['name']} has been added successfully",
-                              );
-                            },
-                          )
-                        : context.watchDeliveryAgentProvider.isEditEnabled
-                        ? ViewAgentDetails(vendorDetails: selectedAgent!)
-                        : SizedBox(child: KCalender()),
+                Expanded(
+                  flex: 1,
+                  child: Consumer<DeliveryAgentsProvider>(
+                    builder: (context, agentProvider, child) {
+                      if (agentProvider.isAddedEnabled) {
+                        return AddAgentForm(
+                          onClose: () =>
+                              context.readDeliveryAgentsProvider.resetAll(),
+                          onAddVendor: (Map<String, String> data) {
+                            agents.add(data);
+                            context.readDeliveryAgentsProvider.resetAll();
+                            context.showSuccessSnackBar(
+                              "${data['name']} has been added successfully",
+                            );
+                          },
+                        );
+                      } else if (agentProvider.isViewDetailsEnabled) {
+                        return ViewAgentDetails(
+                          vendorDetails:
+                              context.readDeliveryAgentsProvider.selectedAgent!,
+                        );
+                      } else if (agentProvider.isEditEnabled) {
+                        return EditAgentDetailsForm(
+                          onClose: () {},
+                          onAddVendor: (Map<String, String> p1) {},
+                        );
+                      } else {
+                        return Container(
+                          color: Colors.white,
+                          padding: EdgeInsets.all(8),
+                          child: KCalender(),
+                        );
+                      }
+                    },
                   ),
                 ),
               ],

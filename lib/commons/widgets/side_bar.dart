@@ -1,5 +1,6 @@
 import 'package:farm_thoughts_web_app/commons/widgets/k_button.dart';
 import 'package:farm_thoughts_web_app/core/constants/app_assets.dart';
+import 'package:farm_thoughts_web_app/core/extensions/providers/provider_extension.dart';
 import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:farm_thoughts_web_app/features/collections/screens/collection_dashboard.dart';
@@ -82,6 +83,7 @@ class _SideBarState extends State<SideBar> {
                     ),
                   );
                 }),
+
                 const Spacer(),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -94,10 +96,19 @@ class _SideBarState extends State<SideBar> {
                     backgroundColor: Colors.white,
                   ),
                 ),
+
+                SizedBox(height: 10),
+                Text(
+                  context.readAppInfoProvider.version != null
+                      ? 'V ${context.readAppInfoProvider.version.toString()}'
+                      : '',
+                  style: const TextStyle(color: Colors.white),
+                ),
+
+                SizedBox(height: 10),
               ],
             ),
           ),
-
           Expanded(child: pages[selectedIndex]),
         ],
       ),

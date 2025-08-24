@@ -6,7 +6,8 @@ extension ResponsiveLayout on BuildContext {
   double get screenHeight => MediaQuery.of(this).size.height;
 
   // typography
-  double get headline => 25.0;
-  double get subtitle => 20.0;
-  double get bodyText => 15.0;
+  double get header => 25.0;
+  double get title => 20.0;
+  double get subtitle => 15.0;
+  double get bodyText => 12.0;
 }

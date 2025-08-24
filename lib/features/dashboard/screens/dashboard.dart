@@ -21,7 +21,7 @@ class Dashboard extends StatelessWidget {
             Text(
               "Statistics",
               style: TextStyle(
-                fontSize: context.headline,
+                fontSize: context.header,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -64,7 +64,7 @@ class Dashboard extends StatelessWidget {
             Text(
               "Delivered By",
               style: TextStyle(
-                fontSize: context.headline,
+                fontSize: context.header,
                 fontWeight: FontWeight.w600,
               ),
             ),

@@ -1,65 +1,57 @@
 import 'package:flutter/material.dart';
 
-class DeliveryAgentsProvider with ChangeNotifier {
-  bool _isAddedEnabled = false;
-  bool _isEditEnabled = false;
-  bool _isDeleteEnabled = false;
-  bool _isViewDetailsEnabled = false;
+class DeliveryAgentsProvider extends ChangeNotifier {
+  bool isAddedEnabled = false;
+  bool isViewDetailsEnabled = false;
+  bool isEditEnabled = false;
 
-  // Getters
-  bool get isAddedEnabled => _isAddedEnabled;
-  bool get isEditEnabled => _isEditEnabled;
-  bool get isDeleteEnabled => _isDeleteEnabled;
-  bool get isViewDetailsEnabled => _isViewDetailsEnabled;
+  Map<String, String>? _selectedAgent;
 
-  // Toggles
-  void toggleAddedEnabled() {
-    _isAddedEnabled = !_isAddedEnabled;
+  Map<String, String>? get selectedAgent => _selectedAgent;
+
+  void setSelectedAgent(Map<String, String> agent) {
+    _selectedAgent = agent;
     notifyListeners();
   }
 
-  void toggleEditEnabled() {
-    _isEditEnabled = !_isEditEnabled;
-    notifyListeners();
-  }
-
-  void toggleDeleteEnabled() {
-    _isDeleteEnabled = !_isDeleteEnabled;
-    notifyListeners();
-  }
-
-  void toggleViewDetailsEnabled() {
-    _isViewDetailsEnabled = !_isViewDetailsEnabled;
-    notifyListeners();
-  }
-
-  // Setters
-  void setAddedEnabled(bool value) {
-    _isAddedEnabled = value;
-    notifyListeners();
-  }
-
-  void setEditEnabled(bool value) {
-    _isEditEnabled = value;
-    notifyListeners();
-  }
-
-  void setDeleteEnabled(bool value) {
-    _isDeleteEnabled = value;
+  void resetSelectedAgent() {
+    _selectedAgent = null;
     notifyListeners();
   }
 
   void setViewDetailsEnabled(bool value) {
-    _isViewDetailsEnabled = value;
+    isViewDetailsEnabled = value;
+    if (value) {
+      isAddedEnabled = false;
+      isEditEnabled = false;
+    }
     notifyListeners();
   }
 
-  // Reset everything at once
+  void setEditEnabled(bool value) {
+    isEditEnabled = value;
+    if (value) {
+      isAddedEnabled = false;
+      isViewDetailsEnabled = false;
+    }
+    notifyListeners();
+  }
+
+  void setAddedEnabled(bool value) {
+    isAddedEnabled = value;
+    if (value) {
+      isViewDetailsEnabled = false;
+      isEditEnabled = false;
+      _selectedAgent = null;
+    }
+    notifyListeners();
+  }
+
   void resetAll() {
-    _isAddedEnabled = false;
-    _isEditEnabled = false;
-    _isDeleteEnabled = false;
-    _isViewDetailsEnabled = false;
+    isAddedEnabled = false;
+    isViewDetailsEnabled = false;
+    isEditEnabled = false;
+    _selectedAgent = null;
     notifyListeners();
   }
 }

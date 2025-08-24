@@ -1,3 +1,4 @@
+import 'package:farm_thoughts_web_app/core/provider/app_info_provider.dart';
 import 'package:farm_thoughts_web_app/features/delivery_agent/provider/delivery_agents_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -10,4 +11,8 @@ extension ProviderExtension on BuildContext {
   // Delivery Agents watch provider
   DeliveryAgentsProvider get watchDeliveryAgentProvider =>
       watch<DeliveryAgentsProvider>();
+
+  // App Information provider
+  AppInfoProvider get watchAppInfoProvider => watch<AppInfoProvider>();
+  AppInfoProvider get readAppInfoProvider => read<AppInfoProvider>();
 }
