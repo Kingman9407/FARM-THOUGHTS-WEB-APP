@@ -1,4 +1,5 @@
 import 'package:farm_thoughts_web_app/core/constants/app_assets.dart';
+import 'package:farm_thoughts_web_app/core/constants/app_router_constants.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(Duration(seconds: 1), () {
-      context.pushReplacementNamed("login");
+      GoRouter.of(context).pushReplacementNamed(AppRouterConstants.login);
     });
     super.initState();
   }
@@ -23,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColors.primaryColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

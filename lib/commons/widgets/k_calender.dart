@@ -54,7 +54,7 @@ class _KCalenderState extends State<KCalender> {
               fontWeight: FontWeight.w500,
             ),
             selectedDecoration: const BoxDecoration(
-              color: AppColors.primary,
+              color: AppColors.primaryColor,
               shape: BoxShape.circle,
             ),
             selectedTextStyle: const TextStyle(
@@ -62,7 +62,7 @@ class _KCalenderState extends State<KCalender> {
               color: Colors.white,
             ),
             todayDecoration: BoxDecoration(
-              border: Border.all(color: AppColors.primary, width: 1.5),
+              border: Border.all(color: AppColors.primaryColor, width: 1.5),
               shape: BoxShape.circle,
             ),
             todayTextStyle: const TextStyle(
@@ -141,7 +141,7 @@ class _KCalenderState extends State<KCalender> {
 
         const SizedBox(height: 24),
         KButton(
-          backgroundColor: AppColors.primary,
+          backgroundColor: AppColors.primaryColor,
           text: "Apply Filter",
           onPressed: () {
             debugPrint(

@@ -215,7 +215,7 @@ class _EditAgentDetailsFormState extends State<EditAgentDetailsForm> {
                           child: ElevatedButton(
                             onPressed: _handleAddVendor,
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primary,
+                              backgroundColor: AppColors.primaryColor,
                               padding: const EdgeInsets.symmetric(vertical: 12),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(6),

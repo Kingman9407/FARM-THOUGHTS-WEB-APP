@@ -17,7 +17,7 @@ class CustomSnackBar {
     overlayEntry = OverlayEntry(
       builder: (context) => KSnackBar(
         message: message,
-        backgroundColor: backgroundColor ?? AppColors.primary,
+        backgroundColor: backgroundColor ?? AppColors.primaryColor,
         textColor: textColor ?? Colors.white,
         icon: icon,
         duration: duration,

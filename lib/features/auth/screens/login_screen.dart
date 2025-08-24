@@ -1,4 +1,5 @@
 import 'package:farm_thoughts_web_app/core/constants/app_assets.dart';
+import 'package:farm_thoughts_web_app/core/constants/app_router_constants.dart';
 import 'package:farm_thoughts_web_app/core/extensions/providers/provider_extension.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:farm_thoughts_web_app/features/auth/widgets/o_auth_button.dart';
@@ -28,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Expanded(
             flex: 1,
             child: Container(
-              color: AppColors.primary,
+              color: AppColors.primaryColor,
               height: double.infinity,
               child: Center(
                 child: SvgPicture.asset(
@@ -51,7 +52,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 20),
                 OAuthButton(
-                  onPressed: () => context.pushReplacementNamed("sidebar"),
+                  onPressed: () => GoRouter.of(
+                    context,
+                  ).pushReplacementNamed(AppRouterConstants.dashboard),
                 ),
               ],
             ),
