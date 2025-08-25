@@ -60,6 +60,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                 ),
                 const SizedBox(width: 16),
+
                 Expanded(
                   child: KStatisticsCard(
                     backgroundAsset: AppAssets.greenVector,
@@ -68,7 +69,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     value: '₹50,000',
                   ),
                 ),
+
                 const SizedBox(width: 16),
+
                 Expanded(
                   child: KStatisticsCard(
                     backgroundAsset: AppAssets.blueVector,
@@ -90,6 +93,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 fontWeight: FontWeight.w600,
               ),
             ),
+
             const SizedBox(height: 16),
 
             Expanded(
