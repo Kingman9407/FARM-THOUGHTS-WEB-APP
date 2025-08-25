@@ -18,24 +18,33 @@ class SideBar extends StatefulWidget {
 }
 
 class _SideBarState extends State<SideBar> {
+  // Menu Items
   final List<Map<String, dynamic>> menuItems = [
-    {"icon": Icons.dashboard, "label": "Dashboard", "route": "/dashboard"},
     {
-      "icon": Icons.person,
-      "label": "Delivery Agents",
-      "route": "/delivery-agents",
+      "icon": AppAssets.dashboardIcon,
+      "label": "Dashboard",
+      "route": "/dashboard",
     },
     {
-      "icon": Icons.local_shipping,
+      "icon": AppAssets.deliveryEntriesIcon,
+      "label": "Delivery Guys",
+      "route": "/deliveryAgents",
+    },
+    {
+      "icon": AppAssets.deliveryGuysIcon,
       "label": "Delivery Entries",
-      "route": "/entries",
+      "route": "/deliveryEntries",
     },
     {
-      "icon": Icons.account_balance_wallet,
+      "icon": AppAssets.collectionIcon,
       "label": "Collection",
       "route": "/collection",
     },
-    {"icon": Icons.person, "label": "Customer", "route": "/customers"},
+    {
+      "icon": AppAssets.customerIcon,
+      "label": "Customer",
+      "route": "/customers",
+    },
   ];
 
   /// Getting the index of the selected route
@@ -51,19 +60,30 @@ class _SideBarState extends State<SideBar> {
 
   @override
   Widget build(BuildContext context) {
+    // Selected Index
     final selectedIndex = _getSelectedIndex(context);
 
     return Scaffold(
       body: Row(
         children: [
+          // Side Bar
           Container(
-            width: context.screenWidth / 8,
+            width: context.screenWidth / 7,
             color: AppColors.primaryColor,
             child: Column(
               children: [
-                const SizedBox(height: 30),
-                SvgPicture.asset(AppAssets.logo, color: Colors.white),
-                const SizedBox(height: 30),
+                SizedBox(height: context.screenHeight * 0.04),
+
+                // Logo
+                SvgPicture.asset(
+                  AppAssets.logo,
+                  color: AppColors.whiteColor,
+                  height: context.screenHeight * 0.09,
+                ),
+
+                SizedBox(height: context.screenHeight * 0.04),
+
+                // List of Routes
                 Expanded(
                   child: ListView.builder(
                     itemCount: menuItems.length,
@@ -75,26 +95,33 @@ class _SideBarState extends State<SideBar> {
                         },
                         child: Container(
                           width: double.infinity,
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 12,
-                            horizontal: 16,
+                          padding: EdgeInsets.symmetric(
+                            vertical: context.screenHeight * 0.01,
+                            horizontal: context.screenWidth * 0.02,
                           ),
                           color: isSelected
-                              ? Colors.white.withOpacity(0.2)
-                              : Colors.transparent,
+                              ? AppColors.whiteColor.withOpacity(0.2)
+                              : AppColors.transparentColor,
                           child: Row(
                             children: [
-                              Icon(
+                              // Side Bar Icon
+                              SvgPicture.asset(
                                 menuItems[index]["icon"],
-                                color: Colors.white,
+                                color: AppColors.whiteColor,
+                                height: context.screenWidth * 0.012,
+                                width: context.screenWidth * 0.012,
+                                fit: BoxFit.cover,
                               ),
+
                               const SizedBox(width: 12),
+
+                              // Side Bar Text
                               Expanded(
                                 child: Text(
                                   menuItems[index]["label"],
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
+                                  style: TextStyle(
+                                    color: AppColors.whiteColor,
+                                    fontSize: context.screenWidth * 0.0072,
                                   ),
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -106,31 +133,45 @@ class _SideBarState extends State<SideBar> {
                     },
                   ),
                 ),
+
+                // Log Out Btn
                 Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: KButton(
-                    icon: Icons.logout,
+                    svgAssetPath: AppAssets.logOutIcon,
                     iconColor: AppColors.primaryColor,
                     text: "Logout",
-                    onPressed: () => GoRouter.of(
-                      context,
-                    ).pushReplacementNamed(AppRouterConstants.login),
+                    onPressed: () {
+                      // Login
+                      GoRouter.of(
+                        context,
+                      ).pushReplacementNamed(AppRouterConstants.login);
+                    },
                     textColor: AppColors.primaryColor,
                     backgroundColor: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 10),
+
+                SizedBox(height: context.screenHeight * 0.02),
+
+                // App Version
                 Text(
                   context.readAppInfoProvider.version != null
                       ? 'V ${context.readAppInfoProvider.version.toString()}'
-                      : '',
-                  style: const TextStyle(color: Colors.white),
+                      : '1.0.0',
+                  style: TextStyle(
+                    color: AppColors.whiteColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: context.screenWidth * 0.008,
+                  ),
                 ),
-                const SizedBox(height: 10),
+
+                SizedBox(height: context.screenHeight * 0.02),
               ],
             ),
           ),
-          // This is where the child route content will be rendered
+
+          // Content
           Expanded(child: widget.child),
         ],
       ),

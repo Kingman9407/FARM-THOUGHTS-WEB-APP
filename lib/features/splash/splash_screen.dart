@@ -1,5 +1,7 @@
 import 'package:farm_thoughts_web_app/core/constants/app_assets.dart';
 import 'package:farm_thoughts_web_app/core/constants/app_router_constants.dart';
+import 'package:farm_thoughts_web_app/core/extensions/providers/provider_extension.dart';
+import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,9 +17,14 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    // Load App Info
+    context.readAppInfoProvider.loadAppInfo();
+
     Future.delayed(Duration(seconds: 1), () {
+      // Login Screen
       GoRouter.of(context).pushReplacementNamed(AppRouterConstants.login);
     });
+
     super.initState();
   }
 
@@ -29,7 +36,12 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(AppAssets.logo, width: 300, color: Colors.white),
+            // Splash Logo
+            SvgPicture.asset(
+              AppAssets.logo,
+              height: context.screenHeight * 0.18,
+              color: AppColors.whiteColor,
+            ),
           ],
         ),
       ),

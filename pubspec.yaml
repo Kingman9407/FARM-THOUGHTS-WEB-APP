@@ -16,21 +16,14 @@ dependencies:
 
   cupertino_icons: ^1.0.8
 
-
-
   # routing
   go_router: ^16.1.0
-
 
   # svg images
   flutter_svg: ^2.2.0
 
-
-
   # network images
   cached_network_image: ^3.4.1
-
-
 
   # Calender
   table_calendar: ^3.2.0
@@ -44,7 +37,6 @@ dependencies:
 
   # Time
   intl: ^0.20.2
-
 
   # Logger
   logger: ^2.6.1
@@ -67,6 +59,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/icons/
   fonts:
     - family: Poppins
       fonts:
