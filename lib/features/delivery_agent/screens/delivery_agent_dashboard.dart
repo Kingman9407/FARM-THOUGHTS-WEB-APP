@@ -407,7 +407,8 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
                         );
                       } else if (agentProvider.isEditEnabled) {
                         return EditAgentDetailsForm(
-                          onClose: () {},
+                          onClose: () =>
+                              context.readDeliveryAgentsProvider.resetAll(),
                           onAddVendor: (Map<String, String> p1) {},
                         );
                       } else {
