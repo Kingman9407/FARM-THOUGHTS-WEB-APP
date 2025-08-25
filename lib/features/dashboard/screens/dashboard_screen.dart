@@ -5,8 +5,24 @@ import 'package:farm_thoughts_web_app/features/dashboard/widgets/dashboard_top_b
 import 'package:farm_thoughts_web_app/features/dashboard/widgets/delivery_card.dart';
 import 'package:flutter/material.dart';
 
-class Dashboard extends StatelessWidget {
-  const Dashboard({super.key});
+class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({super.key});
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  // Controllers
+  final TextEditingController dashboardSearchController =
+      TextEditingController();
+
+  @override
+  void dispose() {
+    dashboardSearchController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +32,14 @@ class Dashboard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            DashboardTopBar(),
+            // DashBoard Top Bar (Search)
+            DashboardTopBar(
+              searchTextEditingController: dashboardSearchController,
+              userImageUrl: "",
+            ),
+
             const SizedBox(height: 24),
+
             Text(
               "Statistics",
               style: TextStyle(

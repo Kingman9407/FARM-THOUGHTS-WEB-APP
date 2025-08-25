@@ -2,8 +2,24 @@ import 'package:farm_thoughts_web_app/commons/widgets/k_calender.dart';
 import 'package:farm_thoughts_web_app/features/dashboard/widgets/dashboard_top_bar.dart';
 import 'package:flutter/material.dart';
 
-class CustomerDashboard extends StatelessWidget {
-  const CustomerDashboard({super.key});
+class CustomerDashboardScreen extends StatefulWidget {
+  const CustomerDashboardScreen({super.key});
+
+  @override
+  State<CustomerDashboardScreen> createState() =>
+      _CustomerDashboardScreenState();
+}
+
+class _CustomerDashboardScreenState extends State<CustomerDashboardScreen> {
+  // Controllers
+  final TextEditingController customerSearchController =
+      TextEditingController();
+
+  @override
+  void dispose() {
+    customerSearchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +28,10 @@ class CustomerDashboard extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: DashboardTopBar(),
+            child: DashboardTopBar(
+              searchTextEditingController: customerSearchController,
+              userImageUrl: "",
+            ),
           ),
           Expanded(
             child: Row(

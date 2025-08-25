@@ -30,4 +30,10 @@ class AppColors {
   static const Color checkInColor = Color(0xFF009F00);
 
   static const Color checkOutColor = Colors.red;
+
+  static const Color oAuthBtnTitle = Color(0xFF3A3A3A);
+
+  static const Color transparentColor = Colors.transparent;
+
+  static const Color copyWriteColor = Color(0xFF8A8A8A);
 }

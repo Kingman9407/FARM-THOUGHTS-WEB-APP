@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CollectionDashboard extends StatelessWidget {
-  const CollectionDashboard({super.key});
+class CollectionDashboardScreen extends StatelessWidget {
+  const CollectionDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

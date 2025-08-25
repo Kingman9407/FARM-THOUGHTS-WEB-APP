@@ -2,8 +2,8 @@ import 'package:farm_thoughts_web_app/commons/widgets/k_delivery_entries_card.da
 import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart';
 import 'package:flutter/material.dart';
 
-class DeliveryEntriesDashboard extends StatelessWidget {
-  const DeliveryEntriesDashboard({super.key});
+class DeliveryEntriesScreen extends StatelessWidget {
+  const DeliveryEntriesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

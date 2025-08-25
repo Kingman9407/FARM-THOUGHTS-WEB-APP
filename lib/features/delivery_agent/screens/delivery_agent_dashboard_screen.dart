@@ -12,14 +12,17 @@ import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/view_agent
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class DeliveryAgentDashboard extends StatefulWidget {
-  const DeliveryAgentDashboard({super.key});
+class DeliveryAgentDashboardScreen extends StatefulWidget {
+  const DeliveryAgentDashboardScreen({super.key});
 
   @override
-  State<DeliveryAgentDashboard> createState() => _DeliveryAgentDashboardState();
+  State<DeliveryAgentDashboardScreen> createState() =>
+      _DeliveryAgentDashboardScreenState();
 }
 
-class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
+class _DeliveryAgentDashboardScreenState
+    extends State<DeliveryAgentDashboardScreen> {
+  // Agents
   final List<Map<String, String>> agents = [
     {
       "id": "1",
@@ -263,6 +266,16 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
     },
   ];
 
+  // Controllers
+  final TextEditingController deliverySearchController =
+      TextEditingController();
+
+  @override
+  void dispose() {
+    deliverySearchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -271,7 +284,10 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: DashboardTopBar(),
+            child: DashboardTopBar(
+              searchTextEditingController: deliverySearchController,
+              userImageUrl: "",
+            ),
           ),
 
           Expanded(
@@ -292,7 +308,9 @@ class _DeliveryAgentDashboardState extends State<DeliveryAgentDashboard> {
                               true,
                             );
                           },
-                          icon: Icons.add,
+
+                          // Add
+                          svgAssetPath: "",
                           backgroundColor: AppColors.primaryColor,
                         ),
                       ),
