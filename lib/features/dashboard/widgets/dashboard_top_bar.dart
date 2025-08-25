@@ -1,7 +1,18 @@
+import 'package:farm_thoughts_web_app/core/constants/app_assets.dart';
+import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart';
+import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class DashboardTopBar extends StatelessWidget {
-  const DashboardTopBar({super.key});
+  final TextEditingController searchTextEditingController;
+  final String userImageUrl;
+
+  const DashboardTopBar({
+    super.key,
+    required this.searchTextEditingController,
+    required this.userImageUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,47 +30,75 @@ class DashboardTopBar extends StatelessWidget {
         ],
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          // Search For Milk Delivery
           Expanded(
-            child: TextField(
+            child: TextFormField(
+              controller: searchTextEditingController,
               decoration: InputDecoration(
                 hintText: "Search for milk delivery, delivery guys",
-                prefixIcon: const Icon(Icons.search),
+                prefixIcon: SvgPicture.asset(
+                  AppAssets.searchIcon,
+                  color: AppColors.titleColor,
+                  width: context.screenWidth * 0.010,
+                  height: context.screenWidth * 0.010,
+                  fit: BoxFit.contain,
+                ),
+                prefixIconConstraints: BoxConstraints(
+                  minWidth: 40,
+                  minHeight: 10,
+                ),
                 border: InputBorder.none,
               ),
             ),
           ),
 
           Row(
+            spacing: context.screenWidth * 0.015,
             children: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.settings, color: Colors.black87),
-              ),
-              const SizedBox(width: 8),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.notifications_none,
-                  color: Colors.black87,
+              // Settings Icon
+              GestureDetector(
+                onTap: () {},
+                child: SvgPicture.asset(
+                  AppAssets.settingsIcon,
+                  height: context.screenWidth * 0.012,
+                  width: context.screenWidth * 0.012,
+                  color: AppColors.titleColor,
+                  fit: BoxFit.cover,
                 ),
               ),
-              const SizedBox(width: 8),
 
+              // Notification Icon
+              GestureDetector(
+                onTap: () {},
+                child: SvgPicture.asset(
+                  AppAssets.notificationIcon,
+                  height: context.screenWidth * 0.012,
+                  width: context.screenWidth * 0.012,
+                  color: AppColors.titleColor,
+                  fit: BoxFit.cover,
+                ),
+              ),
+
+              //  Person
               CircleAvatar(
                 radius: 18,
                 backgroundColor: Colors.grey[200],
                 child: ClipOval(
                   child: Image.network(
-                    "",
+                    userImageUrl,
                     fit: BoxFit.cover,
                     width: 18,
                     height: 18,
                     errorBuilder: (context, error, stackTrace) {
-                      return const Icon(
-                        Icons.person,
-                        size: 40,
-                        color: Colors.grey,
+                      return Center(
+                        child: Icon(
+                          Icons.person,
+                          size: context.screenWidth * 0.02,
+                          color: Colors.grey,
+                        ),
                       );
                     },
                   ),
