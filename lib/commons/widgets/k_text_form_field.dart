@@ -67,41 +67,6 @@ class KTextFormField extends StatelessWidget {
           keyboardType: keyboardType,
           initialValue: initialValue,
           maxLines: maxLines ?? 1,
-          decoration: InputDecoration(
-            hintText: hintText,
-            hintStyle: TextStyle(
-              color: AppColors.searchHintTextColor,
-              fontSize: context.screenWidth * 0.0084,
-              fontWeight: FontWeight.w500,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(context.screenWidth * 0.004),
-              borderSide: BorderSide(color: AppColors.searchHintTextColor),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(context.screenWidth * 0.004),
-              borderSide: BorderSide(color: AppColors.searchHintTextColor),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(context.screenWidth * 0.004),
-              borderSide: BorderSide(color: AppColors.primaryColor, width: 1),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(6),
-              borderSide: const BorderSide(color: AppColors.checkOutColor),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(context.screenWidth * 0.004),
-              borderSide: const BorderSide(
-                color: AppColors.checkOutColor,
-                width: 1,
-              ),
-            ),
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: 12,
-              vertical: maxLines != null && maxLines! > 1 ? 12 : 10,
-            ),
-          ),
           validator: _buildValidator(),
         ),
       ],

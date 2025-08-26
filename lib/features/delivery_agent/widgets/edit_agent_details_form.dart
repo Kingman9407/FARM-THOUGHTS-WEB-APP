@@ -1,5 +1,7 @@
+import 'package:farm_thoughts_web_app/commons/widgets/k_button.dart';
 import 'package:farm_thoughts_web_app/commons/widgets/k_text_form_field.dart';
 import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart';
+import 'package:farm_thoughts_web_app/core/helpers/app_logger_helper.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -70,8 +72,7 @@ class _EditAgentDetailsFormState extends State<EditAgentDetailsForm> {
       };
 
       // Debug print to check the data
-      print('Vendor data being sent: $vendorData');
-
+      AppLoggerHelper.logResponse(vendorData);
       widget.onAddVendor(vendorData);
       _clearForm();
       widget.onClose();
@@ -111,19 +112,26 @@ class _EditAgentDetailsFormState extends State<EditAgentDetailsForm> {
       child: FormBuilder(
         key: _formKey,
         child: Column(
+          spacing: context.screenWidth * 0.009,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
+                KButton(
+                  text: "Next",
+                  onPressed: () {},
+                  backgroundColor: AppColors.primaryColor,
+                ),
+              ],
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
                   'Edit Agent Details',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                IconButton(
-                  onPressed: widget.onClose,
-                  icon: const Icon(Icons.close),
-                  iconSize: 20,
                 ),
               ],
             ),
@@ -174,67 +182,6 @@ class _EditAgentDetailsFormState extends State<EditAgentDetailsForm> {
                       hintText: '9am-12pm',
                       controller: workTimeController,
                       isRequired: true,
-                    ),
-                    KTextFormField(
-                      name: 'assignedCustomers',
-                      label: 'Assigned Customers',
-                      hintText: '48',
-                      controller: assignedCustomersController,
-                      keyboardType: TextInputType.number,
-                      isRequired: true,
-                    ),
-                    KTextFormField(
-                      name: 'imageUrl',
-                      label: 'Image URL',
-                      hintText: 'http://example.com/image.jpg',
-                      controller: imgController,
-                      isRequired: false,
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              side: BorderSide(color: Colors.grey.shade400),
-                            ),
-                            onPressed: _handleCancel,
-                            child: Text(
-                              'Cancel',
-                              style: TextStyle(
-                                color:
-                                    AppColors.assignedCustomerCardSubTitleColor,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: _handleAddVendor,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primaryColor,
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              elevation: 0,
-                            ),
-                            child: Text(
-                              'Add Vendor',
-                              style: TextStyle(
-                                color: AppColors.whiteColor,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
                     ),
                   ],
                 ),

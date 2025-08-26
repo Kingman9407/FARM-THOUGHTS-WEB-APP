@@ -1,18 +1,11 @@
-import 'package:farm_thoughts_web_app/commons/widgets/k_calender.dart';
 import 'package:farm_thoughts_web_app/core/constants/app_assets.dart';
 import 'package:farm_thoughts_web_app/core/extensions/providers/provider_extension.dart';
 import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart';
-import 'package:farm_thoughts_web_app/core/extensions/ui/snackbar_extension.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:farm_thoughts_web_app/features/dashboard/widgets/dashboard_top_bar.dart';
-import 'package:farm_thoughts_web_app/features/delivery_agent/provider/delivery_agents_provider.dart';
-import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/add_agent_form.dart';
-import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/edit_agent_details_form.dart';
-import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/view_agent_details.dart';
 import 'package:farm_thoughts_web_app/features/delivery_entries/widgets/delivery_entries_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 
 class DeliveryEntriesScreen extends StatefulWidget {
   const DeliveryEntriesScreen({super.key});
@@ -281,41 +274,41 @@ class _DeliveryEntriesScreenState extends State<DeliveryEntriesScreen> {
                 ),
 
                 // Calendar Content
-                Expanded(
-                  flex: 1,
-                  child: Consumer<DeliveryAgentsProvider>(
-                    builder: (context, agentProvider, child) {
-                      if (agentProvider.isAddedEnabled) {
-                        return AddAgentForm(
-                          onClose: () =>
-                              context.readDeliveryAgentsProvider.resetAll(),
-                          onAddVendor: (Map<String, String> data) {
-                            customerDeliveries.add(data);
-                            context.readDeliveryAgentsProvider.resetAll();
-                            context.showSuccessSnackBar(
-                              "${data['name']} has been added successfully",
-                            );
-                          },
-                        );
-                      } else if (agentProvider.isViewDetailsEnabled) {
-                        return ViewAgentDetails(
-                          vendorDetails:
-                              context.readDeliveryAgentsProvider.selectedAgent!,
-                        );
-                      } else if (agentProvider.isEditEnabled) {
-                        return EditAgentDetailsForm(
-                          onClose: () {},
-                          onAddVendor: (Map<String, String> p1) {},
-                        );
-                      } else {
-                        return ColoredBox(
-                          color: AppColors.whiteColor,
-                          child: KCalender(),
-                        );
-                      }
-                    },
-                  ),
-                ),
+                // Expanded(
+                //   flex: 1,
+                //   child: Consumer<DeliveryAgentsProvider>(
+                //     builder: (context, agentProvider, child) {
+                //       if (agentProvider.isAddedEnabled) {
+                //         return AddAgentForm(
+                //           onClose: () =>
+                //               context.readDeliveryAgentsProvider.resetAll(),
+                //           onAddVendor: (Map<String, String> data) {
+                //             customerDeliveries.add(data);
+                //             context.readDeliveryAgentsProvider.resetAll();
+                //             context.showSuccessSnackBar(
+                //               "${data['name']} has been added successfully",
+                //             );
+                //           },
+                //         );
+                //       } else if (agentProvider.isViewDetailsEnabled) {
+                //         return ViewAgentDetails(
+                //           vendorDetails:
+                //           context.readDeliveryAgentsProvider.selectedAgent!,
+                //         );
+                //       } else if (agentProvider.isEditEnabled) {
+                //         return EditAgentDetailsForm(
+                //           onClose: () {},
+                //           onAddVendor: (Map<String, String> p1) {},
+                //         );
+                //       } else {
+                //         return ColoredBox(
+                //           color: AppColors.whiteColor,
+                //           child: KCalender(),
+                //         );
+                //       }
+                //     },
+                //   ),
+                // ),
               ],
             ),
           ),

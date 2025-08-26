@@ -7,8 +7,8 @@ import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:farm_thoughts_web_app/features/dashboard/widgets/dashboard_top_bar.dart';
 import 'package:farm_thoughts_web_app/features/delivery_agent/provider/delivery_agents_provider.dart';
 import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/add_agent_form.dart';
+import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/assign_customer_widget.dart';
 import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/delivery_agents_card.dart';
-import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/edit_agent_details_form.dart';
 import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/view_agent_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -472,11 +472,12 @@ class _DeliveryAgentDashboardScreenState
                               context.readDeliveryAgentsProvider.selectedAgent!,
                         );
                       } else if (agentProvider.isEditEnabled) {
-                        return EditAgentDetailsForm(
-                          onClose: () =>
-                              context.readDeliveryAgentsProvider.resetAll(),
-                          onAddVendor: (Map<String, String> p1) {},
-                        );
+                        return AssignCustomerWidget(onClose: () {});
+                        // return EditAgentDetailsForm(
+                        //   onClose: () {},
+                        //   // context.readDeliveryAgentsProvider.resetAll(),
+                        //   onAddVendor: (Map<String, String> p1) {},
+                        // );
                       } else {
                         return ColoredBox(
                           color: AppColors.whiteColor,
