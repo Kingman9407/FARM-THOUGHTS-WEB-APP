@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class KButton extends StatelessWidget {
-  final String? svgAssetPath; // for SVG icons
+  final String? svgAssetPath;
   final String text;
   final double? width;
   final double? height;
@@ -15,6 +15,7 @@ class KButton extends StatelessWidget {
   final Color? textColor;
   final Color? iconColor;
   final double? iconSize;
+  final bool isLoading;
 
   const KButton({
     super.key,
@@ -29,6 +30,7 @@ class KButton extends StatelessWidget {
     this.textColor,
     this.iconColor,
     this.iconSize,
+    this.isLoading = false,
   });
 
   @override
@@ -38,35 +40,47 @@ class KButton extends StatelessWidget {
       height: height,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor,
+          backgroundColor: backgroundColor ?? AppColors.primaryColor,
           padding: padding,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
           ),
         ),
-        onPressed: onPressed,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (svgAssetPath != null) ...[
-              SvgPicture.asset(
-                svgAssetPath!,
-                color: iconColor ?? AppColors.whiteColor,
-                width: iconSize ?? context.screenWidth * 0.01,
-                height: iconSize ?? context.screenWidth * 0.01,
+
+        onPressed: isLoading ? () {} : onPressed,
+        child: isLoading
+            ? SizedBox(
+                width: context.screenWidth * 0.015,
+                height: context.screenWidth * 0.015,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    textColor ?? Colors.white,
+                  ),
+                ),
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (svgAssetPath != null) ...[
+                    SvgPicture.asset(
+                      svgAssetPath!,
+                      color: iconColor ?? AppColors.whiteColor,
+                      width: iconSize ?? context.screenWidth * 0.01,
+                      height: iconSize ?? context.screenWidth * 0.01,
+                    ),
+                    SizedBox(width: context.screenWidth * 0.004),
+                  ],
+                  Text(
+                    text,
+                    style: TextStyle(
+                      color: textColor ?? Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(width: context.screenWidth * 0.004),
-            ],
-            Text(
-              text,
-              style: TextStyle(
-                color: textColor ?? Colors.white,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

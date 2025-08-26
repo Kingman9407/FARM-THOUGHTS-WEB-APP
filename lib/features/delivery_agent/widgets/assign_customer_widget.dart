@@ -48,6 +48,11 @@ class _AssignCustomerWidgetState extends State<AssignCustomerWidget> {
                 onPressed: () {},
                 backgroundColor: AppColors.primaryColor,
               ),
+              // KButton(
+              //   text: "Submit",
+              //   onPressed: () {},
+              //   backgroundColor: AppColors.primaryColor,
+              // ),
             ],
           ),
           Row(
@@ -64,7 +69,7 @@ class _AssignCustomerWidgetState extends State<AssignCustomerWidget> {
           Expanded(
             child: ListView.builder(
               itemBuilder: (context, index) {
-                return AddCustomerCard();
+                return AddCustomerCard(onPressed: () {});
               },
               itemCount: 10,
             ),

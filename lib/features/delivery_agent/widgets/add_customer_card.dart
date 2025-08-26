@@ -5,7 +5,9 @@ import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class AddCustomerCard extends StatelessWidget {
-  const AddCustomerCard({super.key});
+  final VoidCallback onPressed;
+
+  const AddCustomerCard({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +29,14 @@ class AddCustomerCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          // Profile Image
           KCachedNetworkProfileImage(
             width: context.screenWidth * 0.035,
             height: context.screenWidth * 0.035,
             imageUrl:
                 "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           ),
+          // Name and mobile number
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,9 +54,18 @@ class AddCustomerCard extends StatelessWidget {
               ),
             ],
           ),
+          // add button
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: [KOutlineButton(text: "Add", onPressed: () {})],
+            children: [
+              KOutlineButton(text: "Add", onPressed: onPressed),
+              // KOutlineButton(
+              //   text: "Remove",
+              //   onPressed: onPressed,
+              //   textColor: AppColors.checkOutColor,
+              //   borderColor: AppColors.checkOutColor,
+              // ),
+            ],
           ),
         ],
       ),
