@@ -4,6 +4,7 @@ import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class DeliveryEntriesCard extends StatelessWidget {
+  final Map<String, String> deliveryEntries;
   final String customerImageUrl;
   final VoidCallback? onTap;
   final bool isSelected;
@@ -31,6 +32,7 @@ class DeliveryEntriesCard extends StatelessWidget {
     required this.isSelected,
     required this.customerDeliveryPhoneNumber,
     required this.customerDeliveryPersonImageUrl,
+    required this.deliveryEntries,
   });
 
   @override

@@ -61,7 +61,7 @@ class DeliveryAgentCard extends StatelessWidget {
                         children: [
                           // Delivery Agent Cached Network Image
                           KCachedNetworkProfileImage(
-                            imageUrl: agent["imageUrl"]!,
+                            imageUrl: deliveryAgentCardImageUrl,
                             height: context.screenWidth * 0.03,
                             width: context.screenWidth * 0.03,
                           ),

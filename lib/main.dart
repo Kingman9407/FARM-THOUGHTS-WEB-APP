@@ -1,11 +1,14 @@
 import 'package:farm_thoughts_web_app/core/provider/app_info_provider.dart';
+import 'package:farm_thoughts_web_app/core/provider/internet_checker_provider.dart';
 import 'package:farm_thoughts_web_app/core/router/app_router.dart';
 import 'package:farm_thoughts_web_app/features/delivery_agent/provider/delivery_agents_provider.dart';
+import 'package:farm_thoughts_web_app/features/delivery_entries/providers/delivery_entries_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
   runApp(
     MultiProvider(
       providers: [
@@ -14,6 +17,12 @@ void main() {
 
         // App info provider
         ChangeNotifierProvider(create: (context) => AppInfoProvider()),
+
+        // Delivery Entries Provider
+        ChangeNotifierProvider(create: (context) => DeliveryEntriesProvider()),
+
+        // Internet Checker Provider
+        ChangeNotifierProvider(create: (context) => InternetCheckerProvider()),
       ],
       child: MyApp(),
     ),

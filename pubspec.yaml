@@ -44,6 +44,9 @@ dependencies:
   # version number tracker
   package_info_plus: ^8.3.1
 
+  # connectivity_plus
+  connectivity_plus: ^6.1.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

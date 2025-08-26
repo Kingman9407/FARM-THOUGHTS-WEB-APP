@@ -14,6 +14,7 @@ class KTextFormField extends StatelessWidget {
   final List<String? Function(String?)>? validators;
   final TextEditingController? controller;
   final int? maxLines;
+  final Widget? prefixIcon;
 
   const KTextFormField({
     super.key,
@@ -26,6 +27,7 @@ class KTextFormField extends StatelessWidget {
     this.validators,
     this.controller,
     this.maxLines,
+    this.prefixIcon,
   });
 
   @override
@@ -68,6 +70,7 @@ class KTextFormField extends StatelessWidget {
           initialValue: initialValue,
           maxLines: maxLines ?? 1,
           decoration: InputDecoration(
+            prefixIcon: prefixIcon,
             hintText: hintText,
             hintStyle: TextStyle(
               color: AppColors.searchHintTextColor,

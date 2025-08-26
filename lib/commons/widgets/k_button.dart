@@ -15,6 +15,7 @@ class KButton extends StatelessWidget {
   final Color? textColor;
   final Color? iconColor;
   final double? iconSize;
+  final FontWeight? fontWeight;
 
   const KButton({
     super.key,
@@ -29,6 +30,7 @@ class KButton extends StatelessWidget {
     this.textColor,
     this.iconColor,
     this.iconSize,
+    this.fontWeight,
   });
 
   @override
@@ -61,8 +63,8 @@ class KButton extends StatelessWidget {
             Text(
               text,
               style: TextStyle(
-                color: textColor ?? Colors.white,
-                fontWeight: FontWeight.w600,
+                color: textColor ?? AppColors.whiteColor,
+                fontWeight: fontWeight ?? FontWeight.w600,
               ),
             ),
           ],
