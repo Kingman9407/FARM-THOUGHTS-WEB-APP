@@ -36,4 +36,10 @@ class AppColors {
   static const Color transparentColor = Colors.transparent;
 
   static const Color copyWriteColor = Color(0xFF8A8A8A);
+
+  static const Color searchHintTextColor = Color(0xFFB3B3B3);
+
+  static const Color deliveryCardTextColor = Color(0xFF5F5F5F);
+
+  static const Color tableTitleColor = Color(0xFF957E7E);
 }

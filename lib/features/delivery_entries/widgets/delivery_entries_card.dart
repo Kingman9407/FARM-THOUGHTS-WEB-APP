@@ -3,32 +3,34 @@ import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart'
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class DeliveryAgentCard extends StatelessWidget {
-  final Map<String, String> agent;
+class DeliveryEntriesCard extends StatelessWidget {
+  final String customerImageUrl;
   final VoidCallback? onTap;
   final bool isSelected;
-  final String deliveryAgentCardImageUrl;
-  final String deliveryAgentName;
-  final String deliveryAgentPhoneNumber;
-  final String deliveryAgentAddress;
-  final String deliveryAgentJoinedAt;
-  final String deliveryAgentWorkTime;
-  final String deliveryAgentAssignedWith;
-  final String deliveryAgentSalary;
+  final String customerName;
+  final String customerPhoneNumber;
+  final String customerAddress;
+  final String customerTimeStamp;
+  final String customerDeliveredLitres;
+  final String customerDeliveryPrice;
+  final String customerDeliveryPersonImageUrl;
+  final String customerDeliveryPersonName;
+  final String customerDeliveryPhoneNumber;
 
-  const DeliveryAgentCard({
+  const DeliveryEntriesCard({
     super.key,
-    required this.agent,
+    required this.customerName,
+    required this.customerPhoneNumber,
+    required this.customerAddress,
+    required this.customerTimeStamp,
+    required this.customerDeliveredLitres,
+    required this.customerDeliveryPrice,
+    required this.customerDeliveryPersonName,
+    required this.customerImageUrl,
     this.onTap,
-    this.isSelected = false,
-    required this.deliveryAgentCardImageUrl,
-    required this.deliveryAgentName,
-    required this.deliveryAgentPhoneNumber,
-    required this.deliveryAgentAddress,
-    required this.deliveryAgentJoinedAt,
-    required this.deliveryAgentWorkTime,
-    required this.deliveryAgentAssignedWith,
-    required this.deliveryAgentSalary,
+    required this.isSelected,
+    required this.customerDeliveryPhoneNumber,
+    required this.customerDeliveryPersonImageUrl,
   });
 
   @override
@@ -61,7 +63,7 @@ class DeliveryAgentCard extends StatelessWidget {
                         children: [
                           // Delivery Agent Cached Network Image
                           KCachedNetworkProfileImage(
-                            imageUrl: agent["imageUrl"]!,
+                            imageUrl: customerImageUrl,
                             height: context.screenWidth * 0.03,
                             width: context.screenWidth * 0.03,
                           ),
@@ -72,9 +74,9 @@ class DeliveryAgentCard extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                // Delivery Agent Name
+                                // Customer Name
                                 Text(
-                                  deliveryAgentName,
+                                  customerName,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     fontSize: context.screenWidth * 0.009,
@@ -82,9 +84,9 @@ class DeliveryAgentCard extends StatelessWidget {
                                   ),
                                 ),
 
-                                // Delivery Agent Phone Number
+                                // Customer Phone Number
                                 Text(
-                                  deliveryAgentPhoneNumber,
+                                  customerPhoneNumber,
                                   style: TextStyle(
                                     color: AppColors.deliveryCardTextColor,
                                     fontSize: context.screenWidth * 0.008,
@@ -92,11 +94,11 @@ class DeliveryAgentCard extends StatelessWidget {
                                   ),
                                 ),
 
-                                // Delivery Agent Address
+                                // Customer Address
                                 SizedBox(
                                   width: 200,
                                   child: Text(
-                                    deliveryAgentAddress,
+                                    customerAddress,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
@@ -114,11 +116,11 @@ class DeliveryAgentCard extends StatelessWidget {
                       ),
                     ),
 
-                    // Joined at
+                    // Time Stamp
                     Expanded(
                       flex: 2,
                       child: Text(
-                        deliveryAgentJoinedAt,
+                        customerTimeStamp,
                         style: TextStyle(
                           color: AppColors.titleColor,
                           fontSize: context.screenWidth * 0.008,
@@ -128,11 +130,11 @@ class DeliveryAgentCard extends StatelessWidget {
                       ),
                     ),
 
-                    // Work time
+                    // Litres
                     Expanded(
                       flex: 2,
                       child: Text(
-                        deliveryAgentWorkTime,
+                        "$customerDeliveredLitres Litres",
                         style: TextStyle(
                           color: AppColors.titleColor,
                           fontSize: context.screenWidth * 0.008,
@@ -142,11 +144,11 @@ class DeliveryAgentCard extends StatelessWidget {
                       ),
                     ),
 
-                    // Assigned with
+                    // Price
                     Expanded(
                       flex: 2,
                       child: Text(
-                        "$deliveryAgentAssignedWith Customers",
+                        "₹ $customerDeliveryPrice+",
                         style: TextStyle(
                           color: AppColors.titleColor,
                           fontSize: context.screenWidth * 0.008,
@@ -156,17 +158,52 @@ class DeliveryAgentCard extends StatelessWidget {
                       ),
                     ),
 
-                    // Salary
+                    // Delivery Person Details
                     Expanded(
                       flex: 2,
-                      child: Text(
-                        "₹ $deliveryAgentSalary.00",
-                        style: TextStyle(
-                          color: AppColors.titleColor,
-                          fontSize: context.screenWidth * 0.008,
-                          fontWeight: FontWeight.w600,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                      child: Row(
+                        spacing: context.screenWidth * 0.004,
+                        children: [
+                          // Delivery Person Avatar
+                          KCachedNetworkProfileImage(
+                            imageUrl: customerDeliveryPersonImageUrl,
+                            height: context.screenWidth * 0.025,
+                            width: context.screenWidth * 0.025,
+                          ),
+
+                          Flexible(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                // Customer Delivery Person Name
+                                Text(
+                                  customerDeliveryPersonName,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    color: AppColors.titleColor,
+                                    fontSize: context.screenWidth * 0.01,
+                                    fontWeight: FontWeight.w600,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+
+                                // Customer Delivery Person Phone Number
+                                Text(
+                                  customerDeliveryPhoneNumber,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    color: AppColors
+                                        .assignedCustomerCardSubTitleColor,
+                                    fontSize: context.screenWidth * 0.009,
+                                    fontWeight: FontWeight.w500,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],

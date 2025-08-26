@@ -1,6 +1,7 @@
-import 'package:farm_thoughts_web_app/commons/widgets/k_button.dart';
 import 'package:farm_thoughts_web_app/commons/widgets/k_calender.dart';
+import 'package:farm_thoughts_web_app/core/constants/app_assets.dart';
 import 'package:farm_thoughts_web_app/core/extensions/providers/provider_extension.dart';
+import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart';
 import 'package:farm_thoughts_web_app/core/extensions/ui/snackbar_extension.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:farm_thoughts_web_app/features/dashboard/widgets/dashboard_top_bar.dart';
@@ -10,6 +11,7 @@ import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/delivery_a
 import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/edit_agent_details_form.dart';
 import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/view_agent_details.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class DeliveryAgentDashboardScreen extends StatefulWidget {
@@ -34,7 +36,7 @@ class _DeliveryAgentDashboardScreenState
       "assigned_customers": "48",
       "joined_date": "08,Nov,2022",
       "imageUrl":
-          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
+          "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       "id": "2",
@@ -46,7 +48,7 @@ class _DeliveryAgentDashboardScreenState
       "assigned_customers": "32",
       "joined_date": "15,Jul,2023",
       "imageUrl":
-          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
+          "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       "id": "3",
@@ -58,7 +60,7 @@ class _DeliveryAgentDashboardScreenState
       "assigned_customers": "25",
       "joined_date": "22,Mar,2024",
       "imageUrl":
-          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
+          "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       "id": "4",
@@ -70,7 +72,7 @@ class _DeliveryAgentDashboardScreenState
       "assigned_customers": "18",
       "joined_date": "05,Jan,2023",
       "imageUrl":
-          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
+          "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       "id": "5",
@@ -82,7 +84,7 @@ class _DeliveryAgentDashboardScreenState
       "assigned_customers": "42",
       "joined_date": "18,Sep,2022",
       "imageUrl":
-          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
+          "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       "id": "6",
@@ -94,7 +96,7 @@ class _DeliveryAgentDashboardScreenState
       "assigned_customers": "28",
       "joined_date": "12,Dec,2023",
       "imageUrl":
-          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
+          "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       "id": "7",
@@ -106,7 +108,7 @@ class _DeliveryAgentDashboardScreenState
       "assigned_customers": "35",
       "joined_date": "03,Jun,2024",
       "imageUrl":
-          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
+          "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       "id": "8",
@@ -130,7 +132,7 @@ class _DeliveryAgentDashboardScreenState
       "assigned_customers": "15",
       "joined_date": "14,Oct,2024",
       "imageUrl":
-          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
+          "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       "id": "10",
@@ -142,7 +144,7 @@ class _DeliveryAgentDashboardScreenState
       "assigned_customers": "38",
       "joined_date": "07,May,2023",
       "imageUrl":
-          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
+          "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       "id": "11",
@@ -154,7 +156,7 @@ class _DeliveryAgentDashboardScreenState
       "assigned_customers": "27",
       "joined_date": "19,Aug,2022",
       "imageUrl":
-          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
+          "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       "id": "12",
@@ -166,7 +168,7 @@ class _DeliveryAgentDashboardScreenState
       "assigned_customers": "44",
       "joined_date": "26,Apr,2024",
       "imageUrl":
-          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
+          "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       "id": "13",
@@ -178,7 +180,7 @@ class _DeliveryAgentDashboardScreenState
       "assigned_customers": "19",
       "joined_date": "11,Jan,2024",
       "imageUrl":
-          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
+          "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       "id": "14",
@@ -190,7 +192,7 @@ class _DeliveryAgentDashboardScreenState
       "assigned_customers": "31",
       "joined_date": "02,Nov,2023",
       "imageUrl":
-          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
+          "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       "id": "15",
@@ -202,7 +204,7 @@ class _DeliveryAgentDashboardScreenState
       "assigned_customers": "36",
       "joined_date": "16,Dec,2022",
       "imageUrl":
-          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
+          "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       "id": "16",
@@ -214,7 +216,7 @@ class _DeliveryAgentDashboardScreenState
       "assigned_customers": "23",
       "joined_date": "09,Sep,2023",
       "imageUrl":
-          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
+          "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       "id": "17",
@@ -226,7 +228,7 @@ class _DeliveryAgentDashboardScreenState
       "assigned_customers": "29",
       "joined_date": "21,Jun,2024",
       "imageUrl":
-          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
+          "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       "id": "18",
@@ -238,7 +240,7 @@ class _DeliveryAgentDashboardScreenState
       "assigned_customers": "41",
       "joined_date": "13,Mar,2023",
       "imageUrl":
-          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
+          "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       "id": "19",
@@ -250,7 +252,7 @@ class _DeliveryAgentDashboardScreenState
       "assigned_customers": "33",
       "joined_date": "30,Aug,2022",
       "imageUrl":
-          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
+          "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       "id": "20",
@@ -262,7 +264,7 @@ class _DeliveryAgentDashboardScreenState
       "assigned_customers": "26",
       "joined_date": "24,Oct,2023",
       "imageUrl":
-          "https://i.pinimg.com/736x/c0/44/25/c04425f45f3ca3dbc120c40a596816d9.jpg",
+          "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
   ];
 
@@ -279,129 +281,175 @@ class _DeliveryAgentDashboardScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
+      backgroundColor: AppColors.scaffoldGreyThemeColor,
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: DashboardTopBar(
-              searchTextEditingController: deliverySearchController,
-              userImageUrl: "",
-            ),
+          // Search Top Bar
+          DashboardTopBar(
+            searchTextEditingController: deliverySearchController,
+            userImageUrl:
+                "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           ),
 
           Expanded(
             child: Row(
               children: [
+                // Main Content
                 Expanded(
                   flex: 3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: KButton(
-                          padding: EdgeInsets.all(20),
-                          text: "Add new",
-                          onPressed: () {
-                            context.readDeliveryAgentsProvider.setAddedEnabled(
-                              true,
-                            );
-                          },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: context.screenWidth * 0.01,
+                      vertical: context.screenHeight * 0.01,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 12,
+                            horizontal: 16,
+                          ),
+                          child: Row(
+                            children: [
+                              // Add New
+                              Expanded(
+                                flex: 2,
+                                child: MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      // Add Enabled Functionality
+                                      context.readDeliveryAgentsProvider
+                                          .setAddedEnabled(true);
+                                    },
+                                    child: Row(
+                                      spacing: context.screenWidth * 0.002,
+                                      children: [
+                                        // Add Icon
+                                        SvgPicture.asset(
+                                          AppAssets.addCircleIcon,
+                                          height: context.screenWidth * 0.009,
+                                          fit: BoxFit.cover,
+                                        ),
 
-                          // Add
-                          svgAssetPath: "",
-                          backgroundColor: AppColors.primaryColor,
-                        ),
-                      ),
-                      Container(
-                        color: Colors.grey.shade200,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12,
-                          horizontal: 16,
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 4,
-                              child: Text(
-                                "DELIVERY BOY",
-                                style: TextStyle(
-                                  color: Colors.brown,
-                                  fontWeight: FontWeight.w600,
+                                        // Add Text
+                                        Text(
+                                          "Add new",
+                                          style: TextStyle(
+                                            color: AppColors.primaryColor,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
 
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                "JOINED AT",
-                                style: TextStyle(
-                                  color: Colors.brown,
-                                  fontWeight: FontWeight.w600,
+                              // Delivery Boy
+                              Expanded(
+                                flex: 2,
+                                child: Text(
+                                  "DELIVERY BOY",
+                                  style: TextStyle(
+                                    color: AppColors.tableTitleColor,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                "WORK TIME",
-                                style: TextStyle(
-                                  color: Colors.brown,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                "ASSIGNED WITH",
-                                style: TextStyle(
-                                  color: Colors.brown,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                "SALARY",
-                                style: TextStyle(
-                                  color: Colors.brown,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
 
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: agents.length,
-                          itemBuilder: (context, index) {
-                            return DeliveryAgentCard(
-                              agent: agents[index],
-                              isSelected:
-                                  context
-                                      .watchDeliveryAgentProvider
-                                      .selectedAgent ==
-                                  agents[index],
-                              onTap: () {
-                                context.readDeliveryAgentsProvider
-                                    .setSelectedAgent(agents[index]);
-                                context.readDeliveryAgentsProvider
-                                    .setViewDetailsEnabled(true);
-                              },
-                            );
-                          },
+                              // Joined At
+                              Expanded(
+                                flex: 2,
+                                child: Text(
+                                  "JOINED AT",
+                                  style: TextStyle(
+                                    color: AppColors.tableTitleColor,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+
+                              // Work Time
+                              Expanded(
+                                flex: 2,
+                                child: Text(
+                                  "WORK TIME",
+                                  style: TextStyle(
+                                    color: AppColors.tableTitleColor,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+
+                              // Assigned With
+                              Expanded(
+                                flex: 2,
+                                child: Text(
+                                  "ASSIGNED WITH",
+                                  style: TextStyle(
+                                    color: AppColors.tableTitleColor,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+
+                              // Salary
+                              Expanded(
+                                flex: 2,
+                                child: Text(
+                                  "SALARY",
+                                  style: TextStyle(
+                                    color: AppColors.tableTitleColor,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+
+                        // List of Delivery Agents
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: agents.length,
+                            itemBuilder: (context, index) {
+                              final agent = agents[index];
+                              return DeliveryAgentCard(
+                                agent: agent,
+                                isSelected:
+                                    context
+                                        .watchDeliveryAgentProvider
+                                        .selectedAgent ==
+                                    agent,
+                                onTap: () {
+                                  context.readDeliveryAgentsProvider
+                                      .setSelectedAgent(agent);
+                                  context.readDeliveryAgentsProvider
+                                      .setViewDetailsEnabled(true);
+                                },
+                                deliveryAgentCardImageUrl:
+                                    agent["imageUrl"] ?? '',
+                                deliveryAgentName: agent["name"] ?? '',
+                                deliveryAgentPhoneNumber: agent["phone"] ?? '',
+                                deliveryAgentAddress: agent["address"] ?? '',
+                                deliveryAgentJoinedAt:
+                                    agent["joined_date"] ?? '',
+                                deliveryAgentWorkTime: agent["work_time"] ?? '',
+                                deliveryAgentAssignedWith:
+                                    agent["assigned_customers"] ?? '',
+                                deliveryAgentSalary: agent["salary"] ?? '',
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
 
+                // Calendar Content
                 Expanded(
                   flex: 1,
                   child: Consumer<DeliveryAgentsProvider>(
@@ -429,9 +477,8 @@ class _DeliveryAgentDashboardScreenState
                           onAddVendor: (Map<String, String> p1) {},
                         );
                       } else {
-                        return Container(
-                          color: Colors.white,
-                          padding: EdgeInsets.all(8),
+                        return ColoredBox(
+                          color: AppColors.whiteColor,
                           child: KCalender(),
                         );
                       }

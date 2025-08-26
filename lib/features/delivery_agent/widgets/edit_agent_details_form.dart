@@ -1,4 +1,5 @@
 import 'package:farm_thoughts_web_app/commons/widgets/k_text_form_field.dart';
+import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -104,8 +105,9 @@ class _EditAgentDetailsFormState extends State<EditAgentDetailsForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 400,
-      padding: const EdgeInsets.only(left: 8.0, right: 16.0, bottom: 16.0),
+      padding: EdgeInsets.symmetric(horizontal: context.screenWidth * 0.01),
+      width: context.screenWidth * 0.5,
+      color: AppColors.whiteColor,
       child: FormBuilder(
         key: _formKey,
         child: Column(
@@ -201,10 +203,11 @@ class _EditAgentDetailsFormState extends State<EditAgentDetailsForm> {
                               side: BorderSide(color: Colors.grey.shade400),
                             ),
                             onPressed: _handleCancel,
-                            child: const Text(
+                            child: Text(
                               'Cancel',
                               style: TextStyle(
-                                color: Colors.grey,
+                                color:
+                                    AppColors.assignedCustomerCardSubTitleColor,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -222,11 +225,11 @@ class _EditAgentDetailsFormState extends State<EditAgentDetailsForm> {
                               ),
                               elevation: 0,
                             ),
-                            child: const Text(
+                            child: Text(
                               'Add Vendor',
                               style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
+                                color: AppColors.whiteColor,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
