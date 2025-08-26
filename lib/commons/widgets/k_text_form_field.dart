@@ -1,3 +1,4 @@
+import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -30,28 +31,37 @@ class KTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      spacing: context.screenHeight * 0.01,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text.rich(
           TextSpan(
             text: label,
-            style: const TextStyle(
-              color: Colors.black87,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
+            style: TextStyle(
+              color: AppColors.titleColor,
+              fontSize: context.screenWidth * 0.008,
+              fontWeight: FontWeight.w600,
             ),
             children: isRequired
                 ? [
-                    const TextSpan(
+                    TextSpan(
                       text: ' *',
-                      style: TextStyle(color: Colors.red, fontSize: 14),
+                      style: TextStyle(
+                        color: AppColors.titleColor,
+                        fontSize: context.screenWidth * 0.008,
+                      ),
                     ),
                   ]
                 : [],
           ),
         ),
-        const SizedBox(height: 8),
+
         FormBuilderTextField(
+          style: TextStyle(
+            color: AppColors.titleColor,
+            fontSize: context.screenWidth * 0.0084,
+            fontWeight: FontWeight.w600,
+          ),
           name: name,
           controller: controller,
           keyboardType: keyboardType,
@@ -59,26 +69,33 @@ class KTextFormField extends StatelessWidget {
           maxLines: maxLines ?? 1,
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: const TextStyle(color: Colors.grey, fontSize: 12),
+            hintStyle: TextStyle(
+              color: AppColors.searchHintTextColor,
+              fontSize: context.screenWidth * 0.0084,
+              fontWeight: FontWeight.w500,
+            ),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(6),
-              borderSide: const BorderSide(color: Colors.grey),
+              borderRadius: BorderRadius.circular(context.screenWidth * 0.004),
+              borderSide: BorderSide(color: AppColors.searchHintTextColor),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(6),
-              borderSide: BorderSide(color: Colors.grey.shade300),
+              borderRadius: BorderRadius.circular(context.screenWidth * 0.004),
+              borderSide: BorderSide(color: AppColors.searchHintTextColor),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(6),
-              borderSide: BorderSide(color: AppColors.primaryColor, width: 2),
+              borderRadius: BorderRadius.circular(context.screenWidth * 0.004),
+              borderSide: BorderSide(color: AppColors.primaryColor, width: 1),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(6),
-              borderSide: const BorderSide(color: Colors.red),
+              borderSide: const BorderSide(color: AppColors.checkOutColor),
             ),
             focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(6),
-              borderSide: const BorderSide(color: Colors.red, width: 2),
+              borderRadius: BorderRadius.circular(context.screenWidth * 0.004),
+              borderSide: const BorderSide(
+                color: AppColors.checkOutColor,
+                width: 1,
+              ),
             ),
             contentPadding: EdgeInsets.symmetric(
               horizontal: 12,

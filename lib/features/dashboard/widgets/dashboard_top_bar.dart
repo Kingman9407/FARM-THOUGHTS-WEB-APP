@@ -1,3 +1,4 @@
+import 'package:farm_thoughts_web_app/commons/widgets/k_cached_network_profile_image.dart';
 import 'package:farm_thoughts_web_app/core/constants/app_assets.dart';
 import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
@@ -19,15 +20,13 @@ class DashboardTopBar extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 6,
-            offset: const Offset(0, 3),
+        color: AppColors.whiteColor,
+        border: Border(
+          bottom: BorderSide(
+            color: AppColors.scaffoldGreyThemeColor,
+            width: 0.4,
           ),
-        ],
+        ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -39,11 +38,16 @@ class DashboardTopBar extends StatelessWidget {
               controller: searchTextEditingController,
               decoration: InputDecoration(
                 hintText: "Search for milk delivery, delivery guys",
+                hintStyle: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.searchHintTextColor,
+                  fontSize: context.screenWidth * 0.008,
+                ),
                 prefixIcon: SvgPicture.asset(
                   AppAssets.searchIcon,
                   color: AppColors.titleColor,
-                  width: context.screenWidth * 0.010,
-                  height: context.screenWidth * 0.010,
+                  width: context.screenWidth * 0.013,
+                  height: context.screenWidth * 0.013,
                   fit: BoxFit.contain,
                 ),
                 prefixIconConstraints: BoxConstraints(
@@ -63,8 +67,8 @@ class DashboardTopBar extends StatelessWidget {
                 onTap: () {},
                 child: SvgPicture.asset(
                   AppAssets.settingsIcon,
-                  height: context.screenWidth * 0.012,
-                  width: context.screenWidth * 0.012,
+                  height: context.screenWidth * 0.018,
+                  width: context.screenWidth * 0.018,
                   color: AppColors.titleColor,
                   fit: BoxFit.cover,
                 ),
@@ -75,34 +79,18 @@ class DashboardTopBar extends StatelessWidget {
                 onTap: () {},
                 child: SvgPicture.asset(
                   AppAssets.notificationIcon,
-                  height: context.screenWidth * 0.012,
-                  width: context.screenWidth * 0.012,
+                  height: context.screenWidth * 0.018,
+                  width: context.screenWidth * 0.018,
                   color: AppColors.titleColor,
                   fit: BoxFit.cover,
                 ),
               ),
 
-              //  Person
-              CircleAvatar(
-                radius: 18,
-                backgroundColor: Colors.grey[200],
-                child: ClipOval(
-                  child: Image.network(
-                    userImageUrl,
-                    fit: BoxFit.cover,
-                    width: 18,
-                    height: 18,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Center(
-                        child: Icon(
-                          Icons.person,
-                          size: context.screenWidth * 0.02,
-                          color: Colors.grey,
-                        ),
-                      );
-                    },
-                  ),
-                ),
+              //  Person Profile Avatar
+              KCachedNetworkProfileImage(
+                imageUrl: userImageUrl,
+                height: context.screenWidth * 0.018,
+                width: context.screenWidth * 0.018,
               ),
             ],
           ),

@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     bottom: 20,
                     right: 20,
                     child: Text(
-                      "© Levitate Studios 2025",
+                      "© Farm Thoughts 2025",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: context.screenWidth * 0.007,
