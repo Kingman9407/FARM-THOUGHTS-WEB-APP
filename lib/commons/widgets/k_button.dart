@@ -15,6 +15,7 @@ class KButton extends StatelessWidget {
   final Color? textColor;
   final Color? iconColor;
   final double? iconSize;
+  final FontWeight? fontWeight;
   final bool isLoading;
 
   const KButton({
@@ -30,6 +31,7 @@ class KButton extends StatelessWidget {
     this.textColor,
     this.iconColor,
     this.iconSize,
+    this.fontWeight,
     this.isLoading = false,
   });
 
@@ -46,7 +48,6 @@ class KButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
           ),
         ),
-
         onPressed: isLoading ? () {} : onPressed,
         child: isLoading
             ? SizedBox(
@@ -55,7 +56,7 @@ class KButton extends StatelessWidget {
                 child: CircularProgressIndicator(
                   strokeWidth: 2,
                   valueColor: AlwaysStoppedAnimation<Color>(
-                    textColor ?? Colors.white,
+                    textColor ?? AppColors.whiteColor,
                   ),
                 ),
               )
@@ -75,8 +76,8 @@ class KButton extends StatelessWidget {
                   Text(
                     text,
                     style: TextStyle(
-                      color: textColor ?? Colors.white,
-                      fontWeight: FontWeight.w600,
+                      color: textColor ?? AppColors.whiteColor,
+                      fontWeight: fontWeight ?? FontWeight.w600,
                     ),
                   ),
                 ],

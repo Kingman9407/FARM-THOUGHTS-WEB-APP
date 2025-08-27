@@ -424,8 +424,11 @@ class _DeliveryAgentDashboardScreenState
                                         .selectedAgent ==
                                     agent,
                                 onTap: () {
+                                  // Select Delivery Agent
                                   context.readDeliveryAgentsProvider
                                       .setSelectedAgent(agent);
+
+                                  // Read Delivery Agent
                                   context.readDeliveryAgentsProvider
                                       .setViewDetailsEnabled(true);
                                 },
@@ -454,7 +457,7 @@ class _DeliveryAgentDashboardScreenState
                   flex: 1,
                   child: Consumer<DeliveryAgentsProvider>(
                     builder: (context, agentProvider, child) {
-                      if (agentProvider.isAddedEnabled) {
+                      if (agentProvider.isAddedEntriesEnabled) {
                         return AddAgentForm(
                           onClose: () =>
                               context.readDeliveryAgentsProvider.resetAll(),
@@ -466,18 +469,20 @@ class _DeliveryAgentDashboardScreenState
                             );
                           },
                         );
-                      } else if (agentProvider.isViewDetailsEnabled) {
+                      } else if (agentProvider.isViewEntriesDetailsEnabled) {
                         return ViewAgentDetails(
                           vendorDetails:
                               context.readDeliveryAgentsProvider.selectedAgent!,
                         );
+                      } else if (agentProvider.isEditEntriesEnabled) {
+                        return EditAgentDetailsForm(
+                          onClose: () => context.readDeliveryAgentsProvider.resetAll(),
+                          onAddVendor: (Map<String, String> p1) {},
+                        );
                       } else if (agentProvider.isEditEnabled) {
-                        return AssignCustomerWidget(onClose: () {});
-                        // return EditAgentDetailsForm(
-                        //   onClose: () {},
-                        //   // context.readDeliveryAgentsProvider.resetAll(),
-                        //   onAddVendor: (Map<String, String> p1) {},
-                        // );
+                        return AssignCustomerWidget(
+                          onClose: () => context.readDeliveryAgentsProvider.resetAll(),
+                        );
                       } else {
                         return ColoredBox(
                           color: AppColors.whiteColor,
