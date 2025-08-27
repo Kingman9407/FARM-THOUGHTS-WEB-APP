@@ -150,7 +150,7 @@ class _DeliveryEntriesScreenState extends State<DeliveryEntriesScreen> {
                                   child: GestureDetector(
                                     onTap: () {
                                       // Add Enabled Functionality
-                                      context.readDeliveryAgentsProvider
+                                      context.readDeliveryEntriesProvider
                                           .setAddedEnabled(true);
                                     },
                                     child: Row(
@@ -333,7 +333,11 @@ class _DeliveryEntriesScreenState extends State<DeliveryEntriesScreen> {
                         );
                       } else if (deliveryEntriesProvider.isEditEnabled) {
                         return EditDeliveryEntries(
-                          onArrowBackTap: () {},
+                          onArrowBackTap: () {
+                            // Reset All Entries
+                            context.readDeliveryEntriesProvider
+                                .resetAllEntries();
+                          },
                           onNextTap: () {
                             // Set Delivered Agents Added
                             context.readDeliveryEntriesProvider
@@ -342,7 +346,13 @@ class _DeliveryEntriesScreenState extends State<DeliveryEntriesScreen> {
                         );
                       } else if (deliveryEntriesProvider
                           .isDeliveredAgentsAdded) {
-                        return AddDeliveryAgentsEntries();
+                        return AddDeliveryAgentsEntries(
+                          onClose: () {
+                            // Reset All Entries
+                            context.readDeliveryEntriesProvider
+                                .resetAllEntries();
+                          },
+                        );
                       } else {
                         return ColoredBox(
                           color: AppColors.whiteColor,

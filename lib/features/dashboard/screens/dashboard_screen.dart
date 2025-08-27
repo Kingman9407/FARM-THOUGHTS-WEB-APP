@@ -123,7 +123,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             gridDelegate:
                                 SliverGridDelegateWithMaxCrossAxisExtent(
                                   maxCrossAxisExtent: context.screenWidth / 2,
-                                  // ✅ 2 per row
                                   crossAxisSpacing: context.screenWidth * 0.01,
                                   mainAxisSpacing: context.screenHeight * 0.01,
                                   mainAxisExtent: context.screenHeight / 7,

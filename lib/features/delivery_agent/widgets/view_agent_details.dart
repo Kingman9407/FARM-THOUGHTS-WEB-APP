@@ -44,6 +44,7 @@ class ViewAgentDetails extends StatelessWidget {
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
                   onTap: () {
+                    AppLoggerHelper.logWarning("clicked the edit button");
                     context.readDeliveryAgentsProvider.setEditEnabled(true);
                   },
                   child: SvgPicture.asset(

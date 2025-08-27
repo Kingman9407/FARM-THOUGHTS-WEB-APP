@@ -57,7 +57,6 @@ class KTextFormField extends StatelessWidget {
                 : [],
           ),
         ),
-
         FormBuilderTextField(
           style: TextStyle(
             color: AppColors.titleColor,
