@@ -1,5 +1,7 @@
 import 'package:farm_thoughts_web_app/commons/widgets/k_text_form_field.dart';
+import 'package:farm_thoughts_web_app/commons/widgets/k_time_picker.dart';
 import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart';
+import 'package:farm_thoughts_web_app/core/helpers/app_logger_helper.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -133,15 +135,15 @@ class _AddAgentFormState extends State<AddAgentForm> {
             // ✅ Only this part scrolls
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.only(bottom: 16), // space at bottom
+                padding: const EdgeInsets.only(bottom: 16),
                 child: Column(
                   spacing: 16,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     KTextFormField(
-                      name: 'vendorName',
-                      label: 'Vendor Name',
-                      hintText: 'Enter vendor name',
+                      name: 'agentName',
+                      label: 'Agent Name',
+                      hintText: 'Enter agent name',
                       controller: nameController,
                       isRequired: true,
                     ),
@@ -155,6 +157,7 @@ class _AddAgentFormState extends State<AddAgentForm> {
                       maxLines: 3,
                     ),
                     KTextFormField(
+                      isMobileNo: true,
                       name: 'mobileNumber',
                       label: 'Phone Number',
                       hintText: 'Enter 10-digit phone number',
@@ -172,12 +175,18 @@ class _AddAgentFormState extends State<AddAgentForm> {
                       ),
                       isRequired: true,
                     ),
-                    KTextFormField(
-                      name: 'workTime',
-                      label: 'Work Time',
-                      hintText: '9am-12pm',
-                      controller: workTimeController,
+
+                    KTimePicker(
+                      name: 'working_hours',
+                      label: 'Working Hours',
                       isRequired: true,
+                      initialStartTime: const TimeOfDay(hour: 9, minute: 0),
+                      initialEndTime: const TimeOfDay(hour: 17, minute: 0),
+                      onChanged: (start, end) {
+                        AppLoggerHelper.logWarning(
+                          "Start: ${start.format(context)}, End: ${end.format(context)}",
+                        );
+                      },
                     ),
                     KTextFormField(
                       name: 'assignedCustomers',
@@ -204,13 +213,13 @@ class _AddAgentFormState extends State<AddAgentForm> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(6),
                               ),
-                              side: BorderSide(color: Colors.grey.shade400),
+                              side: BorderSide(color: AppColors.primaryColor),
                             ),
                             onPressed: _handleCancel,
                             child: const Text(
                               'Cancel',
                               style: TextStyle(
-                                color: Colors.grey,
+                                color: AppColors.primaryColor,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -229,7 +238,7 @@ class _AddAgentFormState extends State<AddAgentForm> {
                               elevation: 0,
                             ),
                             child: const Text(
-                              'Add Vendor',
+                              'Add Agent',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,

@@ -2,15 +2,37 @@ import 'package:farm_thoughts_web_app/commons/widgets/k_cached_network_profile_i
 import 'package:farm_thoughts_web_app/core/constants/app_assets.dart';
 import 'package:farm_thoughts_web_app/core/extensions/providers/provider_extension.dart';
 import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart';
+import 'package:farm_thoughts_web_app/core/extensions/ui/snackbar_extension.dart';
 import 'package:farm_thoughts_web_app/core/helpers/app_logger_helper.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ViewAgentDetails extends StatelessWidget {
+import 'delete_delivery_agent.dart';
+
+class ViewAgentDetails extends StatefulWidget {
   final Map<String, String> vendorDetails;
 
   const ViewAgentDetails({super.key, required this.vendorDetails});
+
+  @override
+  State<ViewAgentDetails> createState() => _ViewAgentDetailsState();
+}
+
+class _ViewAgentDetailsState extends State<ViewAgentDetails> {
+  bool isLoading = false;
+  Future<void> _handleDelete() async {
+    setState(() {
+      isLoading = true;
+    });
+    await Future.delayed(const Duration(seconds: 3));
+    if (mounted) {
+      context.showSuccessSnackBar("Agent Deleted Successfully");
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +67,9 @@ class ViewAgentDetails extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () {
                     AppLoggerHelper.logWarning("clicked the edit button");
-                    context.readDeliveryAgentsProvider.setEditEnabled(true);
+                    context.readDeliveryAgentsProvider.setEditAgentsEnabled(
+                      true,
+                    );
                   },
                   child: SvgPicture.asset(
                     AppAssets.editIcon,
@@ -63,7 +87,32 @@ class ViewAgentDetails extends StatelessWidget {
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
                   onTap: () {
-                    AppLoggerHelper.logResponse(vendorDetails.values);
+                    AppLoggerHelper.logResponse(widget.vendorDetails.values);
+                    showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (BuildContext context) {
+                        return DeleteDeliveryAgent(
+                          onConfirm: () async {
+                            // Your delete logic here
+                            await Future.delayed(const Duration(seconds: 3));
+
+                            if (mounted) {
+                              context.showSuccessSnackBar(
+                                "Agent Deleted Successfully",
+                              );
+                              Navigator.of(context).pop();
+                            }
+                          },
+                          onCancel: () {
+                            Navigator.of(context).pop();
+                          },
+                          title: 'Delete Delivery Agent',
+                          message:
+                              'Are you sure you want to delete ${widget.vendorDetails['name'] ?? 'this agent'}?',
+                        );
+                      },
+                    );
                   },
                   child: SvgPicture.asset(
                     AppAssets.deleteIcon,
@@ -82,7 +131,7 @@ class ViewAgentDetails extends StatelessWidget {
             children: [
               // Image
               KCachedNetworkProfileImage(
-                imageUrl: vendorDetails["imageUrl"]!,
+                imageUrl: widget.vendorDetails["imageUrl"]!,
                 height: context.screenWidth * 0.04,
                 width: context.screenWidth * 0.04,
               ),
@@ -95,7 +144,7 @@ class ViewAgentDetails extends StatelessWidget {
                 children: [
                   // Name
                   Text(
-                    vendorDetails['name'] ?? 'N/A',
+                    widget.vendorDetails['name'] ?? 'N/A',
                     style: TextStyle(
                       fontSize: context.screenWidth * 0.01,
                       fontWeight: FontWeight.w700,
@@ -105,7 +154,7 @@ class ViewAgentDetails extends StatelessWidget {
 
                   // Phone Number
                   Text(
-                    '+91 ${vendorDetails['phone'] ?? 'N/A'}',
+                    '+91 ${widget.vendorDetails['phone'] ?? 'N/A'}',
                     style: TextStyle(
                       fontSize: context.screenWidth * 0.009,
                       fontWeight: FontWeight.w400,
@@ -131,7 +180,7 @@ class ViewAgentDetails extends StatelessWidget {
 
           // Vendor Address
           Text(
-            vendorDetails['address'] ?? 'Address not available',
+            widget.vendorDetails['address'] ?? 'Address not available',
             style: TextStyle(
               fontSize: context.screenWidth * 0.009,
               fontWeight: FontWeight.w400,
@@ -161,7 +210,7 @@ class ViewAgentDetails extends StatelessWidget {
 
                     // Joined At Date
                     Text(
-                      vendorDetails['joined_date'] ?? 'N/A',
+                      widget.vendorDetails['joined_date'] ?? 'N/A',
                       style: TextStyle(
                         fontSize: context.screenWidth * 0.009,
                         fontWeight: FontWeight.w600,
@@ -189,7 +238,7 @@ class ViewAgentDetails extends StatelessWidget {
 
                     // Vendor Salary
                     Text(
-                      '₹ ${vendorDetails['salary'] ?? '0'}.00',
+                      '₹ ${widget.vendorDetails['salary'] ?? '0'}.00',
                       style: TextStyle(
                         fontSize: context.screenWidth * 0.009,
                         fontWeight: FontWeight.w600,
@@ -221,7 +270,7 @@ class ViewAgentDetails extends StatelessWidget {
 
               // Work Time Text
               Text(
-                vendorDetails['work_time'] ?? 'N/A',
+                widget.vendorDetails['work_time'] ?? 'N/A',
                 style: TextStyle(
                   fontSize: context.screenWidth * 0.009,
                   fontWeight: FontWeight.w600,

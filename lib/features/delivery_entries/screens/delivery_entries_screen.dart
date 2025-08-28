@@ -151,7 +151,7 @@ class _DeliveryEntriesScreenState extends State<DeliveryEntriesScreen> {
                                     onTap: () {
                                       // Add Enabled Functionality
                                       context.readDeliveryEntriesProvider
-                                          .setAddedEnabled(true);
+                                          .setAddedEntriesEnabled(true);
                                     },
                                     child: Row(
                                       spacing: context.screenWidth * 0.002,
@@ -341,18 +341,12 @@ class _DeliveryEntriesScreenState extends State<DeliveryEntriesScreen> {
                           onNextTap: () {
                             // Set Delivered Agents Added
                             context.readDeliveryEntriesProvider
-                                .setDeliveredAgentsAdded(true);
+                                .setAddedEntriesEnabled(true);
                           },
                         );
                       } else if (deliveryEntriesProvider
                           .isDeliveredAgentsAdded) {
-                        return AddDeliveryAgentsEntries(
-                          onClose: () {
-                            // Reset All Entries
-                            context.readDeliveryEntriesProvider
-                                .resetAllEntries();
-                          },
-                        );
+                        return AddDeliveryAgentsEntries();
                       } else {
                         return ColoredBox(
                           color: AppColors.whiteColor,

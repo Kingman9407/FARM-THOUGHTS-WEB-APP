@@ -1,5 +1,8 @@
 import 'package:farm_thoughts_web_app/commons/widgets/k_button.dart';
+import 'package:farm_thoughts_web_app/commons/widgets/k_date_picker.dart';
 import 'package:farm_thoughts_web_app/commons/widgets/k_text_form_field.dart';
+import 'package:farm_thoughts_web_app/commons/widgets/k_time_picker.dart';
+import 'package:farm_thoughts_web_app/core/extensions/providers/provider_extension.dart';
 import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart';
 import 'package:farm_thoughts_web_app/core/helpers/app_logger_helper.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
@@ -118,10 +121,19 @@ class _EditAgentDetailsFormState extends State<EditAgentDetailsForm> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
+                IconButton(
+                  onPressed: () {
+                    context.readDeliveryAgentsProvider.resetAll();
+                  },
+                  icon: Icon(Icons.arrow_back),
+                ),
                 KButton(
                   text: "Next",
-                  onPressed: () {},
+                  onPressed: () {
+                    context.readDeliveryAgentsProvider.setEditNextButtonClicked(
+                      true,
+                    );
+                  },
                   backgroundColor: AppColors.primaryColor,
                 ),
               ],
@@ -143,9 +155,9 @@ class _EditAgentDetailsFormState extends State<EditAgentDetailsForm> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     KTextFormField(
-                      name: 'vendorName',
-                      label: 'Vendor Name',
-                      hintText: 'Enter vendor name',
+                      name: 'agentName',
+                      label: 'Agent Name',
+                      hintText: 'Enter Agent name',
                       controller: nameController,
                       isRequired: true,
                     ),
@@ -159,6 +171,7 @@ class _EditAgentDetailsFormState extends State<EditAgentDetailsForm> {
                       maxLines: 3,
                     ),
                     KTextFormField(
+                      isMobileNo: true,
                       name: 'mobileNumber',
                       label: 'Phone Number',
                       hintText: 'Enter 10-digit phone number',
@@ -176,12 +189,27 @@ class _EditAgentDetailsFormState extends State<EditAgentDetailsForm> {
                       ),
                       isRequired: true,
                     ),
-                    KTextFormField(
-                      name: 'workTime',
-                      label: 'Work Time',
-                      hintText: '9am-12pm',
-                      controller: workTimeController,
+
+                    KTimePicker(
+                      name: "workTime",
+                      label: "Work time",
                       isRequired: true,
+                      initialStartTime: const TimeOfDay(hour: 9, minute: 0),
+                      initialEndTime: const TimeOfDay(hour: 18, minute: 0),
+                      onChanged: (start, end) {
+                        print(
+                          "Selected: ${start.format(context)} - ${end.format(context)}",
+                        );
+                      },
+                    ),
+                    KDatePicker(
+                      name: "joinedDate",
+                      label: "Joined at",
+                      isRequired: true,
+                      initialDate: DateTime.now(),
+                      onChanged: (date) {
+                        print("Selected date: $date");
+                      },
                     ),
                   ],
                 ),

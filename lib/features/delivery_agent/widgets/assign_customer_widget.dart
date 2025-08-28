@@ -1,5 +1,6 @@
 import 'package:farm_thoughts_web_app/commons/widgets/k_button.dart';
-import 'package:farm_thoughts_web_app/commons/widgets/k_seach_field.dart';
+import 'package:farm_thoughts_web_app/commons/widgets/k_text_form_field.dart';
+import 'package:farm_thoughts_web_app/core/extensions/providers/provider_extension.dart';
 import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/add_customer_card.dart';
@@ -39,33 +40,41 @@ class _AssignCustomerWidgetState extends State<AssignCustomerWidget> {
         spacing: context.screenWidth * 0.009,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Top row with back button + next button
+          // SizedBox(height: context.screenWidth * 0.002),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
+              IconButton(
+                onPressed: widget.onClose,
+                icon: const Icon(Icons.arrow_back),
+              ),
               KButton(
                 text: "Next",
-                onPressed: () {},
+                onPressed: () => context.readDeliveryAgentsProvider.resetAll(),
                 backgroundColor: AppColors.primaryColor,
               ),
-              // KButton(
-              //   text: "Submit",
-              //   onPressed: () {},
-              //   backgroundColor: AppColors.primaryColor,
-              // ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Assign Customer',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ],
+          // SizedBox(height: context.screenWidth * 0.002),
+
+          // Title
+          const Text(
+            'Assign Customer',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          KSearchField(controller: searchController),
-          SizedBox(height: context.screenWidth * 0.002),
+
+          // Search field
+          KTextFormField(
+            name: "Add Customer",
+            hintText: "Add Customer",
+            prefixIcon: Icon(
+              Icons.search,
+              color: AppColors.searchHintTextColor,
+            ),
+          ),
+
+          // List of customers
           Expanded(
             child: ListView.builder(
               itemBuilder: (context, index) {

@@ -6,17 +6,6 @@ class DeliveryEntriesProvider extends ChangeNotifier {
   bool isEditEnabled = false;
   bool isDeliveredAgentsAdded = false;
 
-  void setDeliveredAgentsAdded(bool value) {
-    isDeliveredAgentsAdded = value;
-    if (value) {
-      isAddedEnabled = false;
-      isViewDetailsEnabled = false;
-      isEditEnabled = false;
-      _selectedAgent = null;
-    }
-    notifyListeners();
-  }
-
   Map<String, String>? _selectedAgent;
 
   Map<String, String>? get selectedEntries => _selectedAgent;

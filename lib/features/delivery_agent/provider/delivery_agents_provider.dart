@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class DeliveryAgentsProvider extends ChangeNotifier {
-  bool isAddedEntriesEnabled = false;
-  bool isViewEntriesDetailsEnabled = false;
-  bool isEditEntriesEnabled = false;
+  bool isAddAgentsEnabled = false;
+  bool isViewAgentsDetailsEnabled = false;
+  bool isEditAgentsEnabled = false;
+  bool isEditNextButtonClicked = false;
 
   Map<String, String>? _selectedAgent;
 
@@ -19,38 +20,53 @@ class DeliveryAgentsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setViewDetailsEnabled(bool value) {
-    isViewEntriesDetailsEnabled = value;
+  void setViewAgentsDetailsEnabled(bool value) {
+    isViewAgentsDetailsEnabled = value;
     if (value) {
-      isAddedEntriesEnabled = false;
-      isEditEntriesEnabled = false;
+      isAddAgentsEnabled = false;
+      isEditAgentsEnabled = false;
+      isEditNextButtonClicked = false;
     }
     notifyListeners();
   }
 
-  void setEditEnabled(bool value) {
-    isEditEntriesEnabled = value;
+  void setEditNextButtonClicked(bool value) {
+    isEditNextButtonClicked = value;
     if (value) {
-      isAddedEntriesEnabled = false;
-      isViewEntriesDetailsEnabled = false;
+      // When going to assign customer, disable other states
+      isAddAgentsEnabled = false;
+      isViewAgentsDetailsEnabled = false;
+      isEditAgentsEnabled = false;
     }
     notifyListeners();
   }
 
-  void setAddedEnabled(bool value) {
-    isAddedEntriesEnabled = value;
+  void setEditAgentsEnabled(bool value) {
+    isEditAgentsEnabled = value;
     if (value) {
-      isViewEntriesDetailsEnabled = false;
-      isEditEntriesEnabled = false;
+      isAddAgentsEnabled = false;
+      isViewAgentsDetailsEnabled = false;
+      isEditNextButtonClicked = false; // Reset this too when editing
+    }
+    notifyListeners();
+  }
+
+  void setAddAgentsEnabled(bool value) {
+    isAddAgentsEnabled = value;
+    if (value) {
+      isViewAgentsDetailsEnabled = false;
+      isEditAgentsEnabled = false;
+      isEditNextButtonClicked = false; // Reset this too when adding
       _selectedAgent = null;
     }
     notifyListeners();
   }
 
   void resetAll() {
-    isAddedEntriesEnabled = false;
-    isViewEntriesDetailsEnabled = false;
-    isEditEntriesEnabled = false;
+    isAddAgentsEnabled = false;
+    isViewAgentsDetailsEnabled = false;
+    isEditAgentsEnabled = false;
+    isEditNextButtonClicked = false;
     _selectedAgent = null;
     notifyListeners();
   }

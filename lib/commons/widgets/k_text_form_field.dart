@@ -1,12 +1,13 @@
 import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 class KTextFormField extends StatelessWidget {
   final String name;
-  final String label;
+  final String? label;
   final String hintText;
   final TextInputType? keyboardType;
   final bool isRequired;
@@ -15,11 +16,12 @@ class KTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final int? maxLines;
   final Widget? prefixIcon;
+  final bool isMobileNo;
 
   const KTextFormField({
     super.key,
     required this.name,
-    required this.label,
+    this.label,
     required this.hintText,
     this.keyboardType,
     this.isRequired = false,
@@ -28,6 +30,7 @@ class KTextFormField extends StatelessWidget {
     this.controller,
     this.maxLines,
     this.prefixIcon,
+    this.isMobileNo = false,
   });
 
   @override
@@ -49,7 +52,7 @@ class KTextFormField extends StatelessWidget {
                     TextSpan(
                       text: ' *',
                       style: TextStyle(
-                        color: AppColors.titleColor,
+                        color: AppColors.checkOutColor,
                         fontSize: context.screenWidth * 0.008,
                       ),
                     ),
@@ -68,6 +71,13 @@ class KTextFormField extends StatelessWidget {
           keyboardType: keyboardType,
           initialValue: initialValue,
           maxLines: maxLines ?? 1,
+
+          inputFormatters: isMobileNo
+              ? [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(10),
+                ]
+              : [],
           decoration: InputDecoration(
             prefixIcon: prefixIcon,
             hintText: hintText,
@@ -125,7 +135,7 @@ class KTextFormField extends StatelessWidget {
     }
 
     // Add specific field validators based on label
-    if (label.toLowerCase().contains('phone')) {
+    if (label!.toLowerCase().contains('phone')) {
       validatorList.add(
         FormBuilderValidators.match(
           RegExp(r'^\d{10}$'),
@@ -134,8 +144,8 @@ class KTextFormField extends StatelessWidget {
       );
     }
 
-    if (label.toLowerCase().contains('salary') ||
-        label.toLowerCase().contains('price')) {
+    if (label!.toLowerCase().contains('salary') ||
+        label!.toLowerCase().contains('price')) {
       validatorList.add(
         FormBuilderValidators.numeric(errorText: 'Enter a valid amount'),
       );
@@ -147,7 +157,7 @@ class KTextFormField extends StatelessWidget {
       );
     }
 
-    if (label.toLowerCase().contains('address')) {
+    if (label!.toLowerCase().contains('address')) {
       validatorList.add(
         FormBuilderValidators.minLength(
           10,

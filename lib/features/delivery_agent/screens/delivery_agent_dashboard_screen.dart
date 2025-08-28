@@ -9,6 +9,7 @@ import 'package:farm_thoughts_web_app/features/delivery_agent/provider/delivery_
 import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/add_agent_form.dart';
 import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/assign_customer_widget.dart';
 import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/delivery_agents_card.dart';
+import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/edit_agent_details_form.dart';
 import 'package:farm_thoughts_web_app/features/delivery_agent/widgets/view_agent_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -321,7 +322,7 @@ class _DeliveryAgentDashboardScreenState
                                     onTap: () {
                                       // Add Enabled Functionality
                                       context.readDeliveryAgentsProvider
-                                          .setAddedEnabled(true);
+                                          .setAddAgentsEnabled(true);
                                     },
                                     child: Row(
                                       spacing: context.screenWidth * 0.002,
@@ -430,7 +431,7 @@ class _DeliveryAgentDashboardScreenState
 
                                   // Read Delivery Agent
                                   context.readDeliveryAgentsProvider
-                                      .setViewDetailsEnabled(true);
+                                      .setViewAgentsDetailsEnabled(true);
                                 },
                                 deliveryAgentCardImageUrl:
                                     agent["imageUrl"] ?? '',
@@ -453,35 +454,85 @@ class _DeliveryAgentDashboardScreenState
                 ),
 
                 // Calendar Content
+                // Expanded(
+                //   flex: 1,
+                //   child: Consumer<DeliveryAgentsProvider>(
+                //     builder: (context, agentProvider, child) {
+                //       AppLoggerHelper.logWarning(
+                //         agentProvider.isEditNextButtonClicked,
+                //       );
+                //       if (agentProvider.isAddAgentsEnabled) {
+                //         return AddAgentForm(
+                //           onClose: () =>
+                //               context.readDeliveryAgentsProvider.resetAll(),
+                //           onAddVendor: (Map<String, String> data) {
+                //             agents.add(data);
+                //             context.readDeliveryAgentsProvider.resetAll();
+                //             context.showSuccessSnackBar(
+                //               "${data['name']} has been added successfully",
+                //             );
+                //           },
+                //         );
+                //       } else if (agentProvider.isViewAgentsDetailsEnabled) {
+                //         return ViewAgentDetails(
+                //           vendorDetails:
+                //               context.readDeliveryAgentsProvider.selectedAgent!,
+                //         );
+                //       } else if (agentProvider.isEditAgentsEnabled) {
+                //         return EditAgentDetailsForm(
+                //           onClose: () =>
+                //               context.readDeliveryAgentsProvider.resetAll(),
+                //           onAddVendor: (Map<String, String> p1) {},
+                //         );
+                //       }
+                //       // else if (agentProvider.isEditNextButtonClicked) {
+                //       //   return AssignCustomerWidget(
+                //       //     onClose: () =>
+                //       //         context.readDeliveryAgentsProvider.resetAll(),
+                //       //   );
+                //       // }
+                //       else {
+                //         return ColoredBox(
+                //           color: AppColors.whiteColor,
+                //           child: KCalender(),
+                //         );
+                //       }
+                //     },
+                //   ),
+                // ),
+                // Calendar Content
                 Expanded(
                   flex: 1,
                   child: Consumer<DeliveryAgentsProvider>(
                     builder: (context, agentProvider, child) {
-                      if (agentProvider.isAddedEntriesEnabled) {
+                      if (agentProvider.isEditNextButtonClicked) {
+                        return AssignCustomerWidget(
+                          onClose: () {
+                            // First set isEditNextButtonClicked to false
+                            agentProvider.setEditNextButtonClicked(false);
+                            // Then enable edit agents view
+                            agentProvider.setEditAgentsEnabled(true);
+                          },
+                        );
+                      } else if (agentProvider.isAddAgentsEnabled) {
                         return AddAgentForm(
-                          onClose: () =>
-                              context.readDeliveryAgentsProvider.resetAll(),
+                          onClose: () => agentProvider.resetAll(),
                           onAddVendor: (Map<String, String> data) {
                             agents.add(data);
-                            context.readDeliveryAgentsProvider.resetAll();
+                            agentProvider.resetAll();
                             context.showSuccessSnackBar(
                               "${data['name']} has been added successfully",
                             );
                           },
                         );
-                      } else if (agentProvider.isViewEntriesDetailsEnabled) {
+                      } else if (agentProvider.isViewAgentsDetailsEnabled) {
                         return ViewAgentDetails(
-                          vendorDetails:
-                              context.readDeliveryAgentsProvider.selectedAgent!,
+                          vendorDetails: agentProvider.selectedAgent!,
                         );
-                      } else if (agentProvider.isEditEntriesEnabled) {
+                      } else if (agentProvider.isEditAgentsEnabled) {
                         return EditAgentDetailsForm(
-                          onClose: () => context.readDeliveryAgentsProvider.resetAll(),
+                          onClose: () => agentProvider.resetAll(),
                           onAddVendor: (Map<String, String> p1) {},
-                        );
-                      } else if (agentProvider.isEditEnabled) {
-                        return AssignCustomerWidget(
-                          onClose: () => context.readDeliveryAgentsProvider.resetAll(),
                         );
                       } else {
                         return ColoredBox(
