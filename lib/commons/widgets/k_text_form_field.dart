@@ -39,27 +39,28 @@ class KTextFormField extends StatelessWidget {
       spacing: context.screenHeight * 0.01,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text.rich(
-          TextSpan(
-            text: label,
-            style: TextStyle(
-              color: AppColors.titleColor,
-              fontSize: context.screenWidth * 0.008,
-              fontWeight: FontWeight.w600,
-            ),
-            children: isRequired
-                ? [
-                    TextSpan(
-                      text: ' *',
-                      style: TextStyle(
-                        color: AppColors.checkOutColor,
-                        fontSize: context.screenWidth * 0.008,
+        if (label != null)
+          Text.rich(
+            TextSpan(
+              text: label,
+              style: TextStyle(
+                color: AppColors.titleColor,
+                fontSize: context.screenWidth * 0.008,
+                fontWeight: FontWeight.w600,
+              ),
+              children: isRequired
+                  ? [
+                      TextSpan(
+                        text: ' *',
+                        style: TextStyle(
+                          color: AppColors.checkOutColor,
+                          fontSize: context.screenWidth * 0.008,
+                        ),
                       ),
-                    ),
-                  ]
-                : [],
+                    ]
+                  : [],
+            ),
           ),
-        ),
         FormBuilderTextField(
           style: TextStyle(
             color: AppColors.titleColor,
@@ -71,7 +72,6 @@ class KTextFormField extends StatelessWidget {
           keyboardType: keyboardType,
           initialValue: initialValue,
           maxLines: maxLines ?? 1,
-
           inputFormatters: isMobileNo
               ? [
                   FilteringTextInputFormatter.digitsOnly,
@@ -130,12 +130,16 @@ class KTextFormField extends StatelessWidget {
     // Add required validator if needed
     if (isRequired) {
       validatorList.add(
-        FormBuilderValidators.required(errorText: '$label is required'),
+        FormBuilderValidators.required(
+          errorText: '${label ?? "This field"} is required',
+        ),
       );
     }
 
-    // Add specific field validators based on label
-    if (label!.toLowerCase().contains('phone')) {
+    // Add specific field validators based on label (if label exists)
+    final labelText = label?.toLowerCase() ?? '';
+
+    if (labelText.contains('phone')) {
       validatorList.add(
         FormBuilderValidators.match(
           RegExp(r'^\d{10}$'),
@@ -144,8 +148,7 @@ class KTextFormField extends StatelessWidget {
       );
     }
 
-    if (label!.toLowerCase().contains('salary') ||
-        label!.toLowerCase().contains('price')) {
+    if (labelText.contains('salary') || labelText.contains('price')) {
       validatorList.add(
         FormBuilderValidators.numeric(errorText: 'Enter a valid amount'),
       );
@@ -157,7 +160,7 @@ class KTextFormField extends StatelessWidget {
       );
     }
 
-    if (label!.toLowerCase().contains('address')) {
+    if (labelText.contains('address')) {
       validatorList.add(
         FormBuilderValidators.minLength(
           10,
