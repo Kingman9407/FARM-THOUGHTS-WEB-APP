@@ -21,4 +21,12 @@ class AppAssets {
   static const String notificationIcon = "assets/icons/notification.svg";
   static const String searchIcon = "assets/icons/search.svg";
   static const String settingsIcon = "assets/icons/settings.svg";
+  static const String totalMilkDeliveredIcon =
+      "assets/icons/total-milk-delivered.svg";
+  static const String totalMoneyEarnedIcon =
+      "assets/icons/total-money-earned.svg";
+  static const String totalMilkRequiredIcon =
+      "assets/icons/total-milk-required.svg";
+  static const String addCircleIcon = "assets/icons/add-circle.svg";
+  static const String callIcon = "assets/icons/call-icon.svg";
 }

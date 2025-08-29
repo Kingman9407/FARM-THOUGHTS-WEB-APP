@@ -27,13 +27,13 @@ class _SideBarState extends State<SideBar> {
     },
     {
       "icon": AppAssets.deliveryEntriesIcon,
-      "label": "Delivery Guys",
-      "route": "/deliveryAgents",
+      "label": "Delivery Agents",
+      "route": "/delivery-agents",
     },
     {
       "icon": AppAssets.deliveryGuysIcon,
       "label": "Delivery Entries",
-      "route": "/deliveryEntries",
+      "route": "/delivery-entries",
     },
     {
       "icon": AppAssets.collectionIcon,

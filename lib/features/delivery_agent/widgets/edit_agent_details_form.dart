@@ -1,4 +1,10 @@
+import 'package:farm_thoughts_web_app/commons/widgets/k_button.dart';
+import 'package:farm_thoughts_web_app/commons/widgets/k_date_picker.dart';
 import 'package:farm_thoughts_web_app/commons/widgets/k_text_form_field.dart';
+import 'package:farm_thoughts_web_app/commons/widgets/k_time_picker.dart';
+import 'package:farm_thoughts_web_app/core/extensions/providers/provider_extension.dart';
+import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart';
+import 'package:farm_thoughts_web_app/core/helpers/app_logger_helper.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -69,8 +75,7 @@ class _EditAgentDetailsFormState extends State<EditAgentDetailsForm> {
       };
 
       // Debug print to check the data
-      print('Vendor data being sent: $vendorData');
-
+      AppLoggerHelper.logResponse(vendorData);
       widget.onAddVendor(vendorData);
       _clearForm();
       widget.onClose();
@@ -104,24 +109,41 @@ class _EditAgentDetailsFormState extends State<EditAgentDetailsForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 400,
-      padding: const EdgeInsets.only(left: 8.0, right: 16.0, bottom: 16.0),
+      padding: EdgeInsets.symmetric(horizontal: context.screenWidth * 0.01),
+      width: context.screenWidth * 0.5,
+      color: AppColors.whiteColor,
       child: FormBuilder(
         key: _formKey,
         child: Column(
+          spacing: context.screenWidth * 0.009,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    context.readDeliveryAgentsProvider.resetAll();
+                  },
+                  icon: Icon(Icons.arrow_back),
+                ),
+                KButton(
+                  text: "Next",
+                  onPressed: () {
+                    context.readDeliveryAgentsProvider.setEditNextButtonClicked(
+                      true,
+                    );
+                  },
+                  backgroundColor: AppColors.primaryColor,
+                ),
+              ],
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
                   'Edit Agent Details',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                IconButton(
-                  onPressed: widget.onClose,
-                  icon: const Icon(Icons.close),
-                  iconSize: 20,
                 ),
               ],
             ),
@@ -133,9 +155,9 @@ class _EditAgentDetailsFormState extends State<EditAgentDetailsForm> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     KTextFormField(
-                      name: 'vendorName',
-                      label: 'Vendor Name',
-                      hintText: 'Enter vendor name',
+                      name: 'agentName',
+                      label: 'Agent Name',
+                      hintText: 'Enter Agent name',
                       controller: nameController,
                       isRequired: true,
                     ),
@@ -149,6 +171,7 @@ class _EditAgentDetailsFormState extends State<EditAgentDetailsForm> {
                       maxLines: 3,
                     ),
                     KTextFormField(
+                      isMobileNo: true,
                       name: 'mobileNumber',
                       label: 'Phone Number',
                       hintText: 'Enter 10-digit phone number',
@@ -166,72 +189,27 @@ class _EditAgentDetailsFormState extends State<EditAgentDetailsForm> {
                       ),
                       isRequired: true,
                     ),
-                    KTextFormField(
-                      name: 'workTime',
-                      label: 'Work Time',
-                      hintText: '9am-12pm',
-                      controller: workTimeController,
+
+                    KTimePicker(
+                      name: "workTime",
+                      label: "Work time",
                       isRequired: true,
+                      initialStartTime: const TimeOfDay(hour: 9, minute: 0),
+                      initialEndTime: const TimeOfDay(hour: 18, minute: 0),
+                      onChanged: (start, end) {
+                        print(
+                          "Selected: ${start.format(context)} - ${end.format(context)}",
+                        );
+                      },
                     ),
-                    KTextFormField(
-                      name: 'assignedCustomers',
-                      label: 'Assigned Customers',
-                      hintText: '48',
-                      controller: assignedCustomersController,
-                      keyboardType: TextInputType.number,
+                    KDatePicker(
+                      name: "joinedDate",
+                      label: "Joined at",
                       isRequired: true,
-                    ),
-                    KTextFormField(
-                      name: 'imageUrl',
-                      label: 'Image URL',
-                      hintText: 'http://example.com/image.jpg',
-                      controller: imgController,
-                      isRequired: false,
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              side: BorderSide(color: Colors.grey.shade400),
-                            ),
-                            onPressed: _handleCancel,
-                            child: const Text(
-                              'Cancel',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: _handleAddVendor,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primaryColor,
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              elevation: 0,
-                            ),
-                            child: const Text(
-                              'Add Vendor',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                      initialDate: DateTime.now(),
+                      onChanged: (date) {
+                        print("Selected date: $date");
+                      },
                     ),
                   ],
                 ),

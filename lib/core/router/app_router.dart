@@ -43,14 +43,14 @@ final GoRouter appRouter = GoRouter(
 
         // Delivery Agents Screen
         GoRoute(
-          path: "/deliveryAgents",
+          path: "/delivery-agents",
           name: AppRouterConstants.deliveryAgents,
           builder: (context, state) => const DeliveryAgentDashboardScreen(),
         ),
 
         // Delivery Entries Screen
         GoRoute(
-          path: "/deliveryEntries",
+          path: "/delivery-entries",
           name: AppRouterConstants.deliveryEntries,
           builder: (context, state) => const DeliveryEntriesScreen(),
         ),

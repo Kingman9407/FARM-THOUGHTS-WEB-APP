@@ -1,38 +1,21 @@
 import 'package:farm_thoughts_web_app/commons/widgets/k_cached_network_profile_image.dart';
 import 'package:farm_thoughts_web_app/core/constants/app_assets.dart';
-import 'package:farm_thoughts_web_app/core/extensions/providers/provider_extension.dart';
 import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart';
-import 'package:farm_thoughts_web_app/core/extensions/ui/snackbar_extension.dart';
-import 'package:farm_thoughts_web_app/core/helpers/app_logger_helper.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'delete_delivery_agent.dart';
+class ViewDeliveryEntriesDetails extends StatelessWidget {
+  final VoidCallback onArrowBackOnTap;
+  final VoidCallback onEditOnTap;
+  final VoidCallback onDeleteOnTap;
 
-class ViewAgentDetails extends StatefulWidget {
-  final Map<String, String> vendorDetails;
-
-  const ViewAgentDetails({super.key, required this.vendorDetails});
-
-  @override
-  State<ViewAgentDetails> createState() => _ViewAgentDetailsState();
-}
-
-class _ViewAgentDetailsState extends State<ViewAgentDetails> {
-  bool isLoading = false;
-  Future<void> _handleDelete() async {
-    setState(() {
-      isLoading = true;
-    });
-    await Future.delayed(const Duration(seconds: 3));
-    if (mounted) {
-      context.showSuccessSnackBar("Agent Deleted Successfully");
-    }
-    setState(() {
-      isLoading = false;
-    });
-  }
+  const ViewDeliveryEntriesDetails({
+    super.key,
+    required this.onArrowBackOnTap,
+    required this.onEditOnTap,
+    required this.onDeleteOnTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +33,7 @@ class _ViewAgentDetailsState extends State<ViewAgentDetails> {
                 cursor: SystemMouseCursors.click,
                 child: IconButton(
                   onPressed: () {
-                    context.readDeliveryAgentsProvider.resetAll();
+                    onArrowBackOnTap();
                   },
                   icon: Icon(
                     Icons.arrow_back,
@@ -66,10 +49,7 @@ class _ViewAgentDetailsState extends State<ViewAgentDetails> {
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
                   onTap: () {
-                    AppLoggerHelper.logWarning("clicked the edit button");
-                    context.readDeliveryAgentsProvider.setEditAgentsEnabled(
-                      true,
-                    );
+                    onEditOnTap();
                   },
                   child: SvgPicture.asset(
                     AppAssets.editIcon,
@@ -87,32 +67,7 @@ class _ViewAgentDetailsState extends State<ViewAgentDetails> {
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
                   onTap: () {
-                    AppLoggerHelper.logResponse(widget.vendorDetails.values);
-                    showDialog(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (BuildContext context) {
-                        return DeleteDeliveryAgent(
-                          onConfirm: () async {
-                            // Your delete logic here
-                            await Future.delayed(const Duration(seconds: 3));
-
-                            if (mounted) {
-                              context.showSuccessSnackBar(
-                                "Agent Deleted Successfully",
-                              );
-                              Navigator.of(context).pop();
-                            }
-                          },
-                          onCancel: () {
-                            Navigator.of(context).pop();
-                          },
-                          title: 'Delete Delivery Agent',
-                          message:
-                              'Are you sure you want to delete ${widget.vendorDetails['name'] ?? 'this agent'}?',
-                        );
-                      },
-                    );
+                    onDeleteOnTap();
                   },
                   child: SvgPicture.asset(
                     AppAssets.deleteIcon,
@@ -131,7 +86,8 @@ class _ViewAgentDetailsState extends State<ViewAgentDetails> {
             children: [
               // Image
               KCachedNetworkProfileImage(
-                imageUrl: widget.vendorDetails["imageUrl"]!,
+                imageUrl: "",
+                //imageUrl: vendorDetails["imageUrl"]!,
                 height: context.screenWidth * 0.04,
                 width: context.screenWidth * 0.04,
               ),
@@ -144,7 +100,8 @@ class _ViewAgentDetailsState extends State<ViewAgentDetails> {
                 children: [
                   // Name
                   Text(
-                    widget.vendorDetails['name'] ?? 'N/A',
+                    "Mohammed Tariq",
+                    // vendorDetails['name'] ?? 'N/A',
                     style: TextStyle(
                       fontSize: context.screenWidth * 0.01,
                       fontWeight: FontWeight.w700,
@@ -154,7 +111,8 @@ class _ViewAgentDetailsState extends State<ViewAgentDetails> {
 
                   // Phone Number
                   Text(
-                    '+91 ${widget.vendorDetails['phone'] ?? 'N/A'}',
+                    "+91 6369476256",
+                    // '+91 ${vendorDetails['phone'] ?? 'N/A'}',
                     style: TextStyle(
                       fontSize: context.screenWidth * 0.009,
                       fontWeight: FontWeight.w400,
@@ -178,9 +136,14 @@ class _ViewAgentDetailsState extends State<ViewAgentDetails> {
             ),
           ),
 
-          // Vendor Address
+          SizedBox(height: context.screenHeight * 0.02),
+
+          // Delivery Address
           Text(
-            widget.vendorDetails['address'] ?? 'Address not available',
+            textAlign: TextAlign.start,
+            softWrap: true,
+            "5, Saram, Thendral Nagar, Puducherry",
+            // vendorDetails['address'] ?? 'Address not available',
             style: TextStyle(
               fontSize: context.screenWidth * 0.009,
               fontWeight: FontWeight.w400,
@@ -190,7 +153,7 @@ class _ViewAgentDetailsState extends State<ViewAgentDetails> {
 
           SizedBox(height: context.screenHeight * 0.04),
 
-          // Joined At and Salary section
+          // Litre Delivered and Price
           Row(
             children: [
               Expanded(
@@ -198,9 +161,9 @@ class _ViewAgentDetailsState extends State<ViewAgentDetails> {
                   spacing: context.screenHeight * 0.002,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Joined At
+                    // Litre Delivered
                     Text(
-                      'Joined at',
+                      'Litre Delivered',
                       style: TextStyle(
                         fontSize: context.screenWidth * 0.009,
                         fontWeight: FontWeight.w400,
@@ -210,7 +173,8 @@ class _ViewAgentDetailsState extends State<ViewAgentDetails> {
 
                     // Joined At Date
                     Text(
-                      widget.vendorDetails['joined_date'] ?? 'N/A',
+                      "20L",
+                      // vendorDetails['joined_date'] ?? 'N/A',
                       style: TextStyle(
                         fontSize: context.screenWidth * 0.009,
                         fontWeight: FontWeight.w600,
@@ -238,7 +202,8 @@ class _ViewAgentDetailsState extends State<ViewAgentDetails> {
 
                     // Vendor Salary
                     Text(
-                      '₹ ${widget.vendorDetails['salary'] ?? '0'}.00',
+                      "₹ 50.00",
+                      // '₹ ${vendorDetails['salary'] ?? '0'}.00',
                       style: TextStyle(
                         fontSize: context.screenWidth * 0.009,
                         fontWeight: FontWeight.w600,
@@ -251,16 +216,16 @@ class _ViewAgentDetailsState extends State<ViewAgentDetails> {
             ],
           ),
 
-          SizedBox(height: context.screenWidth * 0.02),
+          SizedBox(height: context.screenHeight * 0.02),
 
-          // Work time section
+          // Time Stamp
           Column(
             spacing: context.screenHeight * 0.002,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Work Time
+              // TimeStamp
               Text(
-                'Work time',
+                "TimeStamp",
                 style: TextStyle(
                   fontSize: context.screenWidth * 0.009,
                   fontWeight: FontWeight.w400,
@@ -268,9 +233,10 @@ class _ViewAgentDetailsState extends State<ViewAgentDetails> {
                 ),
               ),
 
-              // Work Time Text
+              // TimeStamp Data
               Text(
-                widget.vendorDetails['work_time'] ?? 'N/A',
+                "8, Jan 2023, 10:30",
+                // vendorDetails['joined_date'] ?? 'N/A',
                 style: TextStyle(
                   fontSize: context.screenWidth * 0.009,
                   fontWeight: FontWeight.w600,
@@ -280,86 +246,61 @@ class _ViewAgentDetailsState extends State<ViewAgentDetails> {
             ],
           ),
 
-          SizedBox(height: context.screenWidth * 0.02),
+          SizedBox(height: context.screenHeight * 0.02),
 
+          // Delivered By
           Text(
-            'Assigned Customers',
+            'Delivery By',
             style: TextStyle(
               fontSize: context.screenWidth * 0.01,
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w600,
               color: AppColors.titleColor,
             ),
           ),
 
-          SizedBox(height: context.screenHeight * 0.01),
+          SizedBox(height: context.screenHeight * 0.02),
 
-          Expanded(
-            child: ListView.builder(
-              itemCount: 6,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: const EdgeInsets.only(bottom: 12),
-                  child: Row(
-                    spacing: context.screenWidth * 0.008,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      // Image
-                      KCachedNetworkProfileImage(
-                        imageUrl:
-                            "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                        height: context.screenWidth * 0.03,
-                        width: context.screenWidth * 0.03,
-                      ),
+          // Delivery Person Details
+          Row(
+            children: [
+              // Image
+              KCachedNetworkProfileImage(
+                imageUrl: "",
+                //imageUrl: vendorDetails["imageUrl"]!,
+                height: context.screenWidth * 0.04,
+                width: context.screenWidth * 0.04,
+              ),
 
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                // Name
-                                Text(
-                                  'N Saravanan',
-                                  style: TextStyle(
-                                    fontSize: context.screenWidth * 0.01,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.titleColor,
-                                  ),
-                                ),
+              SizedBox(width: context.screenWidth * 0.01),
 
-                                // Litres
-                                Text(
-                                  ' - 0.75L',
-                                  style: TextStyle(
-                                    fontSize: context.screenWidth * 0.01,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors
-                                        .assignedCustomerCardSubTitleColor,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Text(
-                              '5, Gandhi St, Nehru Nagar,...',
-                              style: TextStyle(
-                                fontSize: context.screenWidth * 0.008,
-                                fontWeight: FontWeight.w400,
-                                color:
-                                    AppColors.assignedCustomerCardSubTitleColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+              Column(
+                spacing: context.screenHeight * 0.002,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Name
+                  Text(
+                    "Mohammed Tariq",
+                    // vendorDetails['name'] ?? 'N/A',
+                    style: TextStyle(
+                      fontSize: context.screenWidth * 0.01,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.titleColor,
+                    ),
                   ),
-                );
-              },
-            ),
+
+                  // Phone Number
+                  Text(
+                    "+91 6369476256",
+                    // '+91 ${vendorDetails['phone'] ?? 'N/A'}',
+                    style: TextStyle(
+                      fontSize: context.screenWidth * 0.009,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.assignedCustomerCardSubTitleColor,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ],
       ),
