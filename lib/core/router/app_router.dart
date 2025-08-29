@@ -2,7 +2,7 @@ import 'package:farm_thoughts_web_app/commons/widgets/side_bar.dart';
 import 'package:farm_thoughts_web_app/core/constants/app_router_constants.dart';
 import 'package:farm_thoughts_web_app/features/auth/screens/login_screen.dart';
 import 'package:farm_thoughts_web_app/features/collections/screens/collection_dashboard_screen.dart';
-import 'package:farm_thoughts_web_app/features/customer/screens/customer_dashboard_screen.dart';
+import 'package:farm_thoughts_web_app/features/customer/screens/customer_dashboard.dart';
 import 'package:farm_thoughts_web_app/features/dashboard/screens/dashboard_screen.dart';
 import 'package:farm_thoughts_web_app/features/delivery_agent/screens/delivery_agent_dashboard_screen.dart';
 import 'package:farm_thoughts_web_app/features/delivery_entries/screens/delivery_entries_screen.dart';
