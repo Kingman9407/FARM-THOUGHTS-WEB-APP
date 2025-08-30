@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomerProvider extends ChangeNotifier{
   bool isAddedEnabled = false;
+  bool isAddDeliveryAgent = false;
   bool isViewDetailsEnabled = false;
   bool isEditEnabled = false;
 
@@ -22,6 +23,7 @@ class CustomerProvider extends ChangeNotifier{
     if (value){
       isAddedEnabled=false;
       isEditEnabled=false;
+      isAddDeliveryAgent=false;
 
     }
     notifyListeners();
@@ -33,10 +35,22 @@ class CustomerProvider extends ChangeNotifier{
       isEditEnabled = false;
       isViewDetailsEnabled =false;
       _selectedCustomer = null;
+      isAddDeliveryAgent=false;
 
 
     }
     notifyListeners();
   }
+  void setDeliveryAgentEnable(bool value){
+    isAddDeliveryAgent = value;
+    if (value){
+      isEditEnabled = false;
+      isViewDetailsEnabled =false;
+      isAddedEnabled = false;
+
+    }
+    notifyListeners();
+  }
+
 
 }
