@@ -4,7 +4,8 @@ class DeliveryEntriesProvider extends ChangeNotifier {
   bool isAddedEnabled = false;
   bool isViewDetailsEnabled = false;
   bool isEditEnabled = false;
-  bool isDeliveredAgentsAdded = false;
+  bool isDeliveryAgentEntriesAdded = false;
+  bool isDeliveryOtherDetailsEntriesAdded = false;
 
   Map<String, String>? _selectedAgent;
 
@@ -48,12 +49,37 @@ class DeliveryEntriesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setDeliveryAgentEntriesAdded(bool value) {
+    isDeliveryAgentEntriesAdded = value;
+    if (value) {
+      // turn off others
+      isAddedEnabled = false;
+      isViewDetailsEnabled = false;
+      isEditEnabled = false;
+    }
+    notifyListeners();
+  }
+
+  void setDeliveryOtherDetailsEntriesAdded(bool value) {
+    isDeliveryOtherDetailsEntriesAdded = value;
+    if (value) {
+      // turn off others
+      isAddedEnabled = false;
+      isViewDetailsEnabled = false;
+      isEditEnabled = false;
+      isDeliveryAgentEntriesAdded = false;
+    }
+    notifyListeners();
+  }
+
+
   void resetAllEntries() {
     isAddedEnabled = false;
     isViewDetailsEnabled = false;
     isEditEnabled = false;
+    isDeliveryAgentEntriesAdded = false;
+    isDeliveryOtherDetailsEntriesAdded = false;
     _selectedAgent = null;
-    isDeliveredAgentsAdded = false;
     notifyListeners();
   }
 }
