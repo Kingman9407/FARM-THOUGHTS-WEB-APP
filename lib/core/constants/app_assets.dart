@@ -8,6 +8,8 @@ class AppAssets {
   static final String blueVector = "assets/images/blue_vector.svg";
   static final String wallet = "assets/images/wallet.svg";
   static final String milkCup = "assets/images/milk_cup.svg";
+  static const String poweredByLevitate =
+      "assets/images/powered-by-levitate.svg";
 
   // Icons
   static const String collectionIcon = "assets/icons/collections.svg";

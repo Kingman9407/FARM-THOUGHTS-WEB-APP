@@ -10,6 +10,7 @@ import 'package:farm_thoughts_web_app/features/delivery_entries/providers/delive
 import 'package:farm_thoughts_web_app/features/delivery_entries/widgets/add_delivery_agents_entries.dart';
 import 'package:farm_thoughts_web_app/features/delivery_entries/widgets/delivery_entries_card.dart';
 import 'package:farm_thoughts_web_app/features/delivery_entries/widgets/edit_delivery_entries.dart';
+import 'package:farm_thoughts_web_app/features/delivery_entries/widgets/other_delivery_entries.dart';
 import 'package:farm_thoughts_web_app/features/delivery_entries/widgets/view_delivery_entries_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -339,14 +340,39 @@ class _DeliveryEntriesScreenState extends State<DeliveryEntriesScreen> {
                                 .resetAllEntries();
                           },
                           onNextTap: () {
-                            // Set Delivered Agents Added
+                            // Set Delivered Added
                             context.readDeliveryEntriesProvider
-                                .setAddedEntriesEnabled(true);
+                                .setDeliveryAgentEntriesAdded(true);
                           },
                         );
                       } else if (deliveryEntriesProvider
-                          .isDeliveredAgentsAdded) {
-                        return AddDeliveryAgentsEntries();
+                          .isDeliveryAgentEntriesAdded) {
+                        return AddDeliveryAgentsEntries(
+                          onArrowBackTap: () {
+                            // Reset All Entries
+                            context.readDeliveryEntriesProvider
+                                .resetAllEntries();
+                          },
+                          onNextTap: () {
+                            // Set Other Details Entries Enabled
+                            context.readDeliveryEntriesProvider
+                                .setDeliveryOtherDetailsEntriesAdded(true);
+                          },
+                        );
+                      } else if (deliveryEntriesProvider
+                          .isDeliveryOtherDetailsEntriesAdded) {
+                        return OtherDeliveryEntries(
+                          onArrowBackTap: () {
+                            // Reset All Entries
+                            context.readDeliveryEntriesProvider
+                                .resetAllEntries();
+                          },
+                          onSubmitTap: () {
+                            // Reset All Entries
+                            context.readDeliveryEntriesProvider
+                                .resetAllEntries();
+                          },
+                        );
                       } else {
                         return ColoredBox(
                           color: AppColors.whiteColor,
