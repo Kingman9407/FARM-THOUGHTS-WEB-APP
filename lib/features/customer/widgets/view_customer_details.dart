@@ -1,3 +1,4 @@
+import 'package:farm_thoughts_web_app/core/extensions/providers/provider_extension.dart';
 import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -19,10 +20,10 @@ class ViewCustomerDetails extends StatelessWidget {
 
         Row(
           children: [
-            Icon(Icons.arrow_back),
+            IconButton(onPressed: () { context.readCustomerProvider.ResetAll();}, icon:Icon(Icons.arrow_back)),
 
             const Spacer(),
-            Icon(Icons.edit),
+            IconButton(onPressed: () { context.readCustomerProvider.setEditEnable(true);},icon:Icon(Icons.edit)),
             SizedBox(width: context.screenWidth * 0.003),
             Icon(Icons.delete),
           ],

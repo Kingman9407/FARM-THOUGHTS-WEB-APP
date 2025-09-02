@@ -5,6 +5,7 @@ class CustomerProvider extends ChangeNotifier{
   bool isAddDeliveryAgent = false;
   bool isViewDetailsEnabled = false;
   bool isEditEnabled = false;
+  bool isQrEnable = false;
 
   Map<String, String>? _selectedCustomer;
 
@@ -24,6 +25,7 @@ class CustomerProvider extends ChangeNotifier{
       isAddedEnabled=false;
       isEditEnabled=false;
       isAddDeliveryAgent=false;
+      isQrEnable = false;
 
     }
     notifyListeners();
@@ -36,6 +38,7 @@ class CustomerProvider extends ChangeNotifier{
       isViewDetailsEnabled =false;
       _selectedCustomer = null;
       isAddDeliveryAgent=false;
+      isQrEnable = false;
 
 
     }
@@ -47,10 +50,48 @@ class CustomerProvider extends ChangeNotifier{
       isEditEnabled = false;
       isViewDetailsEnabled =false;
       isAddedEnabled = false;
+      isQrEnable = false;
 
     }
     notifyListeners();
   }
+
+  void setQrEnable(bool value){
+    isQrEnable = value;
+    if(value){
+      isEditEnabled = false;
+      isViewDetailsEnabled =false;
+      isAddedEnabled = false;
+      isAddDeliveryAgent = false;
+
+
+    }
+    notifyListeners();
+  }
+  void setEditEnable(bool value){
+    isEditEnabled = value;
+    if (value){
+      isAddedEnabled = false;
+      isViewDetailsEnabled =false;
+      isAddedEnabled = false;
+      isQrEnable = false;
+
+    }
+    notifyListeners();
+
+  }
+
+  void ResetAll(){
+    isEditEnabled = false;
+    isViewDetailsEnabled =false;
+    isAddedEnabled = false;
+    isAddDeliveryAgent = false;
+    isQrEnable = false;
+
+    notifyListeners();
+
+  }
+
 
 
 }

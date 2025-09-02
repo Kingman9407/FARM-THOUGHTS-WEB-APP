@@ -5,9 +5,11 @@ import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart'
 import 'package:farm_thoughts_web_app/core/helpers/app_logger_helper.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:farm_thoughts_web_app/features/customer/provider/customer_provider.dart';
+import 'package:farm_thoughts_web_app/features/customer/widgets/edit_customer.dart';
 import 'package:farm_thoughts_web_app/features/customer/widgets/add_customer.dart';
 import 'package:farm_thoughts_web_app/features/customer/widgets/add_deliviry_person.dart';
 import 'package:farm_thoughts_web_app/features/customer/widgets/customer_card.dart';
+import 'package:farm_thoughts_web_app/features/customer/widgets/customer_qr.dart';
 import 'package:farm_thoughts_web_app/features/customer/widgets/view_customer_details.dart';
 import 'package:farm_thoughts_web_app/features/dashboard/widgets/dashboard_top_bar.dart';
 import 'package:flutter/material.dart';
@@ -228,8 +230,12 @@ class _CustomerDashboardState extends State<CustomerDashboardScreen> {
                             return AddCustomer();
                           }
                           else if(customerProvider.isAddDeliveryAgent){
-                            return AddDeliviryPerson();
+                            return AddDeliveryPerson();
 
+                          } else if(customerProvider.isQrEnable) {
+                            return CustomerQr();
+                          } else if(customerProvider.isEditEnabled){
+                            return Editcustomer();
                           }
                           else {
                             return KCalender();
