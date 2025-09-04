@@ -17,6 +17,7 @@ class KTextFormField extends StatelessWidget {
   final int? maxLines;
   final Widget? prefixIcon;
   final bool isMobileNo;
+  final List<TextInputFormatter>? inputFormatters;
 
   const KTextFormField({
     super.key,
@@ -31,6 +32,7 @@ class KTextFormField extends StatelessWidget {
     this.maxLines,
     this.prefixIcon,
     this.isMobileNo = false,
+    this.inputFormatters,
   });
 
   @override
@@ -72,12 +74,7 @@ class KTextFormField extends StatelessWidget {
           keyboardType: keyboardType,
           initialValue: initialValue,
           maxLines: maxLines ?? 1,
-          inputFormatters: isMobileNo
-              ? [
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(10),
-                ]
-              : [],
+          inputFormatters: inputFormatters,
           decoration: InputDecoration(
             prefixIcon: prefixIcon,
             hintText: hintText,

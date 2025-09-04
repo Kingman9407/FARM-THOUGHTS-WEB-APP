@@ -7,6 +7,7 @@ import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart'
 import 'package:farm_thoughts_web_app/core/helpers/app_logger_helper.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class EditAgentDetailsForm extends StatefulWidget {
@@ -171,7 +172,10 @@ class _EditAgentDetailsFormState extends State<EditAgentDetailsForm> {
                       maxLines: 3,
                     ),
                     KTextFormField(
-                      isMobileNo: true,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(10),
+                      ],
                       name: 'mobileNumber',
                       label: 'Phone Number',
                       hintText: 'Enter 10-digit phone number',
@@ -180,6 +184,10 @@ class _EditAgentDetailsFormState extends State<EditAgentDetailsForm> {
                       isRequired: true,
                     ),
                     KTextFormField(
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(5),
+                      ],
                       name: 'salary',
                       label: 'Monthly Salary',
                       hintText: '₹5,000',

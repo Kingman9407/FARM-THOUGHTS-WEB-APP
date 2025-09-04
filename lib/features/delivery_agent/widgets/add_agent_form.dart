@@ -4,6 +4,7 @@ import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart'
 import 'package:farm_thoughts_web_app/core/helpers/app_logger_helper.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class AddAgentForm extends StatefulWidget {
@@ -72,7 +73,7 @@ class _AddAgentFormState extends State<AddAgentForm> {
       };
 
       // Debug print to check the data
-      print('Vendor data being sent: $vendorData');
+      AppLoggerHelper.logWarning('Vendor data being sent: $vendorData');
 
       widget.onAddVendor(vendorData);
       _clearForm();
@@ -82,7 +83,7 @@ class _AddAgentFormState extends State<AddAgentForm> {
 
   void _handleCancel() {
     _clearForm();
-    widget.onClose();
+    widget.onClose();   
   }
 
   String _getMonthName(int month) {
@@ -137,7 +138,7 @@ class _AddAgentFormState extends State<AddAgentForm> {
               child: SingleChildScrollView(
                 padding: const EdgeInsets.only(bottom: 16),
                 child: Column(
-                  spacing: 16,
+                  spacing: context.screenWidth * 0.012,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     KTextFormField(
@@ -157,7 +158,10 @@ class _AddAgentFormState extends State<AddAgentForm> {
                       maxLines: 3,
                     ),
                     KTextFormField(
-                      isMobileNo: true,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(10),
+                      ],
                       name: 'mobileNumber',
                       label: 'Phone Number',
                       hintText: 'Enter 10-digit phone number',
@@ -170,6 +174,10 @@ class _AddAgentFormState extends State<AddAgentForm> {
                       label: 'Monthly Salary',
                       hintText: '₹5,000',
                       controller: salaryController,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(5),
+                      ],
                       keyboardType: const TextInputType.numberWithOptions(
                         decimal: true,
                       ),
@@ -189,6 +197,10 @@ class _AddAgentFormState extends State<AddAgentForm> {
                       },
                     ),
                     KTextFormField(
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(3),
+                      ],
                       name: 'assignedCustomers',
                       label: 'Assigned Customers',
                       hintText: '48',
@@ -196,14 +208,14 @@ class _AddAgentFormState extends State<AddAgentForm> {
                       keyboardType: TextInputType.number,
                       isRequired: true,
                     ),
-                    KTextFormField(
-                      name: 'imageUrl',
-                      label: 'Image URL',
-                      hintText: 'http://example.com/image.jpg',
-                      controller: imgController,
-                      isRequired: false,
-                    ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 12),
+                    // KTextFormField(
+                    //   name: 'imageUrl',
+                    //   label: 'Image URL',
+                    //   hintText: 'http://example.com/image.jpg',
+                    //   controller: imgController,
+                    //   isRequired: false,
+                    // ),
                     Row(
                       children: [
                         Expanded(
