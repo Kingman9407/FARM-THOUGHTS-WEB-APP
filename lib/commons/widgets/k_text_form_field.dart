@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -74,6 +76,12 @@ class KTextFormField extends StatelessWidget {
           keyboardType: keyboardType,
           initialValue: initialValue,
           maxLines: maxLines ?? 1,
+          inputFormatters: isMobileNo
+              ? [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(10),
+                ]
+              : [],
           inputFormatters: inputFormatters,
           decoration: InputDecoration(
             prefixIcon: prefixIcon,
@@ -83,6 +91,13 @@ class KTextFormField extends StatelessWidget {
               fontSize: context.screenWidth * 0.0084,
               fontWeight: FontWeight.w500,
             ),
+            // ✅ Upload button inside textfield
+            suffixIcon: showUploadButton
+                ? IconButton(
+                    icon: const Icon(Icons.upload_file, color: Colors.teal),
+                    onPressed: onUploadPressed,
+                  )
+                : null,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(context.screenWidth * 0.004),
               borderSide: BorderSide(color: AppColors.searchHintTextColor),
