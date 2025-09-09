@@ -3,6 +3,7 @@ import 'package:farm_thoughts_web_app/core/constants/app_assets.dart';
 import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:farm_thoughts_web_app/features/dashboard/widgets/dashboard_top_bar.dart';
+import 'package:farm_thoughts_web_app/features/lines/widgets/assigned_delivery_agent_details_card.dart';
 import 'package:farm_thoughts_web_app/features/lines/widgets/delivery_status_card.dart';
 import 'package:farm_thoughts_web_app/features/lines/widgets/lines_card.dart';
 import 'package:farm_thoughts_web_app/features/lines/widgets/locality_chip.dart';
@@ -193,37 +194,73 @@ class _LineDashboardScreenState extends State<LineDashboardScreen> {
                               ),
                               Divider(color: AppColors.hintTextFormFiledColor),
 
-                              // Replace this part in your main screen:
                               Expanded(
                                 child: Row(
                                   children: [
+                                    // Total customer card
                                     Expanded(
-                                      // Add Expanded here
                                       child: Container(
-                                        color: Colors.red,
-                                        child: ListView.builder(
-                                          physics:
-                                              const BouncingScrollPhysics(),
-                                          itemCount: 10,
-                                          itemBuilder:
-                                              (
-                                                BuildContext context,
-                                                int index,
-                                              ) {
-                                                return DeliveryStatusCard(
-                                                  name: "Sreeramachandran",
-                                                  address:
-                                                      "5, Gandhi St, Nehru Nagar......",
-                                                  phoneNumber:
-                                                      "+91 631889124$index",
-                                                  quantity: "${index + 1} L",
-                                                  quantityUnit: "per day",
-                                                  deliveredStatus:
-                                                      index % 2 == 0,
-                                                  deliveryTime:
-                                                      "06:4${index}AM",
-                                                );
-                                              },
+                                        // color: Colors.red,
+                                        child: Column(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.all(12),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    "Total Customers",
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: AppColors
+                                                          .primaryColor,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    "10",
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: AppColors
+                                                          .hintTextFormFiledColor,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+
+                                            Expanded(
+                                              child: ListView.builder(
+                                                physics:
+                                                    const BouncingScrollPhysics(),
+                                                itemCount: 10,
+                                                itemBuilder:
+                                                    (
+                                                      BuildContext context,
+                                                      int index,
+                                                    ) {
+                                                      return DeliveryStatusCard(
+                                                        name:
+                                                            "Sreeramachandran",
+                                                        address:
+                                                            "5, Gandhi St, Nehru Nagar......",
+                                                        phoneNumber:
+                                                            "+91 631889124$index",
+                                                        quantity:
+                                                            "${index + 1} L",
+                                                        quantityUnit: "per day",
+                                                        deliveredStatus:
+                                                            index % 2 == 0,
+                                                        deliveryTime:
+                                                            "06:4${index}AM",
+                                                      );
+                                                    },
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
@@ -235,8 +272,33 @@ class _LineDashboardScreenState extends State<LineDashboardScreen> {
                                     Expanded(
                                       child: Container(
                                         color: Colors.green,
-                                        child: Center(
-                                          child: Text("Right side"),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(12),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Assigned Delivery Agent",
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: ListView.builder(
+                                                  itemCount: 4,
+                                                  itemBuilder:
+                                                      (
+                                                        BuildContext context,
+                                                        int index,
+                                                      ) {
+                                                        return AssignedDeliveryAgentDetailsCard();
+                                                      },
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
