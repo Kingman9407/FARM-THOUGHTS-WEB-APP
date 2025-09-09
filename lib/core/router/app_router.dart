@@ -6,6 +6,7 @@ import 'package:farm_thoughts_web_app/features/customer/screens/customer_dashboa
 import 'package:farm_thoughts_web_app/features/dashboard/screens/dashboard_screen.dart';
 import 'package:farm_thoughts_web_app/features/delivery_agent/screens/delivery_agent_dashboard_screen.dart';
 import 'package:farm_thoughts_web_app/features/delivery_entries/screens/delivery_entries_screen.dart';
+import 'package:farm_thoughts_web_app/features/lines/screens/line_dashboard_screen.dart';
 import 'package:farm_thoughts_web_app/features/splash/splash_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -67,6 +68,11 @@ final GoRouter appRouter = GoRouter(
           path: "/customers",
           name: AppRouterConstants.customers,
           builder: (context, state) => const CustomerDashboardScreen(),
+        ),
+        GoRoute(
+          path: "/lines",
+          name: AppRouterConstants.lines,
+          builder: (context, state) => const LineDashboardScreen(),
         ),
       ],
     ),

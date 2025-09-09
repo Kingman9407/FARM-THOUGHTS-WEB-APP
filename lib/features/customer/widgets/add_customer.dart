@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
-
-import '../../../core/theme/app_colors.dart';
 
 class AddCustomer extends StatefulWidget {
   const AddCustomer({super.key});
@@ -20,20 +17,12 @@ class _AddCustomerState extends State<AddCustomer> {
             const Icon(Icons.arrow_back),
             const Spacer(),
             ElevatedButton(
-                onPressed: () {
-                },
-                child: Text('Next'),
-                style: ElevatedButton.styleFrom(
-    backgroundColor:  Colors.black,
-
-    )
-
-
-
-            )
+              onPressed: () {},
+              child: Text('Next'),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+            ),
           ],
-
-        )
+        ),
       ],
     );
   }

@@ -31,4 +31,5 @@ class AppAssets {
       "assets/icons/total-milk-required.svg";
   static const String addCircleIcon = "assets/icons/add-circle.svg";
   static const String callIcon = "assets/icons/call-icon.svg";
+  static const String lineIcon = "assets/icons/lines.svg";
 }

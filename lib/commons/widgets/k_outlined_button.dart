@@ -1,4 +1,3 @@
-import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class KOutlinedButton extends StatelessWidget {

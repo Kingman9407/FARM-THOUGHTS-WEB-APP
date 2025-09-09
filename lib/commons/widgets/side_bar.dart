@@ -45,6 +45,7 @@ class _SideBarState extends State<SideBar> {
       "label": "Customer",
       "route": "/customers",
     },
+    {"icon": AppAssets.lineIcon, "label": "Lines", "route": "/lines"},
   ];
 
   /// Getting the index of the selected route

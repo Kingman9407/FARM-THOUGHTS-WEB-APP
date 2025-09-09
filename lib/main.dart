@@ -4,6 +4,7 @@ import 'package:farm_thoughts_web_app/core/router/app_router.dart';
 import 'package:farm_thoughts_web_app/features/customer/provider/customer_provider.dart';
 import 'package:farm_thoughts_web_app/features/delivery_agent/provider/delivery_agents_provider.dart';
 import 'package:farm_thoughts_web_app/features/delivery_entries/providers/delivery_entries_provider.dart';
+import 'package:farm_thoughts_web_app/features/lines/providers/lines_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +28,9 @@ void main() {
 
         // Internet Checker Provider
         ChangeNotifierProvider(create: (context) => InternetCheckerProvider()),
+
+        // lines Provider
+        ChangeNotifierProvider(create: (context) => LinesProvider()),
       ],
       child: const MyApp(),
     ),
