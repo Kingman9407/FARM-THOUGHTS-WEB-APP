@@ -23,7 +23,7 @@ class _AddCustomerState extends State<AddCustomer> {
           children: [
             Row(
               children: [
-                IconButton(onPressed: () { context.readCustomerProvider.ResetAll();}, icon:Icon(Icons.arrow_back)),
+                IconButton(onPressed: () { context.readCustomerProvider.resetAll();}, icon:Icon(Icons.arrow_back)),
                 const Spacer(),
                 ElevatedButton(
                   onPressed: ()  {
@@ -63,125 +63,179 @@ class _AddCustomerState extends State<AddCustomer> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'upload Profile*',
-                              style: TextStyle(
-                                color: AppColors.btnIconColor,
-                                fontWeight: FontWeight.w500,
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 4),
+                              child: RichText(
+                                  text: TextSpan(children: [TextSpan(
+                                    text: 'Add Profile',
+                                    style: TextStyle(
+                                      color: AppColors.titleColor,
+                                      fontSize: context.screenWidth * 0.008,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                    TextSpan(
+                                      text: " *",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: context.screenWidth * 0.008,
+
+
+                                      ),
+                                    )
+                                  ]
+
+                                  )
                               ),
                             ),
                             Container(
                               padding: EdgeInsets.only(
-                                right: context.screenWidth * 0.1,
+                                right: context.screenWidth * 0.106,
                                 top: context.screenHeight * 0.005,
                                 bottom: context.screenHeight * 0.005,
                                 left: context.screenWidth * 0.005,
                               ),
                               decoration: BoxDecoration(
-                                border: Border.all(color: AppColors.hintTextFormFiledColor),
-                                borderRadius: BorderRadius.circular(4),
+                                border: Border.all(color: AppColors.searchHintTextColor),
+                                borderRadius: BorderRadius.circular(context.screenWidth * 0.004),
                               ),
-                              child: Row(
-                                spacing: 10,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      AppLoggerHelper.logInfo('taps');
-                                      FilePickerResult? result = await FilePicker.platform.pickFiles(
-                                        type: FileType.image,
-                                        allowMultiple: false,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 4),
+                                child: Row(
+
+                                  spacing: 10,
+                                  children: [
+                                    ElevatedButton(
+
+                                      onPressed: () async {
+                                        AppLoggerHelper.logInfo('taps');
+                                        FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                          type: FileType.image,
+                                          allowMultiple: false,
 
 
-                                      );
-                                      if (result != null && result.files.isNotEmpty) {
-                                        Uint8List? fileBytes = result.files.first.bytes;
-                                        String fileName = result.files.first.name;
-                                        print("Picked file: $fileName");
-                                        print("Size: ${fileBytes?.length} bytes");
+                                        );
+                                        if (result != null && result.files.isNotEmpty) {
+                                          Uint8List? fileBytes = result.files.first.bytes;
+                                          String fileName = result.files.first.name;
+                                          print("Picked file: $fileName");
+                                          print("Size: ${fileBytes?.length} bytes");
+                                          const String pageKey = "profileUpload";
+
+                                          context.read<CustomerProvider>().setFileUploaded(pageKey, true);
+                                          context.read<CustomerProvider>().setFileName(pageKey,fileName);
+
+                                        } else {
+                                          print("No file selected");
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: context.screenWidth * 0.004,
+                                          vertical: context.screenHeight * 0.003,
+                                        ),
+                                        backgroundColor: AppColors.primaryColor,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(4),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        'upload',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: AppColors.whiteColor,
+                                        ),
+                                      ),
+                                    ),
+                                    Consumer<CustomerProvider>(
+                                      builder: (context, customerProvider, child) {
                                         const String pageKey = "profileUpload";
 
-                                        context.read<CustomerProvider>().setFileUploaded(pageKey, true);
-                                        context.read<CustomerProvider>().setFileName(pageKey,fileName);
+                                        final containerWidth = context.screenWidth * 0.08 - 50;
+                                        final containerHeight = context.screenHeight * 0.04;
 
-                                      } else {
-                                        print("No file selected");
-                                      }
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: context.screenWidth * 0.004,
-                                        vertical: context.screenHeight * 0.003,
-                                      ),
-                                      backgroundColor: AppColors.primaryColor,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      'upload',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: AppColors.whiteColor,
-                                      ),
-                                    ),
-                                  ),
-                                  Consumer<CustomerProvider>(
-                                    builder: (context, customerProvider, child) {
-                                      const String pageKey = "profileUpload";
+                                        if (customerProvider.isFileUploaded(pageKey)) {
+                                          final fileName = customerProvider.getFileName(pageKey) ?? "";
+                                          final visibleCount = 2; // number of starting letters to show
+                                          final obscuredText = fileName.isNotEmpty
+                                              ? fileName.substring(0, visibleCount) + '*' * (fileName.length - visibleCount)
+                                              : "";
 
-                                      final containerWidth = context.screenWidth * 0.08 - 50;
-                                      final containerHeight = context.screenHeight * 0.04;
+                                          return SizedBox(
+                                            width: containerWidth,
+                                            height: containerHeight,
+                                            child: Stack(
+                                              clipBehavior: Clip.none,
+                                              children: [
+                                                Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                    horizontal: context.screenWidth * 0.01,
+                                                    vertical: context.screenHeight * 0.01,
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(4),
+                                                    color: AppColors.hintTextFormFiledColor,
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      obscuredText,
+                                                      style: const TextStyle(
+                                                        fontSize: 12,
+                                                        overflow: TextOverflow.ellipsis,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                  top: -5,
+                                                  right: -5,
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      // your remove logic here
+                                                      context.read<CustomerProvider>().removeFile(pageKey);
+                                                    },
+                                                    child: Container(
+                                                      padding: EdgeInsets.all(1),
+                                                      decoration: BoxDecoration(
+                                                        shape:BoxShape.circle,
+                                                        color: Colors.red,
 
-                                      if (customerProvider.isFileUploaded(pageKey)) {
-                                        final fileName = customerProvider.getFileName(pageKey) ?? "";
-                                        final visibleCount = 2; // number of starting letters to show
-                                        final obscuredText = fileName.isNotEmpty
-                                            ? fileName.substring(0, visibleCount) + '*' * (fileName.length - visibleCount)
-                                            : "";
-
-                                        return SizedBox(
-                                          width: containerWidth,
-                                          height: containerHeight,
-                                          child: Container(
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: context.screenWidth * 0.01,
-                                              vertical: context.screenHeight * 0.01,
+                                                      ),
+                                                      child: const Icon(
+                                                        Icons.close_rounded,
+                                                        size: 16,
+                                                        color: Colors.black54,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(4),
-                                              color: AppColors.hintTextFormFiledColor,
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                obscuredText,
-                                                style: TextStyle(fontSize: 12, overflow: TextOverflow.ellipsis),
+                                          );
+                                        } else {
+                                          return SizedBox(
+                                            width: containerWidth,
+                                            height: containerHeight,
+                                            child: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: context.screenWidth * 0.025,
+                                                vertical: context.screenHeight * 0.01,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(context.screenWidth * 0.004),
+                                                color: AppColors.whiteColor,
                                               ),
                                             ),
-                                          ),
-                                        );
-                                      } else {
-                                        return SizedBox(
-                                          width: containerWidth,
-                                          height: containerHeight,
-                                          child: Container(
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: context.screenWidth * 0.025,
-                                              vertical: context.screenHeight * 0.01,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(4),
-                                              color: AppColors.whiteColor,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                    },
-                                  )
+                                          );
+                                        }
+                                      },
+                                    )
 
 
 
 
-                                ],
+                                  ],
+                                ),
                               ),
 
                             ),
@@ -194,121 +248,175 @@ class _AddCustomerState extends State<AddCustomer> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'upload Proof*',
-                              style: TextStyle(
-                                color: AppColors.btnIconColor,
-                                fontWeight: FontWeight.w500,
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 4),
+                              child: RichText(
+                                  text: TextSpan(children: [TextSpan(
+                                    text: 'Add Proof',
+                                    style: TextStyle(
+                                      color: AppColors.titleColor,
+                                      fontSize: context.screenWidth * 0.008,
+                                      fontWeight: FontWeight.w600,
+                                      height: 1.5,
+                                    ),
+                                  ),
+                                    TextSpan(
+                                      text: " *",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: context.screenWidth * 0.008,
+
+
+                                      ),
+                                    )
+                                  ]
+
+                                  )
                               ),
                             ),
                             Container(
                               padding: EdgeInsets.only(
-                                right: context.screenWidth * 0.1,
+                                right: context.screenWidth * 0.106,
                                 top: context.screenHeight * 0.005,
                                 bottom: context.screenHeight * 0.005,
                                 left: context.screenWidth * 0.005,
                               ),
                               decoration: BoxDecoration(
-                                border: Border.all(color: AppColors.hintTextFormFiledColor),
-                                borderRadius: BorderRadius.circular(4),
+                                border: Border.all(color: AppColors.searchHintTextColor),
+                                borderRadius: BorderRadius.circular(context.screenWidth * 0.004),
                               ),
-                              child: Row(
-                                spacing: 10,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      AppLoggerHelper.logInfo('taps');
-                                      FilePickerResult? result = await FilePicker.platform.pickFiles(
-                                        type: FileType.image,
-                                        allowMultiple: false,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 4),
+                                child: Row(
+                                  spacing: 10,
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () async {
+                                        AppLoggerHelper.logInfo('taps');
+                                        FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                          type: FileType.image,
+                                          allowMultiple: false,
 
 
-                                      );
-                                      if (result != null && result.files.isNotEmpty) {
-                                        Uint8List? fileBytes = result.files.first.bytes;
-                                        String fileName = result.files.first.name;
-                                        print("Picked file: $fileName");
-                                        print("Size: ${fileBytes?.length} bytes");
+                                        );
+                                        if (result != null && result.files.isNotEmpty) {
+                                          Uint8List? fileBytes = result.files.first.bytes;
+                                          String fileName = result.files.first.name;
+                                          print("Picked file: $fileName");
+                                          print("Size: ${fileBytes?.length} bytes");
+                                          const String pageKey = "proofUpload";
+
+                                          context.read<CustomerProvider>().setFileUploaded(pageKey, true);
+                                          context.read<CustomerProvider>().setFileName(pageKey,fileName);
+
+                                        } else {
+                                          print("No file selected");
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: context.screenWidth * 0.004,
+                                          vertical: context.screenHeight * 0.003,
+                                        ),
+                                        backgroundColor: AppColors.primaryColor,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(4),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        'upload',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: AppColors.whiteColor,
+                                        ),
+                                      ),
+                                    ),
+                                    Consumer<CustomerProvider>(
+                                      builder: (context, customerProvider, child) {
                                         const String pageKey = "proofUpload";
 
-                                        context.read<CustomerProvider>().setFileUploaded(pageKey, true);
-                                        context.read<CustomerProvider>().setFileName(pageKey,fileName);
+                                        final containerWidth = context.screenWidth * 0.08 - 50;
+                                        final containerHeight = context.screenHeight * 0.04;
 
-                                      } else {
-                                        print("No file selected");
-                                      }
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: context.screenWidth * 0.004,
-                                        vertical: context.screenHeight * 0.003,
-                                      ),
-                                      backgroundColor: AppColors.primaryColor,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      'upload',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: AppColors.whiteColor,
-                                      ),
-                                    ),
-                                  ),
-                                  Consumer<CustomerProvider>(
-                                    builder: (context, customerProvider, child) {
-                                      const String pageKey = "proofUpload";
+                                        if (customerProvider.isFileUploaded(pageKey)) {
+                                          final fileName = customerProvider.getFileName(pageKey) ?? "";
+                                          final visibleCount = 2; // number of starting letters to show
+                                          final obscuredText = fileName.isNotEmpty
+                                              ? fileName.substring(0, visibleCount) + '*' * (fileName.length - visibleCount)
+                                              : "";
 
-                                      final containerWidth = context.screenWidth * 0.08 - 50;
-                                      final containerHeight = context.screenHeight * 0.04;
+                                          return SizedBox(
+                                            width: containerWidth,
+                                            height: containerHeight,
+                                            child: Stack(
+                                              clipBehavior: Clip.none,
+                                              children: [
+                                                Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                    horizontal: context.screenWidth * 0.01,
+                                                    vertical: context.screenHeight * 0.01,
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(4),
+                                                    color: AppColors.hintTextFormFiledColor,
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      obscuredText,
+                                                      style: const TextStyle(
+                                                        fontSize: 12,
+                                                        overflow: TextOverflow.ellipsis,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                  top: -5,
+                                                  right: -5,
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      // your remove logic here
+                                                      context.read<CustomerProvider>().removeFile(pageKey);
+                                                    },
+                                                    child: Container(
+                                                      padding: EdgeInsets.all(1),
+                                                      decoration: BoxDecoration(
+                                        shape:BoxShape.circle,
+                                        color: Colors.red,
 
-                                      if (customerProvider.isFileUploaded(pageKey)) {
-                                        final fileName = customerProvider.getFileName(pageKey) ?? "";
-                                        final visibleCount = 2; // number of starting letters to show
-                                        final obscuredText = fileName.isNotEmpty
-                                            ? fileName.substring(0, visibleCount) + '*' * (fileName.length - visibleCount)
-                                            : "";
-
-                                        return SizedBox(
-                                          width: containerWidth,
-                                          height: containerHeight,
-                                          child: Container(
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: context.screenWidth * 0.01,
-                                              vertical: context.screenHeight * 0.01,
+                                        ),
+                                                      child: const Icon(
+                                                        Icons.close_rounded,
+                                                        size: 16,
+                                                        color: Colors.black54,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(4),
-                                              color: AppColors.hintTextFormFiledColor,
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                obscuredText,
-                                                style: TextStyle(fontSize: 12, overflow: TextOverflow.ellipsis),
+                                          );
+
+                                        } else {
+                                          return SizedBox(
+                                            width: containerWidth,
+                                            height: containerHeight,
+                                            child: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: context.screenWidth * 0.025,
+                                                vertical: context.screenHeight * 0.01,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(4),
+                                                color: AppColors.whiteColor,
                                               ),
                                             ),
-                                          ),
-                                        );
-                                      } else {
-                                        return SizedBox(
-                                          width: containerWidth,
-                                          height: containerHeight,
-                                          child: Container(
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: context.screenWidth * 0.025,
-                                              vertical: context.screenHeight * 0.01,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(4),
-                                              color: AppColors.whiteColor,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                    },
-                                  )
-                                ],
+                                          );
+                                        }
+                                      },
+                                    )
+                                  ],
+                                ),
                               ),
 
                             ),

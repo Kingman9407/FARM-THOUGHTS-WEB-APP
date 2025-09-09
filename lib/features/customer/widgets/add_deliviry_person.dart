@@ -35,7 +35,7 @@ class _AddDeliviryPersonState extends State<AddDeliveryPerson> {
       children: [
         Row(
           children: [
-            IconButton(onPressed: () { context.readCustomerProvider.ResetAll();}, icon:Icon(Icons.arrow_back)),
+            IconButton(onPressed: () { context.readCustomerProvider.resetAll();}, icon:Icon(Icons.arrow_back)),
             const Spacer(),
             ElevatedButton(
               onPressed: () {},

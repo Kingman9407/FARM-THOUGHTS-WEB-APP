@@ -28,7 +28,7 @@ class CustomerDashboardScreen extends StatefulWidget {
 }
 
 class _CustomerDashboardState extends State<CustomerDashboardScreen> {
-  final TextEditingController CustomerSearchController = TextEditingController();
+  final TextEditingController customerSearchController = TextEditingController();
   final List<Map<String, String>> customer = [
     {
       "imageURL": "https://randomuser.me/api/portraits/men/32.jpg",
@@ -71,7 +71,7 @@ class _CustomerDashboardState extends State<CustomerDashboardScreen> {
       body: Column(
         children: [
           Container(
-            child: DashboardTopBar(searchTextEditingController: CustomerSearchController , userImageUrl: '',),
+            child: DashboardTopBar(searchTextEditingController: customerSearchController , userImageUrl: '',),
           ),
           Expanded(
             child: Row(

@@ -59,6 +59,7 @@ class KTextFormField extends StatelessWidget {
                 color: AppColors.titleColor,
                 fontSize: context.screenWidth * 0.008,
                 fontWeight: FontWeight.w600,
+
               ),
               children: isRequired
                   ? [

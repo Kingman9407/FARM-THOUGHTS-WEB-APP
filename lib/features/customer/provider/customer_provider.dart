@@ -86,7 +86,7 @@ class CustomerProvider extends ChangeNotifier {
 
 
 
-  void ResetAll() {
+  void resetAll() {
     isEditEnabled = false;
     isViewDetailsEnabled = false;
     isAddedEnabled = false;
@@ -114,7 +114,7 @@ class CustomerProvider extends ChangeNotifier {
   String? getFileName(String key) {
     return _fileNames[key];
   }
-  void resetFileStatus(String key) {
+  void removeFile(String key) {
     _fileUploadedStatus[key] = false;
     _fileNames[key] = null;
     notifyListeners();
