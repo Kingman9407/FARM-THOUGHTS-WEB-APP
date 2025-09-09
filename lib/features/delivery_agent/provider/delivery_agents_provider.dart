@@ -5,6 +5,8 @@ class DeliveryAgentsProvider extends ChangeNotifier {
   bool isViewAgentsDetailsEnabled = false;
   bool isEditAgentsEnabled = false;
   bool isEditNextButtonClicked = false;
+  final Map<String, bool> _fileUploadedStatus = {};
+  final Map<String, String?> _fileNames = {};
 
   Map<String, String>? _selectedAgent;
 
@@ -70,4 +72,29 @@ class DeliveryAgentsProvider extends ChangeNotifier {
     _selectedAgent = null;
     notifyListeners();
   }
+
+    bool isFileUploaded(String key) {
+      return _fileUploadedStatus[key] ?? false;
+    }
+
+    void setFileUploaded(String key, bool value) {
+      _fileUploadedStatus[key] = value;
+      notifyListeners();
+    }
+
+
+
+    void setFileName(String key,String name) {
+      _fileNames[key] = name;
+      notifyListeners();
+    }
+    String? getFileName(String key) {
+      return _fileNames[key];
+    }
+    void removeFile(String key) {
+      _fileUploadedStatus[key] = false;
+      _fileNames[key] = null;
+      notifyListeners();
+    }
+
 }
