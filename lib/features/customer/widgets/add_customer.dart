@@ -1,10 +1,13 @@
+import 'dart:typed_data';
+
+import 'package:farm_thoughts_web_app/commons/widgets/k_text_form_field.dart';
+import 'package:farm_thoughts_web_app/core/extensions/providers/provider_extension.dart';
 import 'package:farm_thoughts_web_app/core/extensions/ui/responsive_layout.dart';
 import 'package:farm_thoughts_web_app/core/helpers/app_logger_helper.dart';
 import 'package:farm_thoughts_web_app/core/theme/app_colors.dart';
 import 'package:farm_thoughts_web_app/features/customer/provider/customer_provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/materiale/extensions/providers/provider_extension.dart';
 import 'package:provider/provider.dart';
 
 class AddCustomer extends StatefulWidget {
