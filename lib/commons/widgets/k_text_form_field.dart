@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'dart:typed_data';
-
 
 class KTextFormField extends StatelessWidget {
   final String name;
@@ -19,12 +17,7 @@ class KTextFormField extends StatelessWidget {
   final int? maxLines;
   final Widget? prefixIcon;
   final bool isMobileNo;
-
-  // ✅ New fields
-  final bool showUploadButton;
-  final VoidCallback? onUploadPressed;
-  final String? pickedFileName;
-  final Uint8List? pickedFilePreview; // optional thumbnail
+  final List<TextInputFormatter>? inputFormatters;
 
   const KTextFormField({
     super.key,
@@ -39,10 +32,7 @@ class KTextFormField extends StatelessWidget {
     this.maxLines,
     this.prefixIcon,
     this.isMobileNo = false,
-    this.showUploadButton = false,
-    this.onUploadPressed,
-    this.pickedFileName,
-    this.pickedFilePreview,
+    this.inputFormatters,
   });
 
   @override
@@ -59,23 +49,20 @@ class KTextFormField extends StatelessWidget {
                 color: AppColors.titleColor,
                 fontSize: context.screenWidth * 0.008,
                 fontWeight: FontWeight.w600,
-
               ),
               children: isRequired
                   ? [
-                TextSpan(
-                  text: ' *',
-                  style: TextStyle(
-                    color: AppColors.checkOutColor,
-                    fontSize: context.screenWidth * 0.008,
-                  ),
-                ),
-              ]
+                      TextSpan(
+                        text: ' *',
+                        style: TextStyle(
+                          color: AppColors.checkOutColor,
+                          fontSize: context.screenWidth * 0.008,
+                        ),
+                      ),
+                    ]
                   : [],
             ),
           ),
-
-        // ✅ Main text field
         FormBuilderTextField(
           style: TextStyle(
             color: AppColors.titleColor,
@@ -89,10 +76,10 @@ class KTextFormField extends StatelessWidget {
           maxLines: maxLines ?? 1,
           inputFormatters: isMobileNo
               ? [
-            FilteringTextInputFormatter.digitsOnly,
-            LengthLimitingTextInputFormatter(10),
-          ]
-              : [],
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(10),
+                ]
+              : inputFormatters,
           decoration: InputDecoration(
             prefixIcon: prefixIcon,
             hintText: hintText,
@@ -101,13 +88,6 @@ class KTextFormField extends StatelessWidget {
               fontSize: context.screenWidth * 0.0084,
               fontWeight: FontWeight.w500,
             ),
-            // ✅ Upload button inside textfield
-            suffixIcon: showUploadButton
-                ? IconButton(
-              icon: const Icon(Icons.upload_file, color: Colors.teal),
-              onPressed: onUploadPressed,
-            )
-                : null,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(context.screenWidth * 0.004),
               borderSide: BorderSide(color: AppColors.searchHintTextColor),
@@ -138,38 +118,6 @@ class KTextFormField extends StatelessWidget {
           ),
           validator: _buildValidator(),
         ),
-
-        // ✅ File preview (if available)
-        if (pickedFileName != null || pickedFilePreview != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Row(
-              spacing: 10,
-              children: [
-                if (pickedFilePreview != null)
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(6),
-                    child: Image.memory(
-                      pickedFilePreview!,
-                      height: 40,
-                      width: 40,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                Expanded(
-                  child: Text(
-                    pickedFileName ?? "Selected file",
-                    style: TextStyle(
-                      fontSize: context.screenWidth * 0.0075,
-                      color: AppColors.titleColor,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
-            ),
-          ),
       ],
     );
   }
@@ -181,6 +129,7 @@ class KTextFormField extends StatelessWidget {
 
     List<String? Function(String?)> validatorList = [];
 
+    // Add required validator if needed
     if (isRequired) {
       validatorList.add(
         FormBuilderValidators.required(
@@ -189,6 +138,7 @@ class KTextFormField extends StatelessWidget {
       );
     }
 
+    // Add specific field validators based on label (if label exists)
     final labelText = label?.toLowerCase() ?? '';
 
     if (labelText.contains('phone')) {
@@ -221,12 +171,12 @@ class KTextFormField extends StatelessWidget {
       );
     }
 
+    // Add custom validators if provided
     if (validators != null) {
       validatorList.addAll(validators!);
     }
 
+    // Return composed validator
     return FormBuilderValidators.compose(validatorList);
   }
 }
-
-

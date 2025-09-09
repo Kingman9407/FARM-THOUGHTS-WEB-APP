@@ -6,4 +6,5 @@ class AppRouterConstants {
   static const String deliveryEntries = "delivery-entries";
   static const String collection = "collection";
   static const String customers = "customers";
+  static const String lines = "lines";
 }

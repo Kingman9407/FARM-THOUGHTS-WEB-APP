@@ -45,6 +45,7 @@ class _SideBarState extends State<SideBar> {
       "label": "Customer",
       "route": "/customers",
     },
+    {"icon": AppAssets.lineIcon, "label": "Lines", "route": "/lines"},
   ];
 
   /// Getting the index of the selected route
@@ -156,14 +157,25 @@ class _SideBarState extends State<SideBar> {
 
                 // App Version
                 Text(
-                  context.readAppInfoProvider.version != null
-                      ? 'V ${context.readAppInfoProvider.version.toString()}'
+                  context.watchAppInfoProvider.version != null
+                      ? 'V ${context.watchAppInfoProvider.version}'
                       : '1.0.0',
                   style: TextStyle(
                     color: AppColors.whiteColor,
                     fontWeight: FontWeight.w500,
                     fontSize: context.screenWidth * 0.008,
                   ),
+                ),
+
+                SizedBox(height: context.screenHeight * 0.02),
+
+                // Powered By Levitate Studios
+                SvgPicture.asset(
+                  AppAssets.poweredByLevitate,
+                  color: AppColors.whiteColor,
+                  height: context.screenWidth * 0.018,
+                  width: context.screenWidth * 0.018,
+                  fit: BoxFit.cover,
                 ),
 
                 SizedBox(height: context.screenHeight * 0.02),

@@ -8,6 +8,8 @@ class AppAssets {
   static final String blueVector = "assets/images/blue_vector.svg";
   static final String wallet = "assets/images/wallet.svg";
   static final String milkCup = "assets/images/milk_cup.svg";
+  static const String poweredByLevitate =
+      "assets/images/powered-by-levitate.svg";
 
   // Icons
   static const String collectionIcon = "assets/icons/collections.svg";
@@ -29,4 +31,5 @@ class AppAssets {
       "assets/icons/total-milk-required.svg";
   static const String addCircleIcon = "assets/icons/add-circle.svg";
   static const String callIcon = "assets/icons/call-icon.svg";
+  static const String lineIcon = "assets/icons/lines.svg";
 }

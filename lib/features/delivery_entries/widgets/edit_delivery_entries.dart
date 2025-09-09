@@ -36,6 +36,7 @@ class EditDeliveryEntries extends StatelessWidget {
                 cursor: SystemMouseCursors.click,
                 child: IconButton(
                   onPressed: () {
+                    // Arrow Back Tap
                     onArrowBackTap();
                   },
                   icon: Icon(
@@ -75,7 +76,6 @@ class EditDeliveryEntries extends StatelessWidget {
 
           // Add Customer
           KTextFormField(
-            label: "Edit Customer",
             name: "Add Customer",
             hintText: "Add Customer",
             prefixIcon: Icon(
@@ -168,6 +168,8 @@ class EditDeliveryEntries extends StatelessWidget {
               ),
             ],
           ),
+
+          SizedBox(height: context.screenHeight * 0.02),
         ],
       ),
     );
