@@ -74,7 +74,12 @@ class KTextFormField extends StatelessWidget {
           keyboardType: keyboardType,
           initialValue: initialValue,
           maxLines: maxLines ?? 1,
-          inputFormatters: inputFormatters,
+          inputFormatters: isMobileNo
+              ? [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(10),
+                ]
+              : inputFormatters,
           decoration: InputDecoration(
             prefixIcon: prefixIcon,
             hintText: hintText,
